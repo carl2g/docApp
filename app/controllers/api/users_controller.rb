@@ -4,6 +4,7 @@ class Api::UsersController < ApplicationController
 
 	def signin
 		user = User.new(permited)
+
 		if user.save
 			session[:current_user_id] 	= user.id
 			session[:token] 			= user.login_token

@@ -15,7 +15,7 @@ private
     		session[:token] 			= user.login_token
     		session[:current_user_id] 	= user.id
     	else
-    		redirect_to api_login_path
+    		# redirect_to api_login_path
     	end
     end
 

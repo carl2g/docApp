@@ -12,11 +12,14 @@ class User < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
+	after_create :generate_token
+
 	validates :first_name, 	presence: true
 	validates :last_name, 	presence: true
 	validates :email, 		presence: true, uniqueness: true
 	validates :password, 	presence: true, length: { minimum: 6 }
 	validates :login_token, uniqueness: true
+
 
 	def attributes
     	{  	first_name: 	nil,
@@ -28,6 +31,7 @@ class User < ApplicationRecord
   	end
 
   	def generate_token
+  		puts "LOGIN?"
   		loop do
       		self.login_token = SecureRandom.urlsafe_base64(32, false)
       		break if self.save
