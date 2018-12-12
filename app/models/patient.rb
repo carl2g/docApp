@@ -5,9 +5,9 @@ class Patient < ApplicationRecord
 	has_one 	:user, as: :user_type
 
 	first_name  = -> { 	self.user.first_name 	}
-	last_name 	= -> { 	self.user.last_name		}
-	email 		= -> { 	self.user.email			}
-	password 	= -> { 	self.user.password 		}
+	last_name 	= -> { 	self.user.last_name	}
+	email 	= -> { 	self.user.email		}
+	password 	= -> { 	self.user.password 	}
 	login_token = -> { 	self.user.login_token 	}
 
 	def self.createPatient(params)

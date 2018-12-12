@@ -3,19 +3,36 @@ class Doctor < ApplicationRecord
 	include ActiveModel::Serializers::JSON
 
 	has_one 	:user, 	as: :user_type
-	
-	first_name  = -> { 	self.user.first_name 	}
-	last_name 	= -> { 	self.user.last_name	}
-	email 	= -> { 	self.user.email		}
-	password 	= -> { 	self.user.password 	}
-	login_token = -> { 	self.user.login_token 	}
+
+	def login_token
+		self.user.login_token
+	end
+
+	def password
+		self.user.password
+	end
+
+	def email
+		self.user.email
+	end
+
+	def last_name
+		self.user.last_name
+	end
+
+	def first_name
+		self.user.first_name
+	end
 
 	def self.createDoctor(params)
-		doctor = Doctor.create
-		doctor.update({ user: User.create(params) })
-		if doctor.user.nil?
+		new_user 	= User.new(params)
+		doctor 	= Doctor.create
+		new_user.user_type = doctor
+		if new_user.save
+			doctor.update({ user: new_user })
+		else
 			doctor.destroy
-			doctor = nil
+			return new_user
 		end
 		return doctor
 	end

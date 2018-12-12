@@ -6,7 +6,7 @@ class Api::DoctorsController < ApplicationController
 		doctor = Doctor.createDoctor(permited)
 
 		if doctor.save
-			session[:current_doctor_id] = doctor.id
+			session[:current_doctor_id] 	= doctor.id
 			session[:token] 			= doctor.login_token
 			render json: { token: doctor.login_token }, status: :created
 		else
@@ -45,7 +45,7 @@ private
 	end
 	
 	def permited
-		params.require(:doctor).permit(permited_params)
+		params.permit(permited_params)
 	end
 
 end
