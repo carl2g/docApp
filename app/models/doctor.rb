@@ -40,7 +40,7 @@ class Doctor < ApplicationRecord
   	def self.authenticate(email, password)
   		user = User.authenticate(email, password)
   		if user
-  			return user.doctor
+  			return user.user_type
   		end
   		return nil
   	end

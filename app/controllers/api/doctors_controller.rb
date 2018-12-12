@@ -15,7 +15,7 @@ class Api::DoctorsController < ApplicationController
 	end
 
 	def logout
-		current_doctor.update({login_token: nil})
+		current_user.update({login_token: nil})
 		reset_session
 		render status: :ok
 	end
