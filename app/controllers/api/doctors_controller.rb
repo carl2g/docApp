@@ -22,7 +22,7 @@ class Api::DoctorsController < ApplicationController
 
 	def login
 		doctor = Doctor.authenticate(params[:email], params[:password])
-		doctor ||= Doctor.find_by_login_token(request.headers['Authorization'])
+		doctor ||= Doctor.joins(:user).where(users: { login_token: request.headers['Authorization'] } ).first
 
 		if doctor
 			session[:token] = doctor.login_token

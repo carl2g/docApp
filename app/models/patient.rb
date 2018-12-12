@@ -21,7 +21,11 @@ class Patient < ApplicationRecord
 	end
 
 	def self.authenticate(email, password)
-  		self.user.authenticate(email, password)
+  		user = User.authenticate(email, password)
+  		if user
+  			return user.patient
+  		end
+  		return nil
   	end
 
 end

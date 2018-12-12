@@ -5,9 +5,9 @@ class Doctor < ApplicationRecord
 	has_one 	:user, 	as: :user_type
 	
 	first_name  = -> { 	self.user.first_name 	}
-	last_name 	= -> { 	self.user.last_name		}
-	email 		= -> { 	self.user.email			}
-	password 	= -> { 	self.user.password 		}
+	last_name 	= -> { 	self.user.last_name	}
+	email 	= -> { 	self.user.email		}
+	password 	= -> { 	self.user.password 	}
 	login_token = -> { 	self.user.login_token 	}
 
 	def self.createDoctor(params)
@@ -21,7 +21,11 @@ class Doctor < ApplicationRecord
 	end
 
   	def self.authenticate(email, password)
-  		self.user.authenticate(email, password)
+  		user = User.authenticate(email, password)
+  		if user
+  			return user.doctor
+  		end
+  		return nil
   	end
 
 end
