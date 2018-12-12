@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+
 	# Model field
 	# =======================================
 	# first_name: 		string
@@ -6,13 +7,15 @@ class User < ApplicationRecord
 	# password: 		string
 	# phone_number: 	string
 	# email: 			string
-	# token: 			string
+	# login_token: 		string
 	# last_connection: 	Time
 	# =======================================
-
+		
 	include ActiveModel::Serializers::JSON
 
 	after_create :generate_token
+	
+	belongs_to :user_type, polymorphic: true
 
 	validates :first_name, 	presence: true
 	validates :last_name, 	presence: true
@@ -20,18 +23,7 @@ class User < ApplicationRecord
 	validates :password, 	presence: true, length: { minimum: 6 }
 	validates :login_token, uniqueness: true
 
-
-	def attributes
-    	{  	first_name: 	nil,
-    		last_name: 		nil,
-    		password: 		nil,
-    		phone_number: 	nil,
-    		email: 			nil
-    	}
-  	end
-
   	def generate_token
-  		puts "LOGIN?"
   		loop do
       		self.login_token = SecureRandom.urlsafe_base64(32, false)
       		break if self.save
@@ -43,4 +35,15 @@ class User < ApplicationRecord
   		user.generate_token if user.present?
 		return user
   	end
+
+  	def attributes
+    	{  	
+    		first_name: 	nil,
+    		last_name: 		nil,
+    		password: 		nil,
+    		phone_number: 	nil,
+    		email: 			nil
+    	}
+  	end
+
 end

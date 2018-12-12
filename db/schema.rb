@@ -12,6 +12,29 @@
 
 ActiveRecord::Schema.define(version: 2018_12_05_123424) do
 
+  create_table "diabets", force: :cascade do |t|
+    t.integer "modules_id"
+    t.integer "insuline_lvl"
+    t.string "state"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["modules_id"], name: "index_diabets_on_modules_id"
+  end
+
+  create_table "doctors", force: :cascade do |t|
+  end
+
+  create_table "modules", force: :cascade do |t|
+    t.string "name"
+    t.integer "patient_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["patient_id"], name: "index_modules_on_patient_id"
+  end
+
+  create_table "patients", force: :cascade do |t|
+  end
+
   create_table "users", force: :cascade do |t|
     t.string "first_name"
     t.string "last_name"
@@ -19,9 +42,12 @@ ActiveRecord::Schema.define(version: 2018_12_05_123424) do
     t.string "phone_number"
     t.string "password"
     t.string "login_token"
+    t.string "user_type_type"
+    t.integer "user_type_id"
     t.time "last_connection"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.index ["user_type_type", "user_type_id"], name: "index_users_on_user_type_type_and_user_type_id"
   end
 
 end
