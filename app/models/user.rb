@@ -10,24 +10,24 @@ class User < ApplicationRecord
 	# login_token: 		string
 	# last_connection: 	Time
 	# =======================================
-	
+
 	include ActiveModel::Serializers::JSON
 
-	after_create :generate_token
+	before_create :generate_token
 
-	belongs_to :user_type, polymorphic: true
+	belongs_to :user_type, 	polymorphic: true
 
 	validates :first_name, 	presence: true
 	validates :last_name, 	presence: true
-	validates :email, 		presence: true, uniqueness: true
+	validates :email, 	presence: true, uniqueness: true
 	validates :password, 	presence: true, length: { minimum: 6 }
 	validates :login_token, uniqueness: true
 
   	def generate_token
   		loop do
       		self.login_token = SecureRandom.urlsafe_base64(32, false)
-      		break if self.save
-    	end
+      		break
+    		end
   	end
 
   	def self.authenticate(email, password)
@@ -42,7 +42,7 @@ class User < ApplicationRecord
     		last_name: 		nil,
     		password: 		nil,
     		phone_number: 	nil,
-    		email: 			nil
+    		email: 		nil
     	}
   	end
 
