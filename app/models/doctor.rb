@@ -17,12 +17,4 @@ class Doctor < ApplicationRecord
 		return doctor
 	end
 
-  	def self.authenticate(email, password)
-  		user = User.authenticate(email, password)
-  		if user
-  			return user.user_type
-  		end
-  		return nil
-  	end
-
 end

@@ -13,7 +13,7 @@ class User < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
-	before_create :generate_token
+	after_create :generate_token
 
 	belongs_to :user_type, 	polymorphic: true
 
@@ -21,12 +21,12 @@ class User < ApplicationRecord
 	validates :last_name, 	presence: true
 	validates :email, 	presence: true, uniqueness: true
 	validates :password, 	presence: true, length: { minimum: 6 }
-	validates :login_token, uniqueness: true
+	validates :login_token, uniqueness: true, if: -> { login_token.present? }
 
   	def generate_token
   		loop do
       		self.login_token = SecureRandom.urlsafe_base64(32, false)
-      		break
+      		break if self.save
     		end
   	end
 

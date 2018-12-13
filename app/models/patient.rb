@@ -4,42 +4,17 @@ class Patient < ApplicationRecord
 
 	has_one 	:user, as: :user_type
 
-	def login_token
-		self.user.login_token
-	end
-
-	def password
-		self.user.password
-	end
-
-	def email
-		self.user.email
-	end
-
-	def last_name
-		self.user.last_name
-	end
-
-	def first_name
-		self.user.first_name
-	end
-
 	def self.createPatient(params)
-		patient = Patient.create
-		patient.update({ user: User.create(params) })
-		if patient.user.nil?
+		new_user 	= User.new(params)
+		patient 	= Patient.create
+		new_user.user_type = patient
+		if new_user.save
+			patient.update({ user: new_user })
+		else
 			patient.destroy
-			patient = nil
+			return new_user
 		end
 		return patient
 	end
-
-	def self.authenticate(email, password)
-  		user = User.authenticate(email, password)
-  		if user
-  			return user.patient
-  		end
-  		return nil
-  	end
 
 end
