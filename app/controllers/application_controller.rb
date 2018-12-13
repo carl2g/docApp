@@ -11,7 +11,7 @@ private
 
     def authenticate_doctor
 	token = request.headers['Authorization']
-	if current_user || (token.present? && (user = User.where( users: { login_token: token } ).first))
+	if current_user || (token.present? && (user = User.where(login_token: token).first))
 		session[:token]			= user.login_token
 		session[:current_user_id]	= user.id
 	else
