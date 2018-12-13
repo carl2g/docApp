@@ -39,7 +39,6 @@ class Doctor < ApplicationRecord
 
   	def self.authenticate(email, password)
   		user = User.authenticate(email, password)
-  		puts "USER ==== #{user.login_token}"
   		if user
   			return user.user_type
   		end
