@@ -10,15 +10,24 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_05_123424) do
+ActiveRecord::Schema.define(version: 2018_12_12_164622) do
 
-  create_table "diabets", force: :cascade do |t|
+  create_table "diabetes", force: :cascade do |t|
     t.integer "modules_id"
-    t.integer "insuline_lvl"
-    t.string "state"
+    t.float "glucose"
+    t.integer "carbs"
+    t.string "meal_type"
+    t.string "meal_description"
+    t.float "insulin_food"
+    t.float "insulin_corr"
+    t.string "activity_type"
+    t.string "activity_description"
+    t.string "notes"
+    t.float "a1c"
+    t.float "weight"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["modules_id"], name: "index_diabets_on_modules_id"
+    t.index ["modules_id"], name: "index_diabetes_on_modules_id"
   end
 
   create_table "doctors", force: :cascade do |t|

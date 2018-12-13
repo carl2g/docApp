@@ -14,23 +14,14 @@ class CreateDoctors < ActiveRecord::Migration[5.2]
 	end
 
 	create_table 		:doctors do |t|
-		# t.belongs_to  	:users
 	end
 
 	create_table 		:patients do |t|
-		# t.belongs_to  	:users
 	end
 
 	create_table 		:modules do |t|
 		t.string 		:name
 		t.belongs_to	:patient
-		t.timestamps
-	end
-
-	create_table 		:diabets do |t|
-		t.belongs_to 	:modules
-		t.integer 		:insuline_lvl
-		t.string 		:state
 		t.timestamps
 	end
 
