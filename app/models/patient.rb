@@ -1,14 +1,28 @@
 class Patient < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
-	
+
 	has_one 	:user, as: :user_type
 
-	first_name  = -> { 	self.user.first_name 	}
-	last_name 	= -> { 	self.user.last_name	}
-	email 	= -> { 	self.user.email		}
-	password 	= -> { 	self.user.password 	}
-	login_token = -> { 	self.user.login_token 	}
+	def login_token
+		self.user.login_token
+	end
+
+	def password
+		self.user.password
+	end
+
+	def email
+		self.user.email
+	end
+
+	def last_name
+		self.user.last_name
+	end
+
+	def first_name
+		self.user.first_name
+	end
 
 	def self.createPatient(params)
 		patient = Patient.create

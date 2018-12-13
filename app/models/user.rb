@@ -10,11 +10,11 @@ class User < ApplicationRecord
 	# login_token: 		string
 	# last_connection: 	Time
 	# =======================================
-		
+	
 	include ActiveModel::Serializers::JSON
 
 	after_create :generate_token
-	
+
 	belongs_to :user_type, polymorphic: true
 
 	validates :first_name, 	presence: true
@@ -37,7 +37,7 @@ class User < ApplicationRecord
   	end
 
   	def attributes
-    	{  	
+    	{
     		first_name: 	nil,
     		last_name: 		nil,
     		password: 		nil,

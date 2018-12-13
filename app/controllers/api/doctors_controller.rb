@@ -36,14 +36,14 @@ private
 
 	def permited_params
 		[
-			:first_name, 
-			:last_name, 
+			:first_name,
+			:last_name,
 			:password,
 			:phone_number,
 			:email
 		]
 	end
-	
+
 	def permited
 		params.permit(permited_params)
 	end
