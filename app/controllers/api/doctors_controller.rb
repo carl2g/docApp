@@ -26,9 +26,9 @@ class Api::DoctorsController < ApplicationController
 
 		if doctor
 			session[:token] = doctor.login_token
-			render json: { token: doctor.login_token }, status: :found
+			render json: { token: doctor.login_token }, status: :ok
 		else
-			render status: :not_found
+			render status: :unauthorized
 		end
 	end
 
