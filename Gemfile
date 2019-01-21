@@ -55,3 +55,6 @@ gem 'active_model_serializers'
 # status gem
 gem 'aasm'
 gem 'rspec'
+
+# bunlde
+gem 'bundle'

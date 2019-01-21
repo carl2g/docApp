@@ -7,6 +7,7 @@ class ApplicationController < ActionController::API
 	end
 
 private
+
     def authenticate_user
 	token = request.headers['Authorization']
 	if current_user || (token.present? && (user = User.find_by(login_token: token)))

@@ -8,7 +8,6 @@ class CreateDoctors < ActiveRecord::Migration[5.2]
 	  	t.string  		:phone_number
 		t.string 		:password
 		t.string 		:login_token
-		t.references 	:user_type, 	polymorphic: true, 	index: true
 		t.time 		:last_connection
 		t.timestamps
 	end
