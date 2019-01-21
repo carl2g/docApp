@@ -2,19 +2,22 @@ class Doctor < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
-	has_one 	:user, 	as: :user_type
+	has_one 	:user
+	has_many 	:patients
+	validates 	:user_id, 	presence: true
 
 	def self.createDoctor(params)
-		new_user 	= User.new(params)
-		doctor 	= Doctor.create
-		new_user.user_type = doctor
-		if new_user.save
-			doctor.update({ user: new_user })
-		else
-			doctor.destroy
-			return new_user
+		new_user 	= User.create(params)
+		doctor 	= Doctor.new({user_id: new_user.id})
+		if !doctor.save
+			doctor.errors.clear
+			doctor.errors.merge!(new_user.errors)
 		end
 		return doctor
+	end
+
+	def user
+		User.find(self.user_id)
 	end
 
 end

@@ -5,7 +5,7 @@ class User < ApplicationRecord
 	# first_name: 		string
 	# last_name: 		string
 	# password: 		string
-	# phone_number: 	string
+	# phone_number: 		string
 	# email: 			string
 	# login_token: 		string
 	# last_connection: 	Time
@@ -14,8 +14,6 @@ class User < ApplicationRecord
 	include ActiveModel::Serializers::JSON
 
 	after_create :generate_token
-
-	belongs_to :user_type, 	polymorphic: true
 
 	validates :first_name, 	presence: true
 	validates :last_name, 	presence: true

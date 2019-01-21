@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_12_164622) do
+ActiveRecord::Schema.define(version: 2018_12_14_154456) do
 
   create_table "diabetes", force: :cascade do |t|
     t.integer "modules_id"
@@ -31,6 +31,7 @@ ActiveRecord::Schema.define(version: 2018_12_12_164622) do
   end
 
   create_table "doctors", force: :cascade do |t|
+    t.integer "user_id"
   end
 
   create_table "modules", force: :cascade do |t|
@@ -42,6 +43,12 @@ ActiveRecord::Schema.define(version: 2018_12_12_164622) do
   end
 
   create_table "patients", force: :cascade do |t|
+    t.integer "user_id"
+  end
+
+  create_table "user_status", force: :cascade do |t|
+    t.integer "status", default: 0
+    t.index [nil], name: "index_user_status_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|

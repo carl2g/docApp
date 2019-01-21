@@ -5,7 +5,7 @@ class Api::DoctorsController < ApplicationController
 	def signin
 		doctor = Doctor.createDoctor(permited)
 
-		if doctor.save
+		if doctor.persisted?
 			session[:current_patient_id] 	= doctor.user.id
 			session[:login_token] 		= doctor.user.login_token
 			render json: { login_token: doctor.user.login_token }, status: :created

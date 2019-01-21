@@ -51,3 +51,7 @@ gem 'json'
 gem 'responders'
 
 gem 'active_model_serializers'
+
+# status gem
+gem 'aasm'
+gem 'rspec'
