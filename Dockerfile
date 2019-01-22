@@ -5,3 +5,4 @@ COPY Gemfile Gemfile.lock ./
 RUN bundle install
 COPY . ./
 RUN rake db:migrate
+ADD . app

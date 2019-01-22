@@ -7,7 +7,7 @@ class Doctor < ApplicationRecord
 	validates 	:user_id, 	presence: true
 
 	def self.createDoctor(params)
-		new_user 	= User.create(params)
+		new_user 	= User.generate_user(params)
 		doctor 	= Doctor.new({user_id: new_user.id})
 		if !doctor.save
 			doctor.errors.clear

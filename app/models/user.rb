@@ -28,9 +28,21 @@ class User < ApplicationRecord
     		end
   	end
 
+  	def self.generate_user(params)
+  		new_user = User.new(params)
+		if new_user.save
+			new_user.update({ password: BCrypt::Password.create(new_user.password) })
+		end
+		return new_user
+  	end
+
   	def self.authenticate(email, password)
-  		user = User.where(password: password, email: email).first
-  		user.generate_token if user.present?
+  		user = User.find_by(email: email)
+  		if user.present? && BCrypt::Password.new(user.password) == password
+  			user.generate_token
+  		else
+  			return nil
+  		end
 		return user
   	end
 

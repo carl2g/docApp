@@ -6,9 +6,10 @@ class Patient < ApplicationRecord
 	validates 	:user_id, 	presence: true
 
 	def self.createPatient(params)
-		new_user 	= User.create(params)
+		new_user 	= User.generate_user(params)
 		patient 	= Patient.new({user_id: new_user.id})
 		if !patient.save
+			patient.errors.clear
 			patient.errors.merge!(new_user.errors)
 		end
 		return patient

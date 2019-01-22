@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   	post 	'/login', 			to: 'sessions#login'
   	post 	'/logout', 			to: 'sessions#logout'
   	post 	'/doctor/signin', 	to: 'doctors#signin'
-  	post 	'/patient/signin', 	to: 'doctors#signin'
+  	post 	'/patient/signin', 	to: 'patients#signin'
   end
 end
