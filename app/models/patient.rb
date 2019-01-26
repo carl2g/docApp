@@ -11,6 +11,7 @@ class Patient < ApplicationRecord
 		if !patient.save
 			patient.errors.clear
 			patient.errors.merge!(new_user.errors)
+			new_user.destroy
 		end
 		return patient
 	end
