@@ -15,15 +15,23 @@ class Api::PatientsController < ApplicationController
 	end
 
 	def add_module
-		if current_patient
-			if current_patient.addModule(DModule.find_by(id: params[:id]))
-				render json: {}, status: :ok
-			else
-				render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
-			end
+		if current_patient.addModule(DModule.find_by(id: params[:id]))
+			render json: {}, status: :ok
 		else
-			render json: { errors: "Patient not found" }, status: :not_found
+			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
 		end
+	end
+
+	def remove_module
+		if current_patient.removeModule(DModule.find_by(id: params[:id]))
+			render json: {}, status: :ok
+		else
+			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
+		end
+	end
+
+	def modules
+		render json: { modules: current_patient.d_modules }
 	end
 
 private
@@ -41,5 +49,4 @@ private
 	def permited
 		params.permit(permited_params)
 	end
-
 end

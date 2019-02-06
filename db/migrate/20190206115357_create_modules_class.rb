@@ -4,7 +4,6 @@ class CreateModulesClass < ActiveRecord::Migration[5.2]
 	  		t.string 		:name
 	  		t.string 		:icon
 	  		t.string 		:color
-	  		t.belongs_to 	:patient, index: true
 	  	end
   	end
 end

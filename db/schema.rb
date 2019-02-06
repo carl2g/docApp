@@ -16,8 +16,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_140014) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.integer "patient_id"
-    t.index ["patient_id"], name: "index_d_modules_on_patient_id"
   end
 
   create_table "d_modules_patients", id: false, force: :cascade do |t|
@@ -33,11 +31,6 @@ ActiveRecord::Schema.define(version: 2019_02_06_140014) do
 
   create_table "patients", force: :cascade do |t|
     t.integer "user_id"
-  end
-
-  create_table "user_status", force: :cascade do |t|
-    t.integer "status", default: 0
-    t.index [nil], name: "index_user_status_on_user_id"
   end
 
   create_table "users", force: :cascade do |t|
