@@ -3,6 +3,7 @@ class Patient < ApplicationRecord
 	include ActiveModel::Serializers::JSON
 
 	has_one 	:user
+	has_many	:doctors
 	validates 	:user_id, 	presence: true
 
 	def self.createPatient(params)
@@ -14,6 +15,11 @@ class Patient < ApplicationRecord
 			new_user.destroy
 		end
 		return patient
+	end
+
+	def addDoctor(doctor_id)
+		self.doctors_id << doctor_id
+		self.save
 	end
 
 	def user

@@ -14,6 +14,10 @@ class Api::PatientsController < ApplicationController
 		end
 	end
 
+	def add_doctor
+
+	end
+
 private
 
 	def permited_params

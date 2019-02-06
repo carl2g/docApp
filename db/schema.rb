@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_14_154456) do
+ActiveRecord::Schema.define(version: 2019_02_06_124646) do
 
   create_table "diabetes", force: :cascade do |t|
     t.integer "modules_id"
@@ -44,6 +44,8 @@ ActiveRecord::Schema.define(version: 2018_12_14_154456) do
 
   create_table "patients", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "doctors_id"
+    t.index ["doctors_id"], name: "index_patients_on_doctors_id"
   end
 
   create_table "user_status", force: :cascade do |t|
@@ -58,12 +60,9 @@ ActiveRecord::Schema.define(version: 2018_12_14_154456) do
     t.string "phone_number"
     t.string "password"
     t.string "login_token"
-    t.string "user_type_type"
-    t.integer "user_type_id"
     t.time "last_connection"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_type_type", "user_type_id"], name: "index_users_on_user_type_type_and_user_type_id"
   end
 
 end
