@@ -31,6 +31,8 @@ ActiveRecord::Schema.define(version: 2019_02_06_140014) do
 
   create_table "patients", force: :cascade do |t|
     t.integer "user_id"
+    t.integer "doctors_id"
+    t.index ["doctors_id"], name: "index_patients_on_doctors_id"
   end
 
   create_table "users", force: :cascade do |t|

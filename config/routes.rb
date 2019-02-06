@@ -13,5 +13,8 @@ Rails.application.routes.draw do
   	post '/patient/add_module', 		to: 'patients#add_module'
   	post '/patient/remove_module',	to: 'patients#remove_module'
   	post '/patient/modules',		to: 'patients#modules'
+  	get '/modules', 				to: 'd_modules#index'
+  	post '/patient/add_module', 		to: 'patients#add_module'
+    	post  '/patient/add_doctor', 		to: 'patients#add_doctor'
   end
 end

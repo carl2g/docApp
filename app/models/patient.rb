@@ -8,10 +8,12 @@ class Patient < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
+	has_one 	:user
+	has_many	:doctors
+	validates 	:user_id, 	presence: true
+
 	has_and_belongs_to_many 	:d_modules
 
-	has_one 	:user
-	validates 	:user_id, 		presence: true
 
 	def self.createPatient(params)
 		new_user 	= User.generate_user(params)
@@ -33,6 +35,12 @@ class Patient < ApplicationRecord
 	def removeModule(mod)
 		return false if mod.nil?
 		self.d_modules.delete(mod)
+		self.save
+	end
+
+	def addDoctor(doctor)
+		return false if doctor.nil?
+		self.doctors << doctor
 		self.save
 	end
 
