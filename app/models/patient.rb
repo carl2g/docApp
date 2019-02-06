@@ -22,6 +22,12 @@ class Patient < ApplicationRecord
 		self.save
 	end
 
+	def addModule(modul)
+		return false if modul.nil
+		self.d_modules << modul
+		self.save
+	end
+
 	def user
 		User.find(self.user_id)
 	end

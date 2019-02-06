@@ -2,7 +2,6 @@ class Doctor < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
-	has_one 	:user
 	has_many 	:patients
 	validates 	:user_id, 	presence: true
 
@@ -18,6 +17,11 @@ class Doctor < ApplicationRecord
 
 	def user
 		User.find(self.user_id)
+	end
+
+	def self.users
+		ids = Doctor.pluck(:user_id)
+		User.where(id: ids)
 	end
 
 end

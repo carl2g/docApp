@@ -20,11 +20,5 @@ class CreateDoctors < ActiveRecord::Migration[5.2]
 		t.integer 		:user_id
 	end
 
-	create_table 		:modules do |t|
-		t.string 		:name
-		t.belongs_to	:patient
-		t.timestamps
-	end
-
   end
 end
