@@ -14,6 +14,11 @@ class Api::DoctorsController < ApplicationController
 		end
 	end
 
+	def index
+		users = Doctor.users.select(:id, :first_name, :last_name, :email)
+		render json: { users: users }
+	end
+
 private
 
 	def permited_params

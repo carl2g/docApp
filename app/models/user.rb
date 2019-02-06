@@ -43,17 +43,7 @@ class User < ApplicationRecord
   		else
   			return nil
   		end
-		return user
-  	end
-
-  	def attributes
-    	{
-    		first_name: 	nil,
-    		last_name: 		nil,
-    		password: 		nil,
-    		phone_number: 	nil,
-    		email: 		nil
-    	}
+		  return user
   	end
 
 end

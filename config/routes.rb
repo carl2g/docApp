@@ -8,5 +8,8 @@ Rails.application.routes.draw do
   	post 	'/logout', 			to: 'sessions#logout'
   	post 	'/doctor/signin', 	to: 'doctors#signin'
   	post 	'/patient/signin', 	to: 'patients#signin'
+  	resources :doctors do
+
+  	end
   end
 end
