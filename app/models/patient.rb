@@ -17,13 +17,14 @@ class Patient < ApplicationRecord
 		return patient
 	end
 
-	def addDoctor(doctor_id)
-		self.doctors_id << doctor_id
+	def addDoctor(doctor)
+		return false if doctor.nil?
+		self.doctors << doctor
 		self.save
 	end
 
 	def addModule(modul)
-		return false if modul.nil
+		return false if modul.nil?
 		self.d_modules << modul
 		self.save
 	end

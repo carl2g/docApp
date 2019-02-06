@@ -10,15 +10,12 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-
 ActiveRecord::Schema.define(version: 2019_02_06_140014) do
 
   create_table "d_modules", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.integer "patient_id"
-    t.index ["patient_id"], name: "index_d_modules_on_patient_id"
   end
 
   create_table "d_modules_patients", id: false, force: :cascade do |t|
