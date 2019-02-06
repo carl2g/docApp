@@ -16,7 +16,7 @@ class Api::DoctorsController < ApplicationController
 
 	def index
 		users = Doctor.users.select(:id, :first_name, :last_name, :email)
-		render json: { users: users }
+		render json: { users: users }, status: :ok
 	end
 
 private

@@ -10,36 +10,25 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2018_12_14_154456) do
+ActiveRecord::Schema.define(version: 2019_02_06_140014) do
 
-  create_table "diabetes", force: :cascade do |t|
-    t.integer "modules_id"
-    t.float "glucose"
-    t.integer "carbs"
-    t.string "meal_type"
-    t.string "meal_description"
-    t.float "insulin_food"
-    t.float "insulin_corr"
-    t.string "activity_type"
-    t.string "activity_description"
-    t.string "notes"
-    t.float "a1c"
-    t.float "weight"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["modules_id"], name: "index_diabetes_on_modules_id"
+  create_table "d_modules", force: :cascade do |t|
+    t.string "name"
+    t.string "icon"
+    t.string "color"
+    t.integer "patient_id"
+    t.index ["patient_id"], name: "index_d_modules_on_patient_id"
+  end
+
+  create_table "d_modules_patients", id: false, force: :cascade do |t|
+    t.integer "patient_id"
+    t.integer "d_module_id"
+    t.index ["d_module_id"], name: "index_d_modules_patients_on_d_module_id"
+    t.index ["patient_id"], name: "index_d_modules_patients_on_patient_id"
   end
 
   create_table "doctors", force: :cascade do |t|
     t.integer "user_id"
-  end
-
-  create_table "modules", force: :cascade do |t|
-    t.string "name"
-    t.integer "patient_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
-    t.index ["patient_id"], name: "index_modules_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
@@ -58,12 +47,9 @@ ActiveRecord::Schema.define(version: 2018_12_14_154456) do
     t.string "phone_number"
     t.string "password"
     t.string "login_token"
-    t.string "user_type_type"
-    t.integer "user_type_id"
     t.time "last_connection"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["user_type_type", "user_type_id"], name: "index_users_on_user_type_type_and_user_type_id"
   end
 
 end

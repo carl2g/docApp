@@ -1,6 +1,6 @@
 class User < ApplicationRecord
 
-	# Model field
+	# class field
 	# =======================================
 	# first_name: 		string
 	# last_name: 		string
@@ -30,10 +30,10 @@ class User < ApplicationRecord
 
   	def self.generate_user(params)
   		new_user = User.new(params)
-		if new_user.save
-			new_user.update({ password: BCrypt::Password.create(new_user.password) })
-		end
-		return new_user
+  		if new_user.save
+  			new_user.update({ password: BCrypt::Password.create(new_user.password) })
+  		end
+  		return new_user
   	end
 
   	def self.authenticate(email, password)

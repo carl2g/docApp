@@ -2,6 +2,8 @@ class Patient < ApplicationRecord
 
 	include ActiveModel::Serializers::JSON
 
+	has_and_belongs_to_many 	:d_modules
+
 	has_one 	:user
 	validates 	:user_id, 	presence: true
 
@@ -14,6 +16,12 @@ class Patient < ApplicationRecord
 			new_user.destroy
 		end
 		return patient
+	end
+
+	def addModule(modul)
+		return false if modul.nil?
+		self.d_modules << modul
+		self.save
 	end
 
 	def user

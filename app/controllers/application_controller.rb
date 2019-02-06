@@ -6,6 +6,10 @@ class ApplicationController < ActionController::API
 	    @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
 	end
 
+	def current_patient
+		@current_patient ||= Patient.find_by(user_id: current_user.id)
+	end
+
 private
 
     def authenticate_user

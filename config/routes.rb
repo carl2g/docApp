@@ -8,8 +8,8 @@ Rails.application.routes.draw do
   	post 	'/logout', 			to: 'sessions#logout'
   	post 	'/doctor/signin', 	to: 'doctors#signin'
   	post 	'/patient/signin', 	to: 'patients#signin'
-  	resources :doctors do
-
-  	end
+  	resources :doctors
+  	get '/modules', 			to: 'd_modules#index'
+  	post '/patient/add_module', 	to: 'patients#add_module'
   end
 end
