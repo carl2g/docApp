@@ -10,11 +10,10 @@ Rails.application.routes.draw do
   	post 	'/doctor/signin', 		to: 'doctors#signin'
   	post 	'/patient/signin', 		to: 'patients#signin'
   	get '/modules', 				to: 'd_modules#index'
-  	post '/patient/add_module', 		to: 'patients#add_module'
-  	post '/patient/remove_module',	to: 'patients#remove_module'
+  	post '/patient/remove_module/:id',	to: 'patients#remove_module'
   	post '/patient/modules',		to: 'patients#modules'
   	get '/modules', 				to: 'd_modules#index'
-  	post '/patient/add_module', 		to: 'patients#add_module'
-    	post  '/patient/add_doctor', 		to: 'patients#add_doctor'
+  	post '/patient/add_module/:id', 		to: 'patients#add_module'
+    	post  '/patient/add_doctor/:id', 		to: 'patients#add_doctor'
   end
 end

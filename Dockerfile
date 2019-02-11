@@ -7,3 +7,4 @@ COPY Gemfile.lock /docApp/Gemfile.lock
 RUN bundle install
 COPY . /docApp
 RUN rake db:migrate
+RUN rake db:seed

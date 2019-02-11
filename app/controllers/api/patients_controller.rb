@@ -15,6 +15,9 @@ class Api::PatientsController < ApplicationController
 	end
 
 	def add_module
+		puts "=" * 100
+		puts params
+		puts "=" * 100
 		if current_patient.addModule(DModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
 		else
