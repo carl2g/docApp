@@ -2,17 +2,16 @@ class Patient < ApplicationRecord
 
 	# class field
 	# =======================================
-	# user_id: 		integer
-	# d_modules_id 	integer
+	# user_id: 			integer
+	# generic_modules_id 	integer
 	# =======================================
-
-	include ActiveModel::Serializers::JSON
 
 	has_one 	:user
 	has_many	:doctors
+	has_many 	:notes
 	validates 	:user_id, 	presence: true
 
-	has_and_belongs_to_many 	:d_modules
+	has_and_belongs_to_many 	:generic_modules
 
 
 	def self.createPatient(params)
@@ -28,13 +27,13 @@ class Patient < ApplicationRecord
 
 	def addModule(mod)
 		return false if mod.nil? || self.has_module?(mod)
-		self.d_modules << mod
+		self.generic_modules << mod
 		self.save
 	end
 
 	def removeModule(mod)
 		return false if mod.nil?
-		self.d_modules.delete(mod)
+		self.generic_modules.delete(mod)
 		self.save
 	end
 
@@ -45,7 +44,7 @@ class Patient < ApplicationRecord
 	end
 
 	def has_module?(mod)
-		if self.d_modules.include?(mod)
+		if self.generic_modules.include?(mod)
 			self.errors.add(:modules, 'is already added to your list.')
 			return true
 		end

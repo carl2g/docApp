@@ -11,8 +11,6 @@ class User < ApplicationRecord
 	# last_connection: 	Time
 	# =======================================
 
-	include ActiveModel::Serializers::JSON
-
 	after_create :generate_token
 
 	validates :first_name, 	presence: true

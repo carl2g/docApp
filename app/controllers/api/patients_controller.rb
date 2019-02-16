@@ -15,10 +15,7 @@ class Api::PatientsController < ApplicationController
 	end
 
 	def add_module
-		puts "=" * 100
-		puts params
-		puts "=" * 100
-		if current_patient.addModule(DModule.find_by(id: params[:id]))
+		if current_patient.addModule(GenericModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
@@ -35,7 +32,7 @@ class Api::PatientsController < ApplicationController
 
 
 	def remove_module
-		if current_patient.removeModule(DModule.find_by(id: params[:id]))
+		if current_patient.removeModule(GenericModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity

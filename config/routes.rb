@@ -4,16 +4,30 @@ Rails.application.routes.draw do
 	root 						to: proc { [404, {}, ["Not found."]] }
 
 	namespace :api do
-		resources :doctors
+
+		resources :doctors do
+			collection do
+				post 	'/signin', 	to: 'doctors#signin'
+			end
+		end
+
+		resources :patients do
+			collection do
+				patch	'/remove_module/:id',		to: 'patients#remove_module'
+				post 	'/signin', 				to: 'patients#signin'
+				get 	'/modules',				to: 'patients#modules'
+				patch '/add_module/:id', 		to: 'patients#add_module'
+				patch '/add_doctor/:id', 		to: 'patients#add_doctor'
+			end
+		end
+
+		resources :notes do
+
+		end
+
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-		post 	'/doctor/signin', 				to: 'doctors#signin'
-		post 	'/patient/signin', 				to: 'patients#signin'
-		get 	'/modules', 					to: 'd_modules#index'
-		post 	'/patient/remove_module/:id',	to: 'patients#remove_module'
-		get 	'/patient/modules',				to: 'patients#modules'
-		get 	'/modules', 					to: 'd_modules#index'
-		post 	'/patient/add_module/:id', 		to: 'patients#add_module'
-		post  	'/patient/add_doctor/:id', 		to: 'patients#add_doctor'
+		get 	'/modules', 					to: 'generic_modules#index'
+		get 	'/modules', 					to: 'generic_modules#index'
 	end
 end

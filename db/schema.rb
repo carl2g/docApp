@@ -10,23 +10,33 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_06_140014) do
+ActiveRecord::Schema.define(version: 2019_02_16_112818) do
 
-  create_table "d_modules", force: :cascade do |t|
+  create_table "doctors", force: :cascade do |t|
+    t.integer "user_id"
+  end
+
+  create_table "generic_modules", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.string "color"
   end
 
-  create_table "d_modules_patients", id: false, force: :cascade do |t|
+  create_table "generic_modules_patients", id: false, force: :cascade do |t|
     t.integer "patient_id"
-    t.integer "d_module_id"
-    t.index ["d_module_id"], name: "index_d_modules_patients_on_d_module_id"
-    t.index ["patient_id"], name: "index_d_modules_patients_on_patient_id"
+    t.integer "generic_module_id"
+    t.index ["generic_module_id"], name: "index_generic_modules_patients_on_generic_module_id"
+    t.index ["patient_id"], name: "index_generic_modules_patients_on_patient_id"
   end
 
-  create_table "doctors", force: :cascade do |t|
-    t.integer "user_id"
+  create_table "notes", force: :cascade do |t|
+    t.integer "patient_id"
+    t.integer "generic_module_id"
+    t.text "data"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["generic_module_id"], name: "index_notes_on_generic_module_id"
+    t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
