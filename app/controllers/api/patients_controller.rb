@@ -30,7 +30,6 @@ class Api::PatientsController < ApplicationController
 		end
 	end
 
-
 	def remove_module
 		if current_patient.removeModule(GenericModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
@@ -40,7 +39,7 @@ class Api::PatientsController < ApplicationController
 	end
 
 	def modules
-		render json: { modules: current_patient.d_modules }
+		render json: { modules: current_patient.generic_modules }, status: :ok
 	end
 
 private

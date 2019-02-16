@@ -11,6 +11,29 @@ class Api::NotesController < ApplicationController
 		end
 	end
 
+	def destroy
+		note = current_patient.notes.find_by(id: params[:id])
+		if note && note.destroy
+			render json: { }, status: :ok
+		else
+			render json: { errors: note.errors.full_messages }, status: :unprocessable_entity
+		end
+	end
+
+	def update
+		note = current_patient.notes.find_by(id: params[:id])
+		if note && note.update({data: params[:data]})
+			render json: { }, status: :ok
+		else
+			render json: { errors: note.errors.full_messages }, status: :unprocessable_entity
+		end
+	end
+
+	def index
+		notes = current_patient.notes.select(:id, :data)
+		render json: { notes: notes }, status: :ok	
+	end
+
 private
 
 	def permited_params
