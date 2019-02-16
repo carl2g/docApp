@@ -11,10 +11,4 @@ class Api::NotesController < ApplicationController
 		end
 	end
 
-private
-
-	def permited_params
-		params.require(:note).permite(:module_id, :data)
-	end
-
 end

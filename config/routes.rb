@@ -18,6 +18,7 @@ Rails.application.routes.draw do
 				get 	'/modules',				to: 'patients#modules'
 				patch '/add_module/:id', 		to: 'patients#add_module'
 				patch '/add_doctor/:id', 		to: 'patients#add_doctor'
+				get 	'/doctors', 			to: 'patients#doctors'
 			end
 		end
 

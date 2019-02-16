@@ -1,6 +1,10 @@
 class Doctor < ApplicationRecord
 
-	include ActiveModel::Serializers::JSON
+	# class field
+	# =======================================
+	# patients: 	obj collection
+	# user_id: 		integer
+	# =======================================
 
 	has_many 	:patients
 	validates 	:user_id, 	presence: true
@@ -16,7 +20,7 @@ class Doctor < ApplicationRecord
 	end
 
 	def user
-		User.find(self.user_id)
+		User.find_by(id: self.user_id)
 	end
 
 	def self.users

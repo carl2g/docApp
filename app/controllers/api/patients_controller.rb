@@ -40,7 +40,13 @@ class Api::PatientsController < ApplicationController
 	end
 
 	def modules
-		render json: { modules: current_patient.d_modules }
+		modules = current_patient.generic_modules
+		render json: { modules: modules }
+	end
+
+	def doctors
+		doctors = current_patient.doctors.map { |d| d.user }
+		render json: { doctors: doctors }
 	end
 
 private
