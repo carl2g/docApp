@@ -30,7 +30,6 @@ class Api::PatientsController < ApplicationController
 		end
 	end
 
-
 	def remove_module
 		if current_patient.removeModule(GenericModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
