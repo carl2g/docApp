@@ -8,7 +8,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def my_doctors
-		doctors = current_user.doctors.users.select(:id, :first_name, :last_name, :email)
+		doctors = current_patient.doctors.users.select(:id, :first_name, :last_name, :email)
 		render json: { doctors: doctors }, status: :ok
 	end
 
