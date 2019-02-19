@@ -30,7 +30,8 @@ class Api::NotesController < ApplicationController
 	end
 
 	def index
-		notes = current_patient.notes.select(:id, :data)
+		# notes = current_patient.notes.select(:id, :data)
+		notes = Note.select(:id, :data)
 		render json: { notes: notes }, status: :ok
 	end
 
