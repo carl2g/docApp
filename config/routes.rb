@@ -29,6 +29,5 @@ Rails.application.routes.draw do
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
 		get 	'/modules', 					to: 'generic_modules#index'
-		get 	'/modules', 					to: 'generic_modules#index'
 	end
 end

@@ -49,3 +49,5 @@ gem 'rspec'
 
 # bunlde
 gem 'bundle'
+
+gem 'capistrano'
