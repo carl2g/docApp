@@ -10,6 +10,10 @@ class ApplicationController < ActionController::API
 		@current_patient ||= Patient.find_by(user_id: current_user.id)
 	end
 
+	def current_doctor
+		@current_doctor ||= Doctor.find_by(user_id: current_user.id)
+	end
+
 private
 
     def authenticate_user

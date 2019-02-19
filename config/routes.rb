@@ -5,29 +5,39 @@ Rails.application.routes.draw do
 
 	namespace :api do
 
-		resources :doctors do
-			collection do
-				post 	'/signin', 	to: 'doctors#signin'
-			end
-		end
+		namespace :patients do
 
-		resources :patients do
-			collection do
-				patch	'/remove_module/:id',		to: 'patients#remove_module'
+				############### Patients controller ###############
 				post 	'/signin', 				to: 'patients#signin'
-				get 	'/modules',				to: 'patients#modules'
-				patch '/add_module/:id', 		to: 'patients#add_module'
-				patch '/add_doctor/:id', 		to: 'patients#add_doctor'
-				get 	'/doctors', 			to: 'patients#doctors'
-			end
+
+				############### Modules controller ###############
+				resources :generic_modules, path: "modules" do
+					get 	'/my_modules', 			to: 'generic_modules#my_modules'
+					patch	'/remove_module',			to: 'generic_modules#remove_module'
+					patch '/add_module', 			to: 'generic_modules#add_module'
+				end
+
+
+				############### Doctors controller ###############
+				resources :doctors do
+					get 	'/my_doctors', 			to: 'doctors#my_doctors'
+					patch '/add_doctor', 			to: 'doctors#add_doctor'
+					patch '/remove_doctor', 		to: 'doctors#remove_doctor'
+				end
+				############### Notes controller ###############
+				resources :notes do
+
+				end
 		end
 
-		resources :notes do
+		namespace :doctors do
+			post 	'/signin', 	to: 'doctors#signin'
 
 		end
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
 		get 	'/modules', 					to: 'generic_modules#index'
+
 	end
 end

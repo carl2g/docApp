@@ -1,4 +1,4 @@
-class Api::DoctorsController < ApplicationController
+class Api::Patients::DoctorsController < ApplicationController
 
 	before_action :authenticate_user, except: [:signin]
 
@@ -12,11 +12,6 @@ class Api::DoctorsController < ApplicationController
 		else
 			render json: { :errors => doctor.errors.full_messages }, status: :unprocessable_entity
 		end
-	end
-
-	def index
-		users = Doctor.users.select(:id, :first_name, :last_name, :email)
-		render json: { users: users }, status: :ok
 	end
 
 private

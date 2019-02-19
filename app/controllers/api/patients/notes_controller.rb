@@ -1,4 +1,4 @@
-class Api::NotesController < ApplicationController
+class Api::Patients::NotesController < ApplicationController
 
 	before_action :authenticate_user
 

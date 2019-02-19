@@ -6,12 +6,12 @@ class Patient < ApplicationRecord
 	# generic_modules_id 	integer
 	# =======================================
 
-	has_one 	:user
-	has_many	:doctors
-	has_many 	:notes
-	validates 	:user_id, 	presence: true
+	has_one 			:user
+	has_many			:doctors
+	has_many 			:notes
+	has_and_belongs_to_many :generic_modules
 
-	has_and_belongs_to_many 	:generic_modules
+	validates 	:user_id, 	presence: true
 
 
 	def self.createPatient(params)
