@@ -3,13 +3,14 @@ class Patient < ApplicationRecord
 	# class field
 	# =======================================
 	# user_id: 			integer
-	# generic_modules_id 	integer
+	# g_modules_id 	integer
 	# =======================================
 
 	has_one 			:user
-	has_many			:doctors
+	has_many 			:i_modules
+	has_many 			:g_modules, through: :i_modules
+	has_many			:doctors, 	through: :i_modules
 	has_many 			:notes
-	has_and_belongs_to_many :generic_modules
 
 	validates 	:user_id, 	presence: true
 
@@ -17,7 +18,7 @@ class Patient < ApplicationRecord
 	def self.createPatient(params)
 		new_user 	= User.generate_user(params)
 		patient 	= Patient.new({user_id: new_user.id})
-		if !patient.save
+		unless patient.save
 			patient.errors.clear
 			patient.errors.merge!(new_user.errors)
 			new_user.destroy
@@ -27,13 +28,13 @@ class Patient < ApplicationRecord
 
 	def addModule(mod)
 		return false if mod.nil? || self.has_module?(mod)
-		self.generic_modules << mod
+		self.g_modules << mod
 		self.save
 	end
 
 	def removeModule(mod)
 		return false if mod.nil?
-		self.generic_modules.delete(mod)
+		self.g_modules.delete(mod)
 		self.save
 	end
 
@@ -44,7 +45,7 @@ class Patient < ApplicationRecord
 	end
 
 	def has_module?(mod)
-		if self.generic_modules.include?(mod)
+		if self.g_modules.include?(mod)
 			self.errors.add(:modules, 'is already added to your list.')
 			return true
 		end

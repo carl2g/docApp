@@ -12,11 +12,6 @@ class Api::Patients::DoctorsController < ApplicationController
 		render json: { doctors: doctors }, status: :ok
 	end
 
-	# def doctors
-	# 	doctors = current_patient.doctors.map { |d| d.user }
-	# 	render json: { doctors: doctors }
-	# end
-
 	def add_doctor
 		if current_patient.addDoctor(Doctor.find_by(id: params[:id]))
 			render json: {}, status: :ok

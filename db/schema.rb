@@ -16,33 +16,31 @@ ActiveRecord::Schema.define(version: 2019_02_16_112818) do
     t.integer "user_id"
   end
 
-  create_table "generic_modules", force: :cascade do |t|
+  create_table "g_modules", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.string "color"
   end
 
-  create_table "generic_modules_patients", id: false, force: :cascade do |t|
+  create_table "i_modules", id: false, force: :cascade do |t|
     t.integer "patient_id"
-    t.integer "generic_module_id"
-    t.index ["generic_module_id"], name: "index_generic_modules_patients_on_generic_module_id"
-    t.index ["patient_id"], name: "index_generic_modules_patients_on_patient_id"
+    t.integer "g_module_id"
+    t.integer "doctor_id"
+    t.index ["doctor_id"], name: "index_i_modules_on_doctor_id"
+    t.index ["g_module_id"], name: "index_i_modules_on_g_module_id"
+    t.index ["patient_id"], name: "index_i_modules_on_patient_id"
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "patient_id"
-    t.integer "generic_module_id"
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["generic_module_id"], name: "index_notes_on_generic_module_id"
     t.index ["patient_id"], name: "index_notes_on_patient_id"
   end
 
   create_table "patients", force: :cascade do |t|
     t.integer "user_id"
-    t.integer "doctors_id"
-    t.index ["doctors_id"], name: "index_patients_on_doctors_id"
   end
 
   create_table "users", force: :cascade do |t|

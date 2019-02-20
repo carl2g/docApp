@@ -1,4 +1,4 @@
-class GenericModule < ApplicationRecord
+class GModule < ApplicationRecord
 	# class field
 	# =======================================
 	# name: 		string
@@ -6,7 +6,8 @@ class GenericModule < ApplicationRecord
 	# icon: 		string
 	# =======================================
 
-	has_and_belongs_to_many 	:patients
-	has_many 				:notes
+	has_many 	:i_modules
+	has_many 	:doctors, 	through: :i_modules
+	has_many	:patients, 	through: :i_modules
 
 end

@@ -13,10 +13,10 @@ Rails.application.routes.draw do
 				post 	'/signin', 				to: 'patients#signin'
 
 				############### Modules controller ###############
-				resources :generic_modules, path: 'modules' do
-					get 	'/my_modules', 			to: 'generic_modules#my_modules'
-					patch	'/remove_module',			to: 'generic_modules#remove_module'
-					patch '/add_module', 			to: 'generic_modules#add_module'
+				resources :g_modules, path: 'modules' do
+					get 	'/my_modules', 			to: 'g_modules#my_modules'
+					patch	'/remove_module',			to: 'g_modules#remove_module'
+					patch '/add_module', 			to: 'g_modules#add_module'
 				end
 
 
@@ -40,7 +40,7 @@ Rails.application.routes.draw do
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-		get 	'/modules', 					to: 'generic_modules#index'
+		get 	'/modules', 					to: 'g_modules#index'
 
 	end
 end

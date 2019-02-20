@@ -6,13 +6,16 @@ class Doctor < ApplicationRecord
 	# user_id: 		integer
 	# =======================================
 
-	has_many 	:patients
+	has_many 			:i_modules
+	has_many 			:g_modules, through: :i_modules
+	has_many			:patients, 	through: :i_modules
+
 	validates 	:user_id, 	presence: true
 
 	def self.createDoctor(params)
 		new_user 	= User.generate_user(params)
 		doctor 	= Doctor.new({user_id: new_user.id})
-		if !doctor.save
+		unless doctor.save
 			doctor.errors.clear
 			doctor.errors.merge!(new_user.errors)
 		end

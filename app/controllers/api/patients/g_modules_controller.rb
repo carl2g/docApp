@@ -1,14 +1,14 @@
-class Api::Patients::GenericModulesController < ApplicationController
+class Api::Patients::GModulesController < ApplicationController
 
 	before_action :authenticate_user
 
 	def index
-		modules = GenericModule.select(:color, :icon, :id, :name)
+		modules = GModule.select(:color, :icon, :id, :name)
 		render json: { modules: modules }, status: :ok
 	end
 
 	def add_module
-		if current_patient.addModule(GenericModule.find_by(id: params[:id]))
+		if current_patient.addModule(GModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
@@ -16,7 +16,7 @@ class Api::Patients::GenericModulesController < ApplicationController
 	end
 
 	def remove_module
-		if current_patient.removeModule(GenericModule.find_by(id: params[:id]))
+		if current_patient.removeModule(GModule.find_by(id: params[:id]))
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
@@ -24,7 +24,7 @@ class Api::Patients::GenericModulesController < ApplicationController
 	end
 
 	def my_modules
-		modules = current_patient.generic_modules
+		modules = current_patient.g_modules
 		render json: { modules: modules }
 	end
 
