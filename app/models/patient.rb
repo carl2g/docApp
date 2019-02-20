@@ -28,19 +28,35 @@ class Patient < ApplicationRecord
 
 	def addModule(mod)
 		return false if mod.nil? || self.has_module?(mod)
-		self.g_modules << mod
+		self.i_modules << IModule.new({g_module: mod})
 		self.save
 	end
 
 	def removeModule(mod)
 		return false if mod.nil?
-		self.g_modules.delete(mod)
+		self.i_modules.g_modules.find_by(g_module: mod).delete(mod)
 		self.save
 	end
 
-	def addDoctor(doctor)
-		return false if doctor.nil?
-		self.doctors << doctor
+	def removeDoctor(doctor, g_module)
+		return false if doctor.nil? || g_module.nil?
+		mod = self.i_modules.find_by(g_module: g_module)
+		if mod.nil?
+			return false
+		else
+			mod.doctor = nil
+		end
+		mod.save
+	end
+
+	def addDoctor(doctor, g_module)
+		return false if doctor.nil? || g_module.nil?
+		mod = self.i_modules.find_by(g_module: g_module)
+		if mod.nil?
+			self.i_modules << IModule.new({g_module: g_module, doctor: doctor})
+		else
+			mod.doctor = doctor
+		end
 		self.save
 	end
 

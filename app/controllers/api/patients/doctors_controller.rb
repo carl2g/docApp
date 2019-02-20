@@ -13,7 +13,9 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def add_doctor
-		if current_patient.addDoctor(Doctor.find_by(id: params[:id]))
+		doctor = Doctor.find_by(id: params[:doctor_id])
+		g_module = GModule.find_by(id: params[:module_id])
+		if current_patient.addDoctor(doctor, g_module)
 			render json: {}, status: :ok
 		else
 			render json: { :errors => patient.errors.full_messages }, status: :not_found
