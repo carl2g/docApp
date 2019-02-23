@@ -31,4 +31,16 @@ class Doctor < ApplicationRecord
 		User.where(id: ids)
 	end
 
+	def self.getInfos
+		Doctor.all.map do |d|
+			d.getInfo
+		end
+	end
+
+	def getInfo
+		user_info = self.user.attributes.slice('email', 'first_name', 'last_name')
+		doc_info = self.attributes.slice('id')
+		return doc_info.merge(user_info)
+	end
+
 end

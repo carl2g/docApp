@@ -30,7 +30,7 @@
         }
       }
     },
-    "/api/patients/my_doctors": {
+    "/api/patients/doctors/my_doctors": {
       "get": {
         "summary": "get the patient doctors",
         "tags": [
@@ -55,13 +55,16 @@
         }
       }
     },
-    "/api/patients/:id/add_doctor": {
-      "get": {
+    "/api/patients/doctors/{doctor_id}/add_doctor": {
+      "patch": {
         "summary": "assigne doctor to patient",
         "tags": [
           "Patient doctor controller"
         ],
         "consumes": [
+          "application/json"
+        ],
+        "produces": [
           "application/json"
         ],
         "security": [
@@ -72,28 +75,23 @@
         ],
         "parameters": [
           {
+            "name": "doctor_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "module",
             "in": "body",
             "schema": {
               "type": "object",
               "properties": {
-                "first_name": {
-                  "type": "string"
-                },
-                "last_name": {
-                  "type": "string"
-                },
-                "email": {
-                  "type": "string"
-                },
-                "password": {
-                  "type": "string"
+                "module_id": {
+                  "type": "integer"
                 }
               },
               "required": [
-                "first_name",
-                "last_name",
-                "email",
-                "password"
+                "module_id"
               ]
             }
           }
@@ -102,8 +100,199 @@
           "200": {
             "description": "patients created"
           },
+          "422": {
+            "description": "invalid request"
+          },
+          "404": {
+            "description": "invalid request"
+          },
           "401": {
             "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/patients/doctors/{doctor_id}/remove_doctor": {
+      "patch": {
+        "summary": "assigne doctor to patient",
+        "tags": [
+          "Patient doctor controller"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "parameters": [
+          {
+            "name": "doctor_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "module",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "module_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
+                "module_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "patients created"
+          },
+          "422": {
+            "description": "invalid request"
+          },
+          "404": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/patients/modules/{module_id}/add_module": {
+      "patch": {
+        "summary": "add module",
+        "tags": [
+          "Module"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "module_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/modules/{module_id}/remove_module": {
+      "patch": {
+        "summary": "add module",
+        "tags": [
+          "Module"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "module_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/modules/my_modules": {
+      "get": {
+        "summary": "patient modules",
+        "tags": [
+          "Module"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/modules": {
+      "get": {
+        "summary": "get all existing module",
+        "tags": [
+          "Module"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
           }
         }
       }

@@ -26,17 +26,17 @@ ActiveRecord::Schema.define(version: 2019_02_16_112818) do
     t.integer "patient_id"
     t.integer "g_module_id"
     t.integer "doctor_id"
+    t.index ["doctor_id"], name: "index_i_modules_on_doctor_id"
     t.index ["g_module_id"], name: "index_i_modules_on_g_module_id"
     t.index ["patient_id"], name: "index_i_modules_on_patient_id"
-    t.index [nil], name: "index_i_modules_on_doctor"
   end
 
   create_table "notes", force: :cascade do |t|
-    t.integer "patient_id"
+    t.integer "i_module_id"
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["patient_id"], name: "index_notes_on_patient_id"
+    t.index ["i_module_id"], name: "index_notes_on_i_module_id"
   end
 
   create_table "patients", force: :cascade do |t|

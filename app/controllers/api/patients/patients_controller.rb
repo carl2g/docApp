@@ -10,7 +10,7 @@ class Api::Patients::PatientsController < ApplicationController
 			session[:login_token] 		= patient.user.login_token
 			render json: { login_token: patient.user.login_token }, status: :created
 		else
-			render json: { :errors => patient.errors.full_messages }, status: :unprocessable_entity
+			render json: { errors: patient.errors.full_messages }, status: :unprocessable_entity
 		end
 	end
 

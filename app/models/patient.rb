@@ -8,12 +8,15 @@ class Patient < ApplicationRecord
 
 	has_one 			:user
 	has_many 			:i_modules
-	has_many 			:g_modules, through: :i_modules
-	has_many			:doctors, 	through: :i_modules
-	has_many 			:notes
+	has_many 			:g_modules, through: 	:i_modules
+	has_many			:doctors, 	through: 	:i_modules
+	delegate 			:notes, 	to: 		:notes
 
-	validates 	:user_id, 	presence: true
+	validates 			:user_id, 	presence: true
 
+	def notes
+		self.i_modules.sum { |i| i.notes }
+	end
 
 	def self.createPatient(params)
 		new_user 	= User.generate_user(params)
@@ -34,13 +37,17 @@ class Patient < ApplicationRecord
 
 	def removeModule(mod)
 		return false if mod.nil?
-		self.i_modules.g_modules.find_by(g_module: mod).delete(mod)
+		imod = self.i_modules.find_by(g_module: mod)
+		if imod.nil?
+			return false
+		else
+			imod.destroy
+		end
 		self.save
 	end
 
 	def removeDoctor(doctor, g_module)
-		return false if doctor.nil? || g_module.nil?
-		mod = self.i_modules.find_by(g_module: g_module)
+		mod = self.i_modules.find_by(doctor: doctor, g_module: g_module)
 		if mod.nil?
 			return false
 		else
@@ -50,7 +57,6 @@ class Patient < ApplicationRecord
 	end
 
 	def addDoctor(doctor, g_module)
-		return false if doctor.nil? || g_module.nil?
 		mod = self.i_modules.find_by(g_module: g_module)
 		if mod.nil?
 			self.i_modules << IModule.new({g_module: g_module, doctor: doctor})
@@ -66,6 +72,18 @@ class Patient < ApplicationRecord
 			return true
 		end
 		return false
+	end
+
+	def getDoctorsInfo
+		mod = self.i_modules.where.not(doctor: nil)
+		infos = mod.map do |m|
+			mod_info = m.g_module.attributes.slice('name', 'id')
+			{
+				doctor: m.doctor.getInfo,
+				associated_module: mod_info
+			}
+		end
+		return infos
 	end
 
 	def user

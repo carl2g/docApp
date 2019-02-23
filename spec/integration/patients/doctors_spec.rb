@@ -20,7 +20,7 @@ describe 'Doctors of patient' do
     end
   end
 
-  path '/api/patients/my_doctors' do
+  path '/api/patients/doctors/my_doctors' do
 
     get 'get the patient doctors' do
       tags 'Patient doctor controller'
@@ -38,29 +38,79 @@ describe 'Doctors of patient' do
     end
   end
 
-  path '/api/patients/:id/add_doctor' do
+  path '/api/patients/doctors/{doctor_id}/add_doctor' do
 
-    get 'assigne doctor to patient' do
+    patch 'assigne doctor to patient' do
       tags 'Patient doctor controller'
       consumes 'application/json'
+      produces 'application/json'
       security [Bearer: {}]
-      parameter in: :body, schema: {
+      parameter name: :doctor_id, in: :path, type: :integer
+      parameter name: :module, in: :body, schema: {
         type: :object,
         properties: {
-          first_name: { type: :string },
-          last_name:  { type: :string },
-          email:      { type: :string },
-          password:   { type: :string },
+          module_id: { type: :integer },
         },
-        required: [ :first_name, :last_name, :email, :password ]
+        required: [ :module_id ]
       }
+
       response '200', 'patients created' do
-        let(:doctor) { { title: 'foo', content: 'bar' } }
+        let(:doctor) { }
+        run_test!
+      end
+
+
+      response '422', 'invalid request' do
+        let(:doctor) { }
+        run_test!
+      end
+
+      response '404', 'invalid request' do
+        let(:doctor) { }
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:doctor) { { title: 'foo' } }
+        let(:doctor) { }
+        run_test!
+      end
+    end
+  end
+
+    path '/api/patients/doctors/{doctor_id}/remove_doctor' do
+
+    patch 'assigne doctor to patient' do
+      tags 'Patient doctor controller'
+      consumes 'application/json'
+      produces 'application/json'
+      security [Bearer: {}]
+      parameter name: :doctor_id, in: :path, type: :integer
+      parameter name: :module, in: :body, schema: {
+        type: :object,
+        properties: {
+          module_id: { type: :integer },
+        },
+        required: [ :module_id ]
+      }
+
+      response '200', 'patients created' do
+        let(:doctor) { }
+        run_test!
+      end
+
+
+      response '422', 'invalid request' do
+        let(:doctor) { }
+        run_test!
+      end
+
+      response '404', 'invalid request' do
+        let(:doctor) { }
+        run_test!
+      end
+
+      response '401', 'Unauthorized' do
+        let(:doctor) { }
         run_test!
       end
     end

@@ -19,12 +19,12 @@ describe 'Patients patients controller' do
       }
 
       response '201', 'patients created' do
-        let(:patients) { { title: 'foo', content: 'bar' } }
+        let(:patients) {}
         run_test!
       end
 
       response '422', 'invalid request' do
-        let(:patients) { { title: 'foo' } }
+        let(:patients) { }
         run_test!
       end
     end

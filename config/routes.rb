@@ -14,9 +14,12 @@ Rails.application.routes.draw do
 
 				############### Modules controller ###############
 				resources :g_modules, path: 'modules' do
-					get 	'/my_modules', 			to: 'g_modules#my_modules'
 					patch	'/remove_module',			to: 'g_modules#remove_module'
 					patch '/add_module', 			to: 'g_modules#add_module'
+
+					collection do
+						get 	'/my_modules', 			to: 'g_modules#my_modules'
+					end
 				end
 
 
@@ -24,8 +27,11 @@ Rails.application.routes.draw do
 				resources :doctors do
 					patch '/add_doctor', 			to: 'doctors#add_doctor'
 					patch '/remove_doctor', 		to: 'doctors#remove_doctor'
+
+					collection do
+						get '/my_doctors', 			to: 'doctors#my_doctors'
+					end
 				end
-				get '/my_doctors', 				to: 'doctors#my_doctors'
 
 				############### Notes controller ###############
 				resources :notes do
