@@ -5,7 +5,7 @@ class Note < ApplicationRecord
 	# data: 		json text
 	# =======================================
 
-	belongs_to :patient
+	belongs_to :i_module
 
 	def self.generateNote(module_id, data, patient)
 		gen_module = GModule.find_by(id: module_id)

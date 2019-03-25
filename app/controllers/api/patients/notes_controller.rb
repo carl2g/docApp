@@ -4,6 +4,7 @@ class Api::Patients::NotesController < ApplicationController
 
 	def create
 		note = Note.generateNote(params[:module_id], params[:data], current_patient)
+		
 		if note.save
 			render json: { }, status: :ok
 		else
