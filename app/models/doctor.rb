@@ -6,12 +6,18 @@ class Doctor < ApplicationRecord
 	# user_id: 		integer
 	# =======================================
 
-	has_many 			:i_modules
-	has_many 			:g_modules, through: :i_modules
-	has_many			:patients, 	through: :i_modules
+	# Association objects
+	has_many 	:i_modules
+	has_many 	:g_modules, through: :i_modules
+	has_many 	:patients, 	through: :i_modules
 
+	# Delegations
+	delegate 	:login_token, :email, :first_name, :last_name, to: :user
+
+	# Validations
 	validates 	:user_id, 	presence: true
 
+	# create a doctor
 	def self.createDoctor(params)
 		new_user 	= User.generate_user(params)
 		doctor 	= Doctor.new({user_id: new_user.id})
@@ -22,25 +28,25 @@ class Doctor < ApplicationRecord
 		return doctor
 	end
 
+	# Fetch user associated with doctor
 	def user
 		User.find_by(id: self.user_id)
 	end
 
-	def self.users
-		ids = Doctor.pluck(:user_id)
-		User.where(id: ids)
-	end
-
+	# Get infos of all doctors in db
 	def self.getInfos
-		Doctor.all.map do |d|
-			d.getInfo
-		end
+		Doctor.all.map(&:getInfo)
 	end
 
+	# Get basic infos on a doctor
 	def getInfo
-		user_info = self.user.attributes.slice('email', 'first_name', 'last_name')
-		doc_info = self.attributes.slice('id')
-		return doc_info.merge(user_info)
+		{
+			id: 		self.id,
+			email: 	self.email,
+			first_name: self.first_name,
+			last_name: 	self.last_name
+
+		}
 	end
 
 end

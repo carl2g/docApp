@@ -13,12 +13,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def add_doctor
-		doctor = Doctor.find_by(id: params[:doctor_id])
-		g_module = GModule.find_by(id: params[:module_id])
-
-		if g_module.nil? || doctor.nil?
-			render json: { errors: "Doctor or Module not found" }, status: :not_found
-		elsif current_patient.addDoctor(doctor, g_module)
+		if current_patient.addDoctor(params[:doctor_id], params[:module_id])
 			render json: {}, status: :ok
 		else
 			render json: { :errors => current_patient.errors.full_messages }, status: :unprocessable_entity
@@ -26,14 +21,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def remove_doctor
-		doctor = current_patient.doctors.find_by(id: params[:doctor_id])
-		g_module = current_patient.g_modules.find_by(id: params[:module_id])
-
-		puts doctor
-		puts g_module
-		if doctor.nil? || g_module.nil?
-			render json: { errors: "Doctor not found" }, status: :not_found
-		elsif current_patient.removeDoctor(doctor, g_module)
+		if current_patient.removeDoctor(params[:doctor_id], params[:module_id])
 			render json: {}, status: :ok
 		else
 			render json: { :errors => current_patient.errors.full_messages }, status: :unprocessable_entity

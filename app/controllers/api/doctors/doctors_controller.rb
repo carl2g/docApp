@@ -6,9 +6,9 @@ class Api::Patients::DoctorsController < ApplicationController
 		doctor = Doctor.createDoctor(permited)
 
 		if doctor.persisted?
-			session[:current_patient_id] 	= doctor.user.id
-			session[:login_token] 		= doctor.user.login_token
-			render json: { login_token: doctor.user.login_token }, status: :created
+			session[:current_doctor_id] 	= doctor.id
+			session[:login_token] 		= doctor.login_token
+			render json: { login_token: doctor.login_token }, status: :created
 		else
 			render json: { :errors => doctor.errors.full_messages }, status: :unprocessable_entity
 		end

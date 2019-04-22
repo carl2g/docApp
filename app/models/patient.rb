@@ -2,22 +2,29 @@ class Patient < ApplicationRecord
 
 	# class field
 	# =======================================
-	# user_id: 			integer
+	# user_id: 		integer
 	# g_modules_id 	integer
 	# =======================================
 
-	has_one 			:user
-	has_many 			:i_modules
-	has_many 			:g_modules, through: 	:i_modules
-	has_many			:doctors, 	through: 	:i_modules
-	delegate 			:notes, 	to: 		:notes
+	# Association objects
+	has_one 	:user
+	has_many 	:i_modules
+	has_many 	:g_modules, through: :i_modules
+	has_many	:doctors, 	through: :i_modules
 
-	validates 			:user_id, 	presence: true
+	# Delegations
+	delegate 	:notes, to: :notes
+	delegate 	:login_token, :email, :first_name, :last_name, to: :user
 
+	# Validations
+	validates 	:user_id, presence: true
+
+	# Get all existing notes
 	def notes
 		self.i_modules.sum { |i| i.notes }
 	end
 
+	# Init  and create patient
 	def self.createPatient(params)
 		new_user 	= User.generate_user(params)
 		patient 	= Patient.new({user_id: new_user.id})
@@ -29,44 +36,24 @@ class Patient < ApplicationRecord
 		return patient
 	end
 
-	def addModule(mod)
-		return false if mod.nil? || self.has_module?(mod)
-		self.i_modules << IModule.new({g_module: mod})
+	# Add a Module to a user
+	def addModule(mod_id)
+		return false if mod_id.nil? || self.has_module?(mod_id)
+		self.i_modules << IModule.new({g_module_id: mod_id})
 		self.save
 	end
 
-	def removeModule(mod)
-		return false if mod.nil?
-		imod = self.i_modules.find_by(g_module: mod)
-		if imod.nil?
-			return false
-		else
-			imod.destroy
-		end
+	# Remove a Module to a user
+	def removeModule(mod_id)
+		imod = self.i_modules.find_by(g_module_id: mod_id)
+		return false if imod.nil?
+		imod.destroy
 		self.save
 	end
 
-	def removeDoctor(doctor, g_module)
-		mod = self.i_modules.find_by(doctor: doctor, g_module: g_module)
-		if mod.nil?
-			return false
-		else
-			mod.doctor = nil
-		end
-		mod.save
-	end
-
-	def addDoctor(doctor, g_module)
-		mod = self.i_modules.find_by(g_module: g_module)
-		if mod.nil?
-			self.i_modules << IModule.new({g_module: g_module, doctor: doctor})
-		else
-			mod.doctor = doctor
-		end
-		self.save
-	end
-
-	def has_module?(mod)
+	# Check if patient have module
+	def has_module?(mod_id)
+		mod = GModule.find_by(id: mod_id)
 		if self.g_modules.include?(mod)
 			self.errors.add(:modules, 'is already added to your list.')
 			return true
@@ -74,20 +61,36 @@ class Patient < ApplicationRecord
 		return false
 	end
 
+	#
 	def getDoctorsInfo
-		mod = self.i_modules.where.not(doctor: nil)
-		infos = mod.map do |m|
+		mods = self.i_modules.where.not(doctor: nil)
+		infos = mods.map do |m|
 			mod_info = m.g_module.attributes.slice('name', 'id')
 			{
 				doctor: m.doctor.getInfo,
-				associated_module: mod_info
+				module: mod_info
 			}
 		end
 		return infos
 	end
 
+	# Fetch user associated with patient
 	def user
 		User.find(self.user_id)
+	end
+
+	# Remove a doctor for a module
+	def removeDoctor(doctor_id, g_module_id)
+		i_mod = self.i_modules.find_by(g_module_id: g_module_id)
+		return false if i_mod.nil?
+		return i_mod.removeDoctor
+	end
+
+	# Add a doctor for a module
+	def addDoctor(doctor_id, g_module_id)
+		i_mod = self.i_modules.find_by(g_module_id: g_module_id)
+		return false if i_mod.nil?
+		return i_mod.addDoctor(doctor_id)
 	end
 
 end

@@ -8,9 +8,7 @@ class Api::Patients::GModulesController < ApplicationController
 	end
 
 	def add_module
-		g_mod = GModule.find_by(id: params[:g_module_id])
-
-		if current_patient.addModule(g_mod)
+		if current_patient.addModule(params[:g_module_id])
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
@@ -18,9 +16,7 @@ class Api::Patients::GModulesController < ApplicationController
 	end
 
 	def remove_module
-		g_mod = GModule.find_by(id: params[:g_module_id])
-
-		if current_patient.removeModule(g_mod)
+		if current_patient.removeModule(params[:g_module_id])
 			render json: {}, status: :ok
 		else
 			render json: { errors: current_patient.errors.full_messages }, status: :unprocessable_entity
