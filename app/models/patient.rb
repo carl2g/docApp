@@ -68,7 +68,7 @@ class Patient < ApplicationRecord
 		infos = mods.map do |m|
 			mod_info = m.g_module.attributes.slice('name', 'id')
 			{
-				doctor: m.doctor.keep_attributes(selected_attr)
+				doctor: m.doctor.keep_attributes(selected_attr),
 				module: mod_info
 			}
 		end

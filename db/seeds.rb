@@ -5,7 +5,7 @@
 puts "===================== Building Modules ====================="
 GModule.create!({name: 'diabetes', 	color: 'blue', 	icon: 'to be defined'})
 GModule.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
-GModule.create!({name: 'arthritis', 	color: 'green', 	icon: 'to be defined'})
+GModule.create!({name: 'arthritis', color: 'green', 	icon: 'to be defined'})
 
 puts "===================== Building Patients ====================="
 Patient.createPatient({first_name: 'patient', last_name: 'patient', email: 'patient@gmail.com', password: '12345678'})
