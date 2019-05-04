@@ -63,11 +63,12 @@ class Patient < ApplicationRecord
 
 	#
 	def getDoctorsInfo
+		selected_attr = [:id, :email, :first_name, :last_name]
 		mods = self.i_modules.where.not(doctor: nil)
 		infos = mods.map do |m|
 			mod_info = m.g_module.attributes.slice('name', 'id')
 			{
-				doctor: m.doctor.getInfo,
+				doctor: m.doctor.keep_attributes(selected_attr)
 				module: mod_info
 			}
 		end
