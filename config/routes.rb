@@ -1,6 +1,6 @@
 Rails.application.routes.draw do
   mount Rswag::Ui::Engine => '/'
-  mount Rswag::Api::Engine => '/'
+  mount Rswag::Api::Engine => '/api-docs'
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 	root 						to: proc { [404, {}, ["Not found."]] }
