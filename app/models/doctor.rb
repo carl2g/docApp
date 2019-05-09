@@ -36,7 +36,17 @@ class Doctor < ApplicationRecord
 	# Get infos of all doctors in db
 	def self.getInfos
 		attrs = [:id, :email, :first_name, :last_name]
-		Doctor.all.map { |elem| elem.keep_attributes(attrs) }
+		Doctor.all.map do |elem|
+			elem.to_json_model.select {|key, val| attrs.include?(key.to_sym) }
+		end
+	end
+
+	def to_json_model
+		doctor = self.reject_attributes
+		doctor[:email] = self.email
+		doctor[:first_name] = self.first_name
+		doctor[:last_name] = self.last_name
+		return doctor
 	end
 
 end
