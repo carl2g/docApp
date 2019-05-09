@@ -35,7 +35,8 @@ class Doctor < ApplicationRecord
 
 	# Get infos of all doctors in db
 	def self.getInfos
-		Doctor.all.map(&:getInfo)
+		attrs = [:id, :email, :first_name, :last_name]
+		Doctor.all.map { |elem| elem.keep_attributes(attrs) }
 	end
 
 end

@@ -9,4 +9,8 @@ class ApplicationRecord < ActiveRecord::Base
 	def reject_attributes(attributes = [])
 		self.attributes.reject {|key, val| attributes.include?(key.to_sym) }
 	end
+
+	def to_proc
+	  proc { |obj, *args| obj.send(self, *args) }
+	end
 end
