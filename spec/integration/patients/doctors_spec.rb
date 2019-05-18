@@ -1,20 +1,19 @@
 require 'swagger_helper'
 
-describe 'Doctors of patient' do
+describe 'Patients / Doctors controller' do
 
   path '/api/patients/doctors' do
 
     get 'get all doctors' do
-      tags 'Patient doctor controller'
+      tags 'Patient / Doctor'
       consumes 'application/json'
       security [Bearer: {}]
+
       response '200', 'patients created' do
-        let(:doctor) { { title: 'foo', content: 'bar' } }
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:doctor) { { title: 'foo' } }
         run_test!
       end
     end
@@ -23,16 +22,14 @@ describe 'Doctors of patient' do
   path '/api/patients/doctors/my_doctors' do
 
     get 'get the patient doctors' do
-      tags 'Patient doctor controller'
+      tags 'Patient / Doctor'
       consumes 'application/json'
       security [Bearer: {}]
       response '200', 'patients created' do
-        let(:doctor) { { title: 'foo', content: 'bar' } }
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:doctor) { { title: 'foo' } }
         run_test!
       end
     end
@@ -41,7 +38,7 @@ describe 'Doctors of patient' do
   path '/api/patients/doctors/{doctor_id}/add_doctor' do
 
     patch 'assigne doctor to patient' do
-      tags 'Patient doctor controller'
+      tags 'Patient / Doctor'
       consumes 'application/json'
       produces 'application/json'
       security [Bearer: {}]
@@ -55,23 +52,18 @@ describe 'Doctors of patient' do
       }
 
       response '200', 'patients created' do
-        let(:doctor) { }
         run_test!
       end
 
-
       response '422', 'invalid request' do
-        let(:doctor) { }
         run_test!
       end
 
       response '404', 'invalid request' do
-        let(:doctor) { }
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:doctor) { }
         run_test!
       end
     end
@@ -80,7 +72,7 @@ describe 'Doctors of patient' do
     path '/api/patients/doctors/{doctor_id}/remove_doctor' do
 
     patch 'assigne doctor to patient' do
-      tags 'Patient doctor controller'
+      tags 'Patient / Doctor'
       consumes 'application/json'
       produces 'application/json'
       security [Bearer: {}]
@@ -94,23 +86,18 @@ describe 'Doctors of patient' do
       }
 
       response '200', 'patients created' do
-        let(:doctor) { }
         run_test!
       end
 
-
       response '422', 'invalid request' do
-        let(:doctor) { }
         run_test!
       end
 
       response '404', 'invalid request' do
-        let(:doctor) { }
         run_test!
       end
 
       response '401', 'Unauthorized' do
-        let(:doctor) { }
         run_test!
       end
     end

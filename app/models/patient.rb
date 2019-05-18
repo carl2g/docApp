@@ -83,14 +83,20 @@ class Patient < ApplicationRecord
 	# Remove a doctor for a module
 	def removeDoctor(doctor_id, g_module_id)
 		i_mod = self.i_modules.find_by(g_module_id: g_module_id)
-		return false if i_mod.nil?
+		if i_mod.nil?
+			self.errors.add(:module_error, 'you do not have this module.')
+			return false
+		end
 		return i_mod.removeDoctor
 	end
 
 	# Add a doctor for a module
 	def addDoctor(doctor_id, g_module_id)
 		i_mod = self.i_modules.find_by(g_module_id: g_module_id)
-		return false if i_mod.nil?
+		if i_mod.nil?
+			self.errors.add(:module_error, 'you do not have this module.')
+			return false
+		end
 		return i_mod.addDoctor(doctor_id)
 	end
 

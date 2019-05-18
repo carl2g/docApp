@@ -7,9 +7,10 @@ class Note < ApplicationRecord
 
 	belongs_to :i_module
 
-	def self.generateNote(module_id, data, patient)
-		gen_module = GModule.find_by(id: module_id)
-		Note.new( { g_module: gen_module, patient: patient, data: data.to_json } )
+	def self.addNote(module_id, data, patient)
+		imodule = IModule.find_by(g_module: module_id, patient: patient)
+		return false if imodule.nil?
+		imodule.notes << Note.create({ data: data.to_json })
 	end
 
 end

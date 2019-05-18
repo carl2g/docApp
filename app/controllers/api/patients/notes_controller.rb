@@ -3,12 +3,10 @@ class Api::Patients::NotesController < ApplicationController
 	before_action :authenticate_user
 
 	def create
-		note = Note.generateNote(params[:module_id], params[:data], current_patient)
-		
-		if note.save
+		if Note.addNote(params[:module_id], params[:data], current_patient)
 			render json: { }, status: :ok
 		else
-			render json: { errors: note.errors.full_messages }, status: :unprocessable_entity
+			render json: { errors: "You do not have this module" }, status: :unprocessable_entity
 		end
 	end
 
@@ -17,16 +15,16 @@ class Api::Patients::NotesController < ApplicationController
 		if note && note.destroy
 			render json: { }, status: :ok
 		else
-			render json: { errors: note.errors.full_messages }, status: :unprocessable_entity
+			render json: { errors: "Note not found" }, status: :not_found
 		end
 	end
 
 	def update
 		note = current_patient.notes.find_by(id: params[:id])
-		if note && note.update({data: params[:data]})
-			render json: { }, status: :ok
+		if note && note.update({data: params[:data].to_json})
+			render json: { message: "Note successfully created" }, status: :ok
 		else
-			render json: { errors: note.errors.full_messages }, status: :unprocessable_entity
+			render json: { errors: "Note not found" }, status: :not_found
 		end
 	end
 

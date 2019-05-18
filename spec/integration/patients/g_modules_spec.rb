@@ -1,11 +1,11 @@
 require 'swagger_helper'
 
-describe 'Patients modules controller' do
+describe 'Patients / Modules controller' do
 
   path '/api/patients/modules/{module_id}/add_module' do
 
     patch 'add module' do
-      tags 'Module'
+      tags 'Patient / Module'
       security [Bearer: {}]
       consumes 'application/json'
       parameter name: :module_id, in: :path, type: :integer
@@ -30,7 +30,7 @@ describe 'Patients modules controller' do
   path '/api/patients/modules/{module_id}/remove_module' do
 
     patch 'add module' do
-      tags 'Module'
+      tags 'Patient / Module'
       security [Bearer: {}]
       consumes 'application/json'
       parameter name: :module_id, in: :path, type: :integer
@@ -55,7 +55,7 @@ describe 'Patients modules controller' do
   path '/api/patients/modules/my_modules' do
 
     get 'patient modules' do
-      tags 'Module'
+      tags 'Patient / Module'
       security [Bearer: {}]
       consumes 'application/json'
 
@@ -79,7 +79,7 @@ describe 'Patients modules controller' do
     path '/api/patients/modules' do
 
     get 'get all existing module' do
-      tags 'Module'
+      tags 'Patient / Module'
       security [Bearer: {}]
       consumes 'application/json'
 

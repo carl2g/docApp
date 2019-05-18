@@ -9,7 +9,7 @@
       "get": {
         "summary": "get all doctors",
         "tags": [
-          "Patient doctor controller"
+          "Patient / Doctor"
         ],
         "consumes": [
           "application/json"
@@ -34,7 +34,7 @@
       "get": {
         "summary": "get the patient doctors",
         "tags": [
-          "Patient doctor controller"
+          "Patient / Doctor"
         ],
         "consumes": [
           "application/json"
@@ -59,7 +59,7 @@
       "patch": {
         "summary": "assigne doctor to patient",
         "tags": [
-          "Patient doctor controller"
+          "Patient / Doctor"
         ],
         "consumes": [
           "application/json"
@@ -116,7 +116,7 @@
       "patch": {
         "summary": "assigne doctor to patient",
         "tags": [
-          "Patient doctor controller"
+          "Patient / Doctor"
         ],
         "consumes": [
           "application/json"
@@ -173,7 +173,7 @@
       "patch": {
         "summary": "add module",
         "tags": [
-          "Module"
+          "Patient / Module"
         ],
         "security": [
           {
@@ -209,7 +209,7 @@
       "patch": {
         "summary": "add module",
         "tags": [
-          "Module"
+          "Patient / Module"
         ],
         "security": [
           {
@@ -245,7 +245,7 @@
       "get": {
         "summary": "patient modules",
         "tags": [
-          "Module"
+          "Patient / Module"
         ],
         "security": [
           {
@@ -273,7 +273,7 @@
       "get": {
         "summary": "get all existing module",
         "tags": [
-          "Module"
+          "Patient / Module"
         ],
         "security": [
           {
@@ -297,11 +297,164 @@
         }
       }
     },
+    "/api/patients/notes": {
+      "post": {
+        "summary": "create a note as patient",
+        "tags": [
+          "Patient / Notes"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "notes",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "module_id": {
+                  "type": "integer"
+                },
+                "data": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "module_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "note created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "get": {
+        "summary": "get all notes",
+        "tags": [
+          "Patient / Notes"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/notes/{note_id}": {
+      "delete": {
+        "summary": "delete a note as patient",
+        "tags": [
+          "Patient / Notes"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "note_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "note destroyed"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      },
+      "patch": {
+        "summary": "update a note as patient",
+        "tags": [
+          "Patient / Notes"
+        ],
+        "security": [
+          {
+            "Bearer": {
+            }
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "note_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "note",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "module_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "note created"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
     "/api/patients/signin": {
       "post": {
         "summary": "sigin as patient",
         "tags": [
-          "Patients"
+          "Patient / Patient"
         ],
         "consumes": [
           "application/json"

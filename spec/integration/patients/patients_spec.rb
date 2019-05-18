@@ -1,11 +1,11 @@
 require 'swagger_helper'
 
-describe 'Patients patients controller' do
+describe 'Patients / Patients controller' do
 
   path '/api/patients/signin' do
 
     post 'sigin as patient' do
-      tags 'Patients'
+      tags 'Patient / Patient'
       consumes 'application/json'
       parameter name: :patients, in: :body, schema: {
         type: :object,
@@ -19,12 +19,10 @@ describe 'Patients patients controller' do
       }
 
       response '201', 'patients created' do
-        let(:patients) {}
         run_test!
       end
 
       response '422', 'invalid request' do
-        let(:patients) { }
         run_test!
       end
     end
