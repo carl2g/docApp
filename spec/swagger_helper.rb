@@ -21,8 +21,8 @@ RSpec.configure do |config|
       },
       paths: {},
       securityDefinitions: {
-        Bearer: {
-          description: "use this token: pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co",
+        APIKeyHeader: {
+          description: "Use this token to login as patient: pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co\nUse this token to login as doctor: TwM4Wb6IRHeyT4r8BtUoYZOZxGNTo8dcWEucAomFGDo",
           type: :apiKey,
           name: 'Authorization',
           in: :header

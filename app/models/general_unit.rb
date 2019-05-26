@@ -1,4 +1,4 @@
-class GModule < ApplicationRecord
+class GeneralUnit < ApplicationRecord
 	# class field
 	# =======================================
 	# name: 		string
@@ -6,8 +6,8 @@ class GModule < ApplicationRecord
 	# icon: 		string
 	# =======================================
 
-	has_many 	:i_modules
-	has_many 	:doctors, 	through: :i_modules
-	has_many	:patients, 	through: :i_modules
+	has_many 	:units
+	has_many 	:doctors, 	through: :units
+	has_many	:patients, 	through: :units
 
 end

@@ -12,24 +12,33 @@ Rails.application.routes.draw do
 				############### Patients controller ###############
 				post 	'/signin', 				to: 'patients#signin'
 
-				############### Modules controller ###############
-				resources :g_modules, path: 'modules' do
-					patch	'/remove_module',			to: 'g_modules#remove_module'
-					patch '/add_module', 			to: 'g_modules#add_module'
+				############### General Units controller ###############
+				resources :general_units do
+					patch '/add_unit', 		to: 'general_units#add_unit'
 
 					collection do
-						get 	'/my_modules', 			to: 'g_modules#my_modules'
+						get 	'/my_units', 	to: 'general_units#my_units'
+					end
+				end
+
+				############### Units controller ###############
+				resources :units do
+					get 	'/notes', 			to: 'units#notes'
+					post 	'/add_note', 		to: 'units#add_note'
+					patch '/add_doctor', 		to: 'units#add_doctor'
+					patch '/remove_doctor', 	to: 'units#remove_doctor'
+
+					collection do
+						get '/my_units', 		to: 'units#my_units'
 					end
 				end
 
 
 				############### Doctors controller ###############
 				resources :doctors do
-					patch '/add_doctor', 			to: 'doctors#add_doctor'
-					patch '/remove_doctor', 		to: 'doctors#remove_doctor'
 
 					collection do
-						get '/my_doctors', 			to: 'doctors#my_doctors'
+						get '/my_doctors', 	to: 'doctors#my_doctors'
 					end
 				end
 
@@ -42,11 +51,15 @@ Rails.application.routes.draw do
 		namespace :doctors do
 			post 	'/signin', 	to: 'doctors#signin'
 
+			resources :patients do
+
+			end
+
 		end
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-		get 	'/modules', 					to: 'g_modules#index'
+		get 	'/available_units', 				to: 'general_units#index'
 
 	end
 end

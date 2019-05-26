@@ -5,19 +5,46 @@
     "version": "v1"
   },
   "paths": {
+    "/api/doctors/patients": {
+      "get": {
+        "summary": "get all assigne patient for a given doctor",
+        "tags": [
+          "Doctor / Patient"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
     "/api/patients/doctors": {
       "get": {
         "summary": "get all doctors",
         "tags": [
-          "Patient / Doctor"
+          "Patient / Doctors"
         ],
         "consumes": [
           "application/json"
         ],
         "security": [
           {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "responses": {
@@ -34,15 +61,16 @@
       "get": {
         "summary": "get the patient doctors",
         "tags": [
-          "Patient / Doctor"
+          "Patient / Doctors"
         ],
         "consumes": [
           "application/json"
         ],
         "security": [
           {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "responses": {
@@ -55,130 +83,17 @@
         }
       }
     },
-    "/api/patients/doctors/{doctor_id}/add_doctor": {
+    "/api/patients/general_units/{general_unit_id}/add_unit": {
       "patch": {
-        "summary": "assigne doctor to patient",
+        "summary": "add unit",
         "tags": [
-          "Patient / Doctor"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
+          "Patient / General Units"
         ],
         "security": [
           {
-            "Bearer": {
-            }
-          }
-        ],
-        "parameters": [
-          {
-            "name": "doctor_id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          },
-          {
-            "name": "module",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "module_id": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "module_id"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "patients created"
-          },
-          "422": {
-            "description": "invalid request"
-          },
-          "404": {
-            "description": "invalid request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/patients/doctors/{doctor_id}/remove_doctor": {
-      "patch": {
-        "summary": "assigne doctor to patient",
-        "tags": [
-          "Patient / Doctor"
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "produces": [
-          "application/json"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
-        "parameters": [
-          {
-            "name": "doctor_id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          },
-          {
-            "name": "module",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "module_id": {
-                  "type": "integer"
-                }
-              },
-              "required": [
-                "module_id"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "patients created"
-          },
-          "422": {
-            "description": "invalid request"
-          },
-          "404": {
-            "description": "invalid request"
-          },
-          "401": {
-            "description": "Unauthorized"
-          }
-        }
-      }
-    },
-    "/api/patients/modules/{module_id}/add_module": {
-      "patch": {
-        "summary": "add module",
-        "tags": [
-          "Patient / Module"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "consumes": [
@@ -186,7 +101,7 @@
         ],
         "parameters": [
           {
-            "name": "module_id",
+            "name": "general_unit_id",
             "in": "path",
             "type": "integer",
             "required": true
@@ -205,52 +120,17 @@
         }
       }
     },
-    "/api/patients/modules/{module_id}/remove_module": {
-      "patch": {
-        "summary": "add module",
-        "tags": [
-          "Patient / Module"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "module_id",
-            "in": "path",
-            "type": "integer",
-            "required": true
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "patients created"
-          },
-          "404": {
-            "description": "Module not found"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      }
-    },
-    "/api/patients/modules/my_modules": {
+    "/api/patients/general_units": {
       "get": {
-        "summary": "patient modules",
+        "summary": "get all existing unit",
         "tags": [
-          "Patient / Module"
+          "Patient / General Units"
         ],
         "security": [
           {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "consumes": [
@@ -262,102 +142,6 @@
           },
           "404": {
             "description": "Module not found"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      }
-    },
-    "/api/patients/modules": {
-      "get": {
-        "summary": "get all existing module",
-        "tags": [
-          "Patient / Module"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "201": {
-            "description": "patients created"
-          },
-          "404": {
-            "description": "Module not found"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      }
-    },
-    "/api/patients/notes": {
-      "post": {
-        "summary": "create a note as patient",
-        "tags": [
-          "Patient / Notes"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "parameters": [
-          {
-            "name": "notes",
-            "in": "body",
-            "schema": {
-              "type": "object",
-              "properties": {
-                "module_id": {
-                  "type": "integer"
-                },
-                "data": {
-                  "type": "string"
-                }
-              },
-              "required": [
-                "module_id"
-              ]
-            }
-          }
-        ],
-        "responses": {
-          "201": {
-            "description": "note created"
-          },
-          "422": {
-            "description": "invalid request"
-          }
-        }
-      },
-      "get": {
-        "summary": "get all notes",
-        "tags": [
-          "Patient / Notes"
-        ],
-        "security": [
-          {
-            "Bearer": {
-            }
-          }
-        ],
-        "consumes": [
-          "application/json"
-        ],
-        "responses": {
-          "200": {
-            "description": "ok"
           },
           "422": {
             "description": "invalid request"
@@ -373,8 +157,9 @@
         ],
         "security": [
           {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "consumes": [
@@ -407,8 +192,9 @@
         ],
         "security": [
           {
-            "Bearer": {
-            }
+            "APIKeyHeader": [
+
+            ]
           }
         ],
         "consumes": [
@@ -443,6 +229,32 @@
           },
           "404": {
             "description": "not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/notes": {
+      "get": {
+        "summary": "get all notes",
+        "tags": [
+          "Patient / Notes"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
           },
           "422": {
             "description": "invalid request"
@@ -497,11 +309,258 @@
           }
         }
       }
+    },
+    "/api/patients/units/{unit_id}/add_doctor": {
+      "patch": {
+        "summary": "assigne doctor to patient",
+        "tags": [
+          "Patient / Units"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "unit",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "doctor_id": {
+                  "type": "integer"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "patients created"
+          },
+          "422": {
+            "description": "invalid request"
+          },
+          "404": {
+            "description": "invalid request"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/patients/units/{unit_id}/remove_doctor": {
+      "patch": {
+        "summary": "assigne doctor to patient",
+        "tags": [
+          "Patient / Units"
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "produces": [
+          "application/json"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "docotr removed"
+          },
+          "422": {
+            "description": "invalid request"
+          },
+          "404": {
+            "description": "not found"
+          },
+          "401": {
+            "description": "Unauthorized"
+          }
+        }
+      }
+    },
+    "/api/patients/units/{unit_id}": {
+      "delete": {
+        "summary": "remove unit",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/units/{unit_id}/add_note": {
+      "post": {
+        "summary": "create a note",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "notes",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "note created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/units/{unit_id}/notes": {
+      "get": {
+        "summary": "get all notes for given unit unit",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "note created"
+          },
+          "404": {
+            "description": "not found"
+          }
+        }
+      }
+    },
+    "/api/patients/units": {
+      "get": {
+        "summary": "patient units",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "404": {
+            "description": "Module not found"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {
-    "Bearer": {
-      "description": "use this token: pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co",
+    "APIKeyHeader": {
+      "description": "Use this token to login as patient: pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co\nUse this token to login as doctor: TwM4Wb6IRHeyT4r8BtUoYZOZxGNTo8dcWEucAomFGDo",
       "type": "apiKey",
       "name": "Authorization",
       "in": "header"
