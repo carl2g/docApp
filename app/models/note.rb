@@ -2,7 +2,8 @@ class Note < ApplicationRecord
 
 	# class field
 	# =======================================
-	# data: 		json text
+	# data: 		json string
+	# filter: 		json sting
 	# =======================================
 
 	belongs_to :unit

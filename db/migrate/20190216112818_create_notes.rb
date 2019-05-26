@@ -3,7 +3,7 @@ class CreateNotes < ActiveRecord::Migration[5.2]
     create_table :notes do |t|
 
     	t.belongs_to :unit, index: true
-    	t.text :data
+    	t.string :data
 
       t.timestamps
     end

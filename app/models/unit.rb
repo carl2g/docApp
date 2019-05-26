@@ -1,4 +1,13 @@
 class Unit < ApplicationRecord
+
+	# class Unit
+	# =======================================
+	# patient: 		obj
+	# doctor: 		obj
+	# general_unit: 	obj
+	# notes: 		obj collection
+	# =======================================
+
 	belongs_to 	:patient
 	belongs_to 	:doctor, 	optional: true
 	belongs_to 	:general_unit
@@ -17,7 +26,8 @@ class Unit < ApplicationRecord
 	end
 
 	def addNote(data)
-		self.notes << Note.create({ data: data.to_json })
+		filter = self.filter || self.general_unit.filter
+		self.notes << Note.create({ data: data.to_json, filter: filter })
 		self.save
 	end
 end

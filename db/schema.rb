@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_02_16_112818) do
+ActiveRecord::Schema.define(version: 2019_05_26_130448) do
 
   create_table "doctors", force: :cascade do |t|
     t.integer "user_id"
@@ -20,6 +20,9 @@ ActiveRecord::Schema.define(version: 2019_02_16_112818) do
     t.string "name"
     t.string "icon"
     t.string "color"
+    t.string "data_field"
+    t.string "filter"
+    t.string "available_info"
   end
 
   create_table "notes", force: :cascade do |t|
@@ -27,6 +30,7 @@ ActiveRecord::Schema.define(version: 2019_02_16_112818) do
     t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "filter"
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 
@@ -38,6 +42,7 @@ ActiveRecord::Schema.define(version: 2019_02_16_112818) do
     t.integer "patient_id"
     t.integer "general_unit_id"
     t.integer "doctor_id"
+    t.string "filter"
     t.index ["doctor_id"], name: "index_units_on_doctor_id"
     t.index ["general_unit_id"], name: "index_units_on_general_unit_id"
     t.index ["patient_id"], name: "index_units_on_patient_id"

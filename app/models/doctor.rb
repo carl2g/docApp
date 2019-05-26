@@ -1,6 +1,6 @@
 class Doctor < ApplicationRecord
 
-	# class field
+	# class Doctor
 	# =======================================
 	# patients: 	obj collection
 	# user_id: 		integer

@@ -4,6 +4,8 @@ class GeneralUnit < ApplicationRecord
 	# name: 		string
 	# color: 		string
 	# icon: 		string
+	# filter: 		string
+	# data_field: 	string
 	# =======================================
 
 	has_many 	:units
