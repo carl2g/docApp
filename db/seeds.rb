@@ -4,6 +4,10 @@
 
 puts "===================== Building Modules ====================="
 GeneralUnit.create!({name: 'diabetes', 	color: 'blue', 	icon: 'to be defined'})
+filter = {
+
+}.to_h.to_json
+
 GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
 GeneralUnit.create!({name: 'arthritis', color: 'green', 	icon: 'to be defined'})
 
