@@ -63,12 +63,12 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "valid user authentification" do
-    user = User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     assert User.authenticate('test@hotmail.com', 'testest')
   end
 
   test "invalid user authentification, bad pasword" do
-    user = User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     refute User.authenticate('test@hotmail.com', 'testesta'), "could authentificate on user with incorrect password"
   end
 
