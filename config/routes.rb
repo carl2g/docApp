@@ -46,7 +46,7 @@ Rails.application.routes.draw do
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-		get 	'/modules', 					to: 'g_modules#index'
+		get 	'/patients/modules', 				to: 'g_modules#index'
 
 	end
 end
