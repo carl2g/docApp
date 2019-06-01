@@ -60,11 +60,6 @@ class PatientTest < ActiveSupport::TestCase
     assert patient.user()
   end
 
-  test "get user from invalid patient" do
-    patient = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com')
-    assert_not patient.user(), "invalid patient get user"
-  end
-
   test "valid addDoctor" do
     patient = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     patient.addModule(1)
