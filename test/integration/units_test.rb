@@ -4,7 +4,7 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
 
     def login
         post "/api/login", params: {password: "12345678", email: "patient@gmail.com"}
-        return JSON.parse(@response.body) 
+        return JSON.parse(@response.body)
     end
 
     test "index of units" do
@@ -49,7 +49,7 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
         lhash = login()
         patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
         post "/api/patients/units/1/add_note", params: {test: 'zaad'}, headers: {'Authorization' => lhash["login_token"]}
-        assert_response 404
+        assert_response 401
     end
 
     test "invalid add_note - no unit" do

@@ -2,7 +2,7 @@ require 'test_helper'
 
 class PatientControllerTest < ActionDispatch::IntegrationTest
     test "valid signin" do
-        post "/api/patients/signin", 
+        post "/api/patients/signin",
             params: {first_name: "test",
                 last_name: "test",
                 password: "testest",
@@ -12,7 +12,7 @@ class PatientControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "invalid signin" do
-        post "/api/patients/signin", 
+        post "/api/patients/signin",
             params: {last_name: "test",
                 password: "testest",
                 phone_number: "0616728356",
@@ -21,7 +21,7 @@ class PatientControllerTest < ActionDispatch::IntegrationTest
     end
 
     test "invalid signin - patient already exist" do
-        post "/api/patients/signin", 
+        post "/api/patients/signin",
             params: {first_name: "patient",
                 last_name: "patient",
                 password: "12345678",
