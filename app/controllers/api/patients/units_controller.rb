@@ -20,15 +20,6 @@ class Api::Patients::UnitsController < ApplicationController
 		end
 	end
 
-	def create_note
-		unit = current_patient.units.find_by(id: params[:unit_id])
-		if unit && unit.addNote(params[:data])
-			render json: {}, status: :ok
-		else
-			render json: { errors: "You do not have this unit" }, status: :not_found
-		end
-	end
-
 	def notes
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
 		notes = patient_unit.notes
