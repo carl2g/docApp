@@ -22,8 +22,12 @@ class Api::Patients::UnitsController < ApplicationController
 
 	def notes
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
-		notes = patient_unit.notes
-		render json: notes.to_json(only: [:id, :data]), status: :ok
+		if patient_unit
+			notes = patient_unit.notes
+			render json: notes.to_json(only: [:id, :data]), status: :ok
+		else
+			render json: { errors: "unit not found" }, status: :not_found
+		end
 	end
 
 	def add_note
@@ -56,7 +60,7 @@ class Api::Patients::UnitsController < ApplicationController
 private
 
 	def permited_params
-		params.require(:unit).permit(:doctor_id, :patient_id)
+		params.require(:unit).permit(:doctor_id, :patient_id, :data)
 	end
 
 

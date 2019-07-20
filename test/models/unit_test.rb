@@ -31,7 +31,7 @@ class UnitTest < ActiveSupport::TestCase
     p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
     patient_unit = p.units.take()
-    assert patient_unit.removeDoctor()
+    assert_not patient_unit.removeDoctor()
   end
 
   test "valid add note" do
