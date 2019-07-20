@@ -20,14 +20,13 @@ ActiveRecord::Schema.define(version: 2019_05_26_130448) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.string "data_field"
     t.string "filter"
     t.string "available_info"
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "unit_id"
-    t.text "data"
+    t.string "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "filter"

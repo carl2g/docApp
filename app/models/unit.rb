@@ -14,8 +14,10 @@ class Unit < ApplicationRecord
 	has_many 	:notes
 
 	# Remove a doctor for a module
-	def removeDoctor
+	def removeDoctor()
+		return false if !self.doctor
 		self.update(doctor: nil)
+		return true
 	end
 
 	# Add a doctor for a module

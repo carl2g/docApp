@@ -1,5 +1,4 @@
-class Api::Patients::DoctorsController < ApplicationController
-
+class Api::Doctors::DoctorsController < ApplicationController
 	before_action :authenticate_user, except: [:signin]
 
 	def signin
