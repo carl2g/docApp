@@ -13,7 +13,7 @@ class Api::Patients::UnitsController < ApplicationController
 
 	def remove_doctor
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
-		if patient_unit && patient_unit.removeDoctor
+		if patient_unit && patient_unit.removeDoctor(params[:doctor_id])
 			render json: {}, status: :ok
 		else
 			render json: { errors: "You do not possessed this unit" }, status: :not_found

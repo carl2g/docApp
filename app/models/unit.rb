@@ -8,15 +8,18 @@ class Unit < ApplicationRecord
 	# notes: 		obj collection
 	# =======================================
 
-	belongs_to 	:patient
-	belongs_to 	:doctor, 	optional: true
-	belongs_to 	:general_unit
-	has_many 	:notes
+	belongs_to	:patient
+	belongs_to	:general_unit
+	has_many		:notes
+	has_many		:doctor_units
+	has_many		:doctor, through: :doctor_units
 
 	# Remove a doctor for a module
-	def removeDoctor()
-		return false if !self.doctor
-		self.update(doctor: nil)
+	def removeDoctor(doctor_id)
+		d = DoctorUnit.find_by(doctor_id: doctor_id, unit_id: self.id)
+
+		return false if d.nil?
+		d.destroy
 		return true
 	end
 
@@ -24,7 +27,10 @@ class Unit < ApplicationRecord
 	def addDoctor(doctor_id)
 		doctor = Doctor.find_by(id: doctor_id)
 		return false if doctor.nil?
-		self.update(doctor_id: doctor_id)
+		doc = DoctorUnit.find_by(doctor_id: doctor_id, unit_id: self.id)
+		return false if !doc.nil?
+		d = DoctorUnit.new(unit_id: self.id, doctor_id: doctor.id)
+		return d.save
 	end
 
 	def addNote(data)
