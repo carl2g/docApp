@@ -8,8 +8,8 @@ class GeneralUnit < ApplicationRecord
 	# data_field: 	string
 	# =======================================
 
-	has_many 	:units
-	has_many 	:doctors, 	through: :units
+	has_many	:units
+	has_many	:doctors, 	through: :units
 	has_many	:patients, 	through: :units
 
 end

@@ -7,17 +7,18 @@ class Patient < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	has_one 	:user
-	has_many 	:units
-	has_many 	:general_units, 	through: :units
-	has_many	:doctors, 		through: :units
+	has_one		:user
+	has_many	:units
+	has_many	:general_units,	through: :units
+	has_many	:doctor_units, through: :units
+	has_many	:doctors,	through: :doctor_units
 
 	# Delegations
-	delegate 	:notes, to: :notes
-	delegate 	:login_token, :email, :first_name, :last_name, to: :user
+	delegate	:notes, to: :notes
+	delegate	:login_token, :email, :first_name, :last_name, to: :user
 
 	# Validations
-	validates 	:user_id, presence: true
+	validates	:user_id, presence: true
 
 	# Init  and create patient
 	def self.createPatient(params)

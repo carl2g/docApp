@@ -7,15 +7,16 @@ class Doctor < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	has_many 	:units
-	has_many 	:general_units, through: :units
-	has_many 	:patients, 	through: :units
+	has_many	:doctor_units
+	has_many	:units, through: :doctor_units
+	has_many	:general_units, through: :units
+	has_many	:patients, through: :units
 
 	# Delegations
-	delegate 	:login_token, :email, :first_name, :last_name, :full_name, to: :user
+	delegate	:login_token, :email, :first_name, :last_name, :full_name, to: :user
 
 	# Validations
-	validates 	:user_id, 	presence: true
+	validates	:user_id, presence: true
 
 	# create a doctor
 	def self.createDoctor(params)

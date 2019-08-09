@@ -75,14 +75,14 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
         lhash = login()
         patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
         patch "/api/patients/units/1/add_doctor", params: {doctor_id: '1'}, headers: {'Authorization' => lhash["login_token"]}
-        patch "/api/patients/units/1/remove_doctor", headers: {'Authorization' => lhash["login_token"]}
+        patch "/api/patients/units/1/remove_doctor", params: {doctor_id: '1'}, headers: {'Authorization' => lhash["login_token"]}
         assert_response :success
     end
 
     test "invalid remove doctor - doctor not added" do
         lhash = login()
         patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
-        patch "/api/patients/units/1/remove_doctor", headers: {'Authorization' => lhash["login_token"]}
+        patch "/api/patients/units/1/remove_doctor", params: {doctor_id: 'id'}, headers: {'Authorization' => lhash["login_token"]}
         assert_response 404
     end
 
@@ -90,7 +90,7 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
         lhash = login()
         patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
         patch "/api/patients/units/1/add_doctor", params: {doctor_id: '1'}, headers: {'Authorization' => lhash["login_token"]}
-        patch "/api/patients/units/999999999/remove_doctor", headers: {'Authorization' => lhash["login_token"]}
+        patch "/api/patients/units/999999999/remove_doctor", params: {doctor_id: '1'}, headers: {'Authorization' => lhash["login_token"]}
         assert_response 404
     end
 

@@ -10,7 +10,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_05_26_130448) do
+ActiveRecord::Schema.define(version: 2019_07_30_143614) do
+
+  create_table "doctor_units", force: :cascade do |t|
+    t.integer "doctor_id"
+    t.integer "unit_id"
+    t.index ["doctor_id"], name: "index_doctor_units_on_doctor_id"
+    t.index ["unit_id"], name: "index_doctor_units_on_unit_id"
+  end
 
   create_table "doctors", force: :cascade do |t|
     t.integer "user_id"
@@ -40,9 +47,7 @@ ActiveRecord::Schema.define(version: 2019_05_26_130448) do
   create_table "units", force: :cascade do |t|
     t.integer "patient_id"
     t.integer "general_unit_id"
-    t.integer "doctor_id"
     t.string "filter"
-    t.index ["doctor_id"], name: "index_units_on_doctor_id"
     t.index ["general_unit_id"], name: "index_units_on_general_unit_id"
     t.index ["patient_id"], name: "index_units_on_patient_id"
   end
