@@ -25,11 +25,11 @@ class Unit < ApplicationRecord
 
 	# Add a doctor for a module
 	def addDoctor(doctor_id)
-		doctor = Doctor.find_by(id: doctor_id)
+		doctor = GeneralUnitDoctor.find_by(doctor_id: doctor_id, general_unit_id: self.general_unit_id)
 		return false if doctor.nil?
 		doc = DoctorUnit.find_by(doctor_id: doctor_id, unit_id: self.id)
-		return false if !doc.nil?
-		d = DoctorUnit.new(unit_id: self.id, doctor_id: doctor.id)
+		return false if doc.present?
+		d = DoctorUnit.new(unit_id: self.id, doctor_id: doctor_id)
 		return d.save
 	end
 
