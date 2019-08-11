@@ -19,6 +19,13 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
         assert_response :success
     end
 
+    test "text multiple add units" do
+        lhash = login()
+        patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
+        patch "/api/patients/general_units/1/add_unit", headers: {'Authorization' => lhash["login_token"]}
+        assert_response 422
+    end
+
     test "invalid add units" do
         lhash = login()
         patch "/api/patients/general_units/9999999/add_unit", headers: {'Authorization' => lhash["login_token"]}

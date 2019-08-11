@@ -40,13 +40,15 @@ class Patient < ApplicationRecord
 	# Add a Unit to a user
 	def addUnit(general_unit)
 		return false if general_unit.nil? || self.has_unit?(general_unit)
-		self.units << Unit.new({general_unit_id: general_unit})
-		self.save
+		u = Unit.new({general_unit_id: general_unit, patient_id: self.id})
+		return u.save
 	end
 
 	# Check if patient have module
 	def has_unit?(general_unit)
-		self.general_unit_ids.include?(general_unit)
+		u = Unit.find_by(general_unit_id: general_unit, patient_id: self.id)
+		return false if u.nil?
+		return true
 	end
 
 	# Fetch user associated with patient
