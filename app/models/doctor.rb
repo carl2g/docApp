@@ -20,15 +20,21 @@ class Doctor < ApplicationRecord
 	validates	:user_id, presence: true
 
 	# create a doctor
-	def self.createDoctor(params, default_units)
-		new_user 	= User.generate_user(params)
+	def self.createDoctor(params)
+		user_params = {
+			first_name: params[:first_name],
+			last_name: params[:last_name],
+			email: params[:email],
+			password: params[:password],
+			phone_number: params[:phone_number]}
+
+		new_user 	= User.generate_user(user_params)
 		doctor 	= Doctor.new({user_id: new_user.id})
-		unless doctor.save
+		if doctor.save
+			params[:default_units].each { |x| addThisUnit(doctor.id, x) }
+		else
 			doctor.errors.clear
 			doctor.errors.merge!(new_user.errors)
-		end
-		if doctor.valid?
-			default_units.each { |x| addThisUnit(doctor.id, x) }
 		end
 		return doctor
 	end
@@ -41,8 +47,8 @@ class Doctor < ApplicationRecord
 	def self.addThisUnit(doctor_id, general_unit_id)
 		gu = GeneralUnit.find_by(id: general_unit_id)
 		return false if gu.nil?
-		tosave = GeneralUnitDoctor.new(doctor_id: doctor_id, general_unit_id: general_unit_id)
-		return tosave.save
+		gud = GeneralUnitDoctor.new(doctor_id: doctor_id, general_unit_id: general_unit_id)
+		return gud.save
 	end
 
 	def addUnit(general_unit_id)

@@ -3,7 +3,7 @@ class Api::Doctors::DoctorsController < ApplicationController
 
 	def signin
 		if params[:default_units].present?
-			doctor = Doctor.createDoctor(permited, params[:default_units])
+			doctor = Doctor.createDoctor(params)
 			if doctor.persisted?
 				session[:current_doctor_id] 	= doctor.id
 				session[:login_token] 		= doctor.login_token
@@ -40,7 +40,8 @@ private
 			:last_name,
 			:password,
 			:phone_number,
-			:email
+			:email,
+			:default_units
 		]
 	end
 
