@@ -10,27 +10,26 @@ class Unit < ApplicationRecord
 
 	belongs_to	:patient
 	belongs_to	:general_unit
-	has_many		:notes
-	has_many		:doctor_units
-	has_many		:doctor, through: :doctor_units
+	has_many	:notes
+	has_many	:doctor_units
+	has_many	:doctor, through: :doctor_units
 
 	# Remove a doctor for a module
 	def removeDoctor(doctor_id)
-		d = DoctorUnit.find_by(doctor_id: doctor_id, unit_id: self.id)
-
-		return false if d.nil?
-		d.destroy
-		return true
+		doc = self.doctors.find_by(id: doctor_id)
+		return doc.nil? ? false : doc.destroy
+		
 	end
 
 	# Add a doctor for a module
 	def addDoctor(doctor_id)
-		doctor = GeneralUnitDoctor.find_by(doctor_id: doctor_id, general_unit_id: self.general_unit_id)
-		return false if doctor.nil?
-		doc = DoctorUnit.find_by(doctor_id: doctor_id, unit_id: self.id)
-		return false if doc.present?
-		d = DoctorUnit.new(unit_id: self.id, doctor_id: doctor_id)
-		return d.save
+		doctor = Doctor.find_by(id: doctor_id)
+		if self.doctors.find_by(id: doctor_id)
+			return false
+		else
+			self.doctors << doctor
+		end
+		return self.save
 	end
 
 	def addNote(data)
