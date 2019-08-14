@@ -12,29 +12,30 @@ class Unit < ApplicationRecord
 	belongs_to	:general_unit
 	has_many	:notes
 	has_many	:doctor_units
-	has_many	:doctor, through: :doctor_units
+	has_many	:doctors, through: :doctor_units
 
-	# Remove a doctor for a module
+	# Remove a doctor for a unit
 	def removeDoctor(doctor_id)
 		doc = self.doctors.find_by(id: doctor_id)
-		return doc.nil? ? false : doc.destroy
-		
+		return false if doc.nil?
+		return self.doctors.delete(doc).nil? ? false : self.save
 	end
 
-	# Add a doctor for a module
+	# Add a doctor for a unit
 	def addDoctor(doctor_id)
 		doctor = Doctor.find_by(id: doctor_id)
-		if self.doctors.find_by(id: doctor_id)
-			return false
-		else
-			self.doctors << doctor
-		end
+		return false if self.hasDoctor?(doctor_id) || doctor.nil?
+		self.doctors << doctor
 		return self.save
+	end
+
+	def hasDoctor?(doc_id)
+		return self.doctor_ids.include?(doc_id)
 	end
 
 	def addNote(data)
 		filter = self.filter || self.general_unit.filter
 		self.notes << Note.create({ data: data.to_json, filter: filter })
-		self.save
+		return self.save
 	end
 end

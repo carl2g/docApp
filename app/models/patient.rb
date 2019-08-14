@@ -10,8 +10,8 @@ class Patient < ApplicationRecord
 	has_one		:user
 	has_many	:units
 	has_many	:general_units,	through: :units
-	has_many	:doctor_units, through: :units
-	has_many	:doctors,	through: :doctor_units
+	has_many	:doctor_units, 	through: :units
+	has_many	:doctors, through: :doctor_units
 
 	# Delegations
 	delegate	:notes, to: :notes
@@ -38,10 +38,11 @@ class Patient < ApplicationRecord
 	end
 
 	# Add a Unit to a user
-	def addUnit(general_unit)
-		return false if general_unit.nil? || self.has_unit?(general_unit)
-		self.units << Unit.new({general_unit_id: general_unit})
-		self.save
+	def addUnit(general_unit_id)
+		general_u = GeneralUnit.find_by(id: general_unit_id)
+		return false if general_u.nil? || self.has_unit?(general_unit_id)
+		self.general_units << general_u
+		return self.save
 	end
 
 	# Check if patient have module
@@ -51,7 +52,7 @@ class Patient < ApplicationRecord
 
 	# Fetch user associated with patient
 	def user
-		User.find(self.user_id)
+		User.find_by(id: self.user_id)
 	end
 
 end

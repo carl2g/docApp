@@ -17,7 +17,7 @@ class Api::Doctors::DoctorsController < ApplicationController
 	end
 
 	def add_unit
-		if current_doctor.addUnit(params[:unit])
+		if current_doctor.addGeneralUnit(params[:unit])
 			render json: {}, status: :ok
 		else
 			render json: { :errors => "Couldn't add the unit cause you either already have it or the unit doesn't exist" }, status: :unprocessable_entity
