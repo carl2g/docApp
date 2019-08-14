@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_07_30_143614) do
+ActiveRecord::Schema.define(version: 2019_08_09_172356) do
 
   create_table "doctor_units", force: :cascade do |t|
     t.integer "doctor_id"
@@ -23,17 +23,25 @@ ActiveRecord::Schema.define(version: 2019_07_30_143614) do
     t.integer "user_id"
   end
 
+  create_table "general_unit_doctors", force: :cascade do |t|
+    t.integer "doctor_id"
+    t.integer "general_unit_id"
+    t.index ["doctor_id"], name: "index_general_unit_doctors_on_doctor_id"
+    t.index ["general_unit_id"], name: "index_general_unit_doctors_on_general_unit_id"
+  end
+
   create_table "general_units", force: :cascade do |t|
     t.string "name"
     t.string "icon"
     t.string "color"
+    t.string "data_field"
     t.string "filter"
     t.string "available_info"
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "unit_id"
-    t.string "data"
+    t.text "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string "filter"

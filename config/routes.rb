@@ -50,6 +50,8 @@ Rails.application.routes.draw do
 
 		namespace :doctors do
 			post 	'/signin', 	to: 'doctors#signin'
+			patch '/add_unit',	to: 'doctors#add_unit'
+			patch '/remove_unit',	to: 'doctors#remove_unit'
 
 			resources :patients do
 

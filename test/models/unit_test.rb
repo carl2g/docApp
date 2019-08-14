@@ -12,9 +12,9 @@ class UnitTest < ActiveSupport::TestCase
 
   test "invalid add Doctor" do
     p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
-    p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
-    patient_unit = p.units.take()
-    patient_unit.addDoctor(99999999999)
+    assert p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
+    assert patient_unit = p.units.take()
+    assert_not patient_unit.addDoctor(99999999999)
     assert_not DoctorUnit.find_by(doctor_id: 99999999999, unit_id: patient_unit.id)
   end
 
@@ -22,9 +22,10 @@ class UnitTest < ActiveSupport::TestCase
     p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
     patient_unit = p.units.take()
-    patient_unit.addDoctor(Doctor.take().id)
-    patient_unit.removeDoctor(Doctor.take().id)
-    assert_not DoctorUnit.find_by(doctor_id: Doctor.take().id, unit_id: patient_unit.id)
+    doc = Doctor.take()
+    assert patient_unit.addDoctor(doc.id)
+    assert patient_unit.removeDoctor(doc.id)
+    assert_not doc.units.find_by(id: patient_unit.id)
   end
 
   test "invalid remove Doctor" do
@@ -38,7 +39,7 @@ class UnitTest < ActiveSupport::TestCase
     p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
     patient_unit = p.units.take()
-    patient_unit.addNote({test: "qzodjqs", po: "azeae"})
+    assert patient_unit.addNote({test: "qzodjqs", po: "azeae"})
     assert p.notes
   end
 

@@ -9,7 +9,8 @@ class GeneralUnit < ApplicationRecord
 	# =======================================
 
 	has_many	:units
-	has_many	:doctors, 	through: :units
-	has_many	:patients, 	through: :units
+	has_many	:patients, through: :units
+	has_many	:general_unit_doctors
+	has_many	:doctors, through: :general_unit_doctors
 
 end

@@ -1,13 +1,21 @@
 require 'test_helper'
 
 class DoctorControllerTest < ActionDispatch::IntegrationTest
+
+    def login
+        post "/api/login", params: {password: "12345678", email: "doctor@gmail.com"}
+        return JSON.parse(@response.body)
+    end
+
     test "valid signin" do
         post "/api/doctors/signin",
             params: {first_name: "test",
                 last_name: "test",
                 password: "testest",
                 phone_number: "0616728356",
-                email: "test@test.com"}
+                email: "test@test.com",
+                default_units: [1, 2]
+            }
         assert_response :success
     end
 
@@ -16,7 +24,9 @@ class DoctorControllerTest < ActionDispatch::IntegrationTest
             params: {last_name: "test",
                 password: "testest",
                 phone_number: "0616728356",
-                email: "test@test.com"}
+                email: "test@test.com",
+                default_units: [1]
+            }
         assert_response 422
     end
 
@@ -26,7 +36,33 @@ class DoctorControllerTest < ActionDispatch::IntegrationTest
                 last_name: "doctor",
                 password: "12345678",
                 phone_number: "0616728356",
-                email: "doctor@gmail.com"}
+                email: "doctor@gmail.com",
+                default_units: [1, 2]
+            }
+        assert_response 422
+    end
+
+    test "doctor valid add unit" do
+        hash = login()
+        patch "/api/doctors/add_unit", params: { unit: 3 }, headers: { 'Authorization' => hash["login_token"] }
+        assert_response :success
+    end
+
+    test "doctor invalid add unit" do
+        hash = login()
+        patch "/api/doctors/add_unit", params: { unit: 1 }, headers: { 'Authorization' => hash["login_token"] }
+        assert_response 422
+    end
+
+    test "doctor valid remove unit" do
+        hash = login()
+        patch "/api/doctors/remove_unit", params: { unit: 1 }, headers: { 'Authorization' => hash["login_token"] }
+        assert_response :success
+    end
+
+    test "doctor invalid remove unit" do
+        hash = login()
+        patch "/api/doctors/remove_unit", params: { unit: 9999999999 }, headers: { 'Authorization' => hash["login_token"] }
         assert_response 422
     end
 
