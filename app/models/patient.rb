@@ -47,7 +47,9 @@ class Patient < ApplicationRecord
 
 	# Check if patient have module
 	def has_unit?(general_unit)
-		self.general_unit_ids.include?(general_unit)
+		u = Unit.find_by(general_unit_id: general_unit, patient_id: self.id)
+		return false if u.nil?
+		return true
 	end
 
 	# Fetch user associated with patient
