@@ -5,7 +5,6 @@ class Api::Doctors::PatientsController < ApplicationController
 		user_attrs = [:id, :email, :first_name, :last_name]
 		patients = current_doctor.patients
 		render json: patients.to_json({
-			only: [:id],
 			include: {
 				user: { only: user_attrs }
 			}
