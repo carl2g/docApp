@@ -34,17 +34,15 @@ ActiveRecord::Schema.define(version: 2019_08_09_172356) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.string "data_field"
-    t.string "filter"
-    t.string "available_info"
+    t.json "filter", default: {}
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "unit_id"
-    t.text "data"
+    t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "filter"
+    t.json "filter", default: {}
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 
@@ -55,7 +53,7 @@ ActiveRecord::Schema.define(version: 2019_08_09_172356) do
   create_table "units", force: :cascade do |t|
     t.integer "patient_id"
     t.integer "general_unit_id"
-    t.string "filter"
+    t.json "filter", default: "\"{}\""
     t.index ["general_unit_id"], name: "index_units_on_general_unit_id"
     t.index ["patient_id"], name: "index_units_on_patient_id"
   end

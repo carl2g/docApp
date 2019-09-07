@@ -21,8 +21,8 @@ class Api::Patients::NotesController < ApplicationController
 	end
 
 	def index
-		notes = current_patient.notes.select(:id, :data)
-		render json: { notes: notes }, status: :ok
+		notes = current_patient.notes
+		render json: notes: notes(only: [:id, :data]), status: :ok
 	end
 
 private
