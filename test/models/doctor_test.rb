@@ -3,7 +3,7 @@ require 'test_helper'
 class DoctorTest < ActiveSupport::TestCase
 
   test "valid createDoctor" do
-    assert Doctor.createDoctor({first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', default_units: [1]})
+    assert Doctor.createDoctor({first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998', default_units: [1]})
   end
 
   test "generate Doctor with invalid params - no first_name" do

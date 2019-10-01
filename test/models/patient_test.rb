@@ -3,7 +3,7 @@ require 'test_helper'
 class PatientTest < ActiveSupport::TestCase
 
   test "valid createPatient" do
-    assert Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    assert Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998')
   end
 
   test "generate patient with invalid params - no first_name" do
@@ -32,7 +32,7 @@ class PatientTest < ActiveSupport::TestCase
   end
 
   test "valid add unit" do
-    p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998')
     assert p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
   end
 

@@ -7,6 +7,8 @@ class PatientControllerTest < ActionDispatch::IntegrationTest
                 last_name: "test",
                 password: "testest",
                 phone_number: "0616728356",
+                birthdate: '25/04/1998',
+                civility: 'Mr',
                 email: "test@test.com"}
         assert_response :success
     end

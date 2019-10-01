@@ -22,7 +22,9 @@ private
 			:last_name,
 			:password,
 			:phone_number,
-			:email
+			:email,
+			:civility,
+			:birthdate
 		]
 	end
 
