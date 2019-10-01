@@ -10,7 +10,16 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_08_09_172356) do
+ActiveRecord::Schema.define(version: 2019_09_22_101703) do
+
+  create_table "doctor_unit_notes", force: :cascade do |t|
+    t.integer "note_id"
+    t.integer "doctor_unit_id"
+    t.json "filter"
+    t.json "string"
+    t.index ["doctor_unit_id"], name: "index_doctor_unit_notes_on_doctor_unit_id"
+    t.index ["note_id"], name: "index_doctor_unit_notes_on_note_id"
+  end
 
   create_table "doctor_units", force: :cascade do |t|
     t.integer "doctor_id"
@@ -42,7 +51,6 @@ ActiveRecord::Schema.define(version: 2019_08_09_172356) do
     t.json "data"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.json "filter", default: {}
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 
