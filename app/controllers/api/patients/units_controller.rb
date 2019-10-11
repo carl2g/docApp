@@ -6,27 +6,27 @@ class Api::Patients::UnitsController < ApplicationController
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
 
 		if !patient_unit
-			render json : { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
-		end
-
-		if patient_unit.addDoctor(params[:doctor_id])
-			render json: {}, status: :ok
+			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		else
-			render json: { errors: "Patient already has this Doctor or he doesn't exist : #{params[:doctor_id]}" }, status: :not_found
+			if patient_unit.addDoctor(params[:doctor_id])
+				render json: {}, status: :ok
+			else
+				render json: { errors: "Patient already has this Doctor or he doesn't exist : #{params[:doctor_id]}" }, status: :not_found
+			end
 		end
 	end
 
 	def remove_doctor
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
 
-		if !patient_unit
-			render json : { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
-		end
-
-		if patient_unit.removeDoctor(params[:doctor_id])
-			render json: {}, status: :ok
+		if patient_unit.nil?
+			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		else
-			render json: { errors: "Patient doesn't have this Doctor: #{params[:doctor_id]} on unit: #{params[:unit_id]}" }, status: :not_found
+			if patient_unit.removeDoctor(params[:doctor_id])
+				render json: {}, status: :ok
+			else
+				render json: { errors: "Patient doesn't have this Doctor: #{params[:doctor_id]} on unit: #{params[:unit_id]}" }, status: :not_found
+			end
 		end
 	end
 
@@ -37,7 +37,7 @@ class Api::Patients::UnitsController < ApplicationController
 			notes = patient_unit.notes
 			render json: notes.to_json(only: [:id, :data]), status: :ok
 		else
-			render json : { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
+			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		end
 	end
 
@@ -46,7 +46,7 @@ class Api::Patients::UnitsController < ApplicationController
 		if patient_unit && patient_unit.addNote(params[:data])
 			render json: {}, status: :ok
 		else
-			render json : { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
+			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		end
 
 	end
@@ -58,7 +58,7 @@ class Api::Patients::UnitsController < ApplicationController
 			patient_unit.destroy
 			render json: { }, status: :ok
 		else
-			render json : { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
+			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		end
 	end
 
