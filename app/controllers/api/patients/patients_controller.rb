@@ -15,8 +15,7 @@ class Api::Patients::PatientsController < ApplicationController
 	end
 
 	def index
-		user_attrs = [:id, :email, :first_name, :last_name, :birthdate, :civility]
-		render json: current_patient.user.to_json({only: user_attrs}), status: :ok
+		render json: current_patient.user.to_json({only: [:id, :email, :first_name, :last_name, :birthdate, :civility] }), status: :ok
 	end
 
 private
