@@ -25,7 +25,7 @@ class User < ApplicationRecord
   		loop do
       		self.login_token = SecureRandom.urlsafe_base64(32, false)
       		break if self.save
-    		end
+    	end
   	end
 
   	def self.generate_user(params)

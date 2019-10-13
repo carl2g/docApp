@@ -11,14 +11,11 @@ Rails.application.routes.draw do
 
 				############### Patients controller ###############
 				post 	'/signin', 				to: 'patients#signin'
+				get 	'/',							to: 'patients#index'
 
 				############### General Units controller ###############
 				resources :general_units do
 					patch '/add_unit', 		to: 'general_units#add_unit'
-
-					collection do
-						get 	'/my_units', 	to: 'general_units#my_units'
-					end
 				end
 
 				############### Units controller ###############
@@ -61,7 +58,6 @@ Rails.application.routes.draw do
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-		get 	'/available_units', 				to: 'general_units#index'
 
 	end
 end

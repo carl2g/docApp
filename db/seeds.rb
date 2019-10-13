@@ -33,10 +33,11 @@ puts "===================== Building Doctors ====================="
 doc = Doctor.createDoctor({first_name: 'doctor', last_name: 'doctor', email: 'doctor@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
 doc.user.update!(login_token: 'TwM4Wb6IRHeyT4r8BtUoYZOZxGNTo8dcWEucAomFGDo')
 
-# doc1 = Doctor.createDoctor({first_name: 'doctor_1', last_name: 'doctor_1', email: 'doctor_1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1]})
-# doc2 = Doctor.createDoctor({first_name: 'doctor_2', last_name: 'doctor_2', email: 'doctor_2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
+doc1 = Doctor.createDoctor({first_name: 'doctor_1', last_name: 'doctor_1', email: 'doctor_1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1]})
+doc2 = Doctor.createDoctor({first_name: 'doctor_2', last_name: 'doctor_2', email: 'doctor_2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
 # doc3 = Doctor.createDoctor({first_name: 'doctor_3', last_name: 'doctor_3', email: 'doctor_3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [3]})
-
+pa.units.find_by(general_unit_id: 1).addDoctor(doc2.id)
+pa.units.find_by(general_unit_id: 1).addDoctor(doc1.id)
 p1.units.find_by(general_unit_id: 1).addDoctor(doc.id)
 p1.units.find_by(general_unit_id: 2).addDoctor(doc.id)
 p2.units.find_by(general_unit_id: 1).addDoctor(doc.id)
