@@ -76,6 +76,8 @@ ActiveRecord::Schema.define(version: 2019_09_22_101703) do
     t.time "last_connection"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.string "birthdate"
+    t.string "civility"
   end
 
 end

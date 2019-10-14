@@ -14,6 +14,8 @@ class DoctorControllerTest < ActionDispatch::IntegrationTest
                 password: "testest",
                 phone_number: "0616728356",
                 email: "test@test.com",
+                birthdate: '25/04/1998',
+                civility: 'Mr',
                 default_units: [1, 2]
             }
         assert_response :success
@@ -65,5 +67,4 @@ class DoctorControllerTest < ActionDispatch::IntegrationTest
         patch "/api/doctors/remove_unit", params: { unit: 9999999999 }, headers: { 'Authorization' => hash["login_token"] }
         assert_response 422
     end
-
 end

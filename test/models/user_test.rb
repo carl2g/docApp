@@ -3,7 +3,7 @@ require 'test_helper'
 class UserTest < ActiveSupport::TestCase
 
   test "generate user with valid params" do
-    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998')
     # user = User.new(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
     # user.save
  #   u = User.find_by(email: 'test@hotmail.com')
@@ -37,7 +37,7 @@ class UserTest < ActiveSupport::TestCase
   end
 
   test "valid authenticate" do
-    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest')
+    User.generate_user(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998')
     assert User.authenticate('test@hotmail.com', 'testest')
   end
 
