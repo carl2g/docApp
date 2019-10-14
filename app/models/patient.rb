@@ -34,7 +34,8 @@ class Patient < ApplicationRecord
 
 	# Get all existing notes
 	def notes
-		self.units.sum { |i| i.notes }
+		notes = self.units.sum { |u| u.notes }
+		return notes == 0 ? [] : notes
 	end
 
 	# Add a Unit to a user

@@ -8,8 +8,8 @@ class Doctor < ApplicationRecord
 
 	# Association objects
 	has_many	:doctor_units
+	has_many 	:doctor_unit_notes, through: :doctor_units
 	has_many	:units, through: :doctor_units
-	has_many 	:notes, through: :doctor_units
 	has_many	:patients, through: :units
 	has_many	:general_unit_doctors
 	has_many	:general_units, through: :general_unit_doctors
@@ -72,8 +72,20 @@ class Doctor < ApplicationRecord
         doctor_unit = self.doctor_units.find_by(unit_id: unit.id)
         filter = unit.filter
         notes.each do |note|
-        	DoctorUnitNote.create!(filter: filter, note: note, doctor_unit: doctor_unit)
+        	note = doctor_unit.notes.find_by(id: note.id)
+        	doc_unit_note = note.doctor_unit_notes.find_by(doctor_unit_id: self.doctor_units)
+        	if doc_unit_note
+        		doc_unit_note.update(filter: filter)
+        	else
+        		DoctorUnitNote.create!(filter: filter, note: note, doctor_unit: doctor_unit)
+        	end
         end
+  	end
+
+  	def notes
+  		self.doctor_unit_notes.sum do |m|
+  			m.note.data.to_json(m.filter.symbolize_keys)
+  		end
   	end
 
 end
