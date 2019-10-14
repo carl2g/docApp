@@ -3,9 +3,9 @@ class Api::Doctors::PatientsController < ApplicationController
 
 	# try to send data by acceding via units and not patients
 	def index
-		patients = current_doctor.patients
-		render json: patients.to_json({
-			only: [:id, :unit_id],
+		units = current_doctor.units
+		render json: units.to_json({
+			only: [:id, :patient_id],
 			include: {
 				general_unit: { only: [:id, :name] }
 			}
