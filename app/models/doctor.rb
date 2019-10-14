@@ -83,8 +83,17 @@ class Doctor < ApplicationRecord
   	end
 
   	def notes
+  		user_attrs = [:email, :first_name, :last_name]
   		self.doctor_unit_notes.sum do |m|
-  			m.note.data.to_json(m.filter.symbolize_keys)
+  			{
+  				data: m.note.data.to_json(m.filter.symbolize_keys),
+  				patient: m.patient.to_json({
+  					only: [:id],
+  					include: {
+						user: { only: user_attrs }
+					}
+				})
+  			}
   		end
   	end
 

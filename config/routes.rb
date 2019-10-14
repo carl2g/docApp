@@ -59,6 +59,10 @@ Rails.application.routes.draw do
 
 			end
 
+			resources :notes do 
+				
+			end
+
 		end
 
 		post 	'/login', 						to: 'sessions#login'

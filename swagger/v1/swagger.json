@@ -5,6 +5,32 @@
     "version": "v1"
   },
   "paths": {
+    "/api/doctors/notes": {
+      "get": {
+        "summary": "get all notes",
+        "tags": [
+          "Doctor / Note"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
     "/api/doctors/patients": {
       "get": {
         "summary": "get all assigne patient for a given doctor",
