@@ -40,8 +40,7 @@ class Unit < ApplicationRecord
 	end
 
 	def addNote(data)
-		filter = self.filter || self.general_unit.filter
-		self.notes << Note.create({ data: data.to_json, filter: filter })
+		self.notes << Note.create({ data: data.to_json })
 		return self.save
 	end
 end

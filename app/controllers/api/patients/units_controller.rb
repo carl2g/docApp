@@ -70,6 +70,17 @@ class Api::Patients::UnitsController < ApplicationController
 		} ), status: :ok
 	end
 
+    def change_filter
+        patient_unit = current_patient.units.find_by(id: params[:unit_id])
+        note_filter = params[:filter]
+        if note_filter && patient_unit && patient_unit.update(filter: note_filter)
+            render json: {}, status: :ok
+        else
+            render json: { errors: "someting whent rong when updating filter" }, status: :unprocessable_entity
+        end
+    end
+
+
     def share_notes
         unit = Unit.find_by(id: params[:unit_id])
         doctors = unit.doctors.where(id: params[:doctor_ids])
