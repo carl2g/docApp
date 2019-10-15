@@ -37,10 +37,10 @@ class User < ApplicationRecord
   	end
 
   	def self.authenticate(email, password)
-  		user = User.find_by(email: email)
+			user = User.find_by(email: email)
   		if user.present? && BCrypt::Password.new(user.password) == password
-  			user.generate_token
-  		else
+				user.generate_token
+			else
   			return nil
   		end
 		  return user

@@ -9,9 +9,7 @@ class Api::SessionsController < ApplicationController
 	end
 
 	def login
-		token = request.headers['Authorization']
 		user = User.authenticate(params[:email], params[:password])
-		user ||= User.find_by(login_token: token) if token
 
 		if user
 			session[:login_token] = user.login_token
