@@ -21,7 +21,7 @@ class Api::Patients::DoctorsController < ApplicationController
 			only: [:id],
 			include: {
 				general_unit: { only: [:id, :name]},
-				doctors: { except: [:id, :user_id], include: { user: {only: user_attrs } } }
+				doctors: { except: [:user_id], include: { user: {only: user_attrs } } }
 			}
 		}), status: :ok
 	end
