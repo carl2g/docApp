@@ -9,7 +9,6 @@ class Api::SessionsController < ApplicationController
 	end
 
 	def login
-		token = request.headers['Authorization']
 		user = User.authenticate(params[:email], params[:password])
 
 		if user
