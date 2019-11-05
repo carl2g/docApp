@@ -41,17 +41,27 @@ Rails.application.routes.draw do
 
 				############### Notes controller ###############
 				resources :notes do
+				end
 
+				############### Profile controller ###############
+				resources :profile do
 				end
 		end
 
+
 		namespace :doctors do
+
+			############### Doctor controller ###############
 			post 	'/signin', 	to: 'doctors#signin'
 			patch '/add_unit',	to: 'doctors#add_unit'
 			patch '/remove_unit',	to: 'doctors#remove_unit'
 
 			resources :patients do
 
+			end
+
+			############### Profile controller ###############
+			resources :profile do
 			end
 
 		end
