@@ -71,11 +71,10 @@ class Doctor < ApplicationRecord
   		unit = Unit.find_by(id: unit_id)
         patient = unit.patient
 
-
         notes = patient.notes.where(id: note_ids)
         doctor_unit = self.doctor_units.find_by(unit_id: unit.id)
         filter = unit.filter
-        
+
         notes.each do |note|
         	note = doctor_unit.notes.find_by(id: note.id) || note
         	doc_unit_note = note.doctor_unit_notes.find_by(doctor_unit_id: self.doctor_units)

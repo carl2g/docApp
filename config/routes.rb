@@ -56,8 +56,8 @@ Rails.application.routes.draw do
 
 			end
 
-			resources :notes do 
-				
+			resources :notes do
+	
 			end
 
 		end

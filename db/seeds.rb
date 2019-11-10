@@ -55,6 +55,7 @@ doc1 = Doctor.createDoctor({first_name: 'doctor_1', last_name: 'doctor_1', email
 doc2 = Doctor.createDoctor({first_name: 'doctor_2', last_name: 'doctor_2', email: 'doctor_2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
 doc3 = Doctor.createDoctor({first_name: 'doctor_3', last_name: 'doctor_3', email: 'doctor_3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [3]})
 pa.units.find_by(general_unit_id: 1).addDoctor(doc.id)
+pa.units.find_by(general_unit_id: 1).addDoctor(doc3.id)
 pa.units.find_by(general_unit_id: 1).addDoctor(doc2.id)
 pa.units.find_by(general_unit_id: 1).addDoctor(doc1.id)
 p1.units.find_by(general_unit_id: 1).addDoctor(doc.id)
