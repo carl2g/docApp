@@ -3,10 +3,10 @@ class Api::Patients::DoctorsController < ApplicationController
 	before_action :authenticate_user
 
 	def index
-		user_attrs = [:id, :email, :first_name, :last_name]
+		user_attrs = [:email, :first_name, :last_name]
 		doctors = Doctor.all
 		render json: doctors.to_json({
-			except: [:id, :user_id],
+			except: [:user_id],
 			include: {
 				user: { only: user_attrs },
 				general_units: { only: [:id, :name] }
