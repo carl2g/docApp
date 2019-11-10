@@ -15,8 +15,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_101703) do
   create_table "doctor_unit_notes", force: :cascade do |t|
     t.integer "note_id"
     t.integer "doctor_unit_id"
-    t.json "filter"
-    t.json "string"
+    t.json "filter", default: {}
     t.index ["doctor_unit_id"], name: "index_doctor_unit_notes_on_doctor_unit_id"
     t.index ["note_id"], name: "index_doctor_unit_notes_on_note_id"
   end
@@ -48,7 +47,7 @@ ActiveRecord::Schema.define(version: 2019_09_22_101703) do
 
   create_table "notes", force: :cascade do |t|
     t.integer "unit_id"
-    t.json "data"
+    t.json "data", default: "\"{}\""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.index ["unit_id"], name: "index_notes_on_unit_id"

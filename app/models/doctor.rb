@@ -70,11 +70,14 @@ class Doctor < ApplicationRecord
   	def share_notes(unit_id, note_ids)
   		unit = Unit.find_by(id: unit_id)
         patient = unit.patient
+
+
         notes = patient.notes.where(id: note_ids)
         doctor_unit = self.doctor_units.find_by(unit_id: unit.id)
         filter = unit.filter
+        
         notes.each do |note|
-        	note = doctor_unit.notes.find_by(id: note.id)
+        	note = doctor_unit.notes.find_by(id: note.id) || note
         	doc_unit_note = note.doctor_unit_notes.find_by(doctor_unit_id: self.doctor_units)
         	if doc_unit_note
         		doc_unit_note.update(filter: filter)
@@ -86,9 +89,9 @@ class Doctor < ApplicationRecord
 
   	def notes
   		user_attrs = [:email, :first_name, :last_name]
-  		self.doctor_unit_notes.sum do |m|
+  		notes = self.doctor_unit_notes.map do |m|
   			{
-  				data: m.note.data.to_json(m.filter.symbolize_keys),
+  				data: JSON.parse(m.note.data).as_json(m.filter.symbolize_keys),
   				patient: m.patient.to_json({
   					only: [:id],
   					include: {
@@ -97,6 +100,7 @@ class Doctor < ApplicationRecord
 				})
   			}
   		end
+  		return notes
   	end
 
 end
