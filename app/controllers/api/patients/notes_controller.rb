@@ -5,7 +5,7 @@ class Api::Patients::NotesController < ApplicationController
 	def destroy
 		note = current_patient.notes.find_by(id: params[:id])
 		if note && note.destroy
-			render json: { }, status: :ok
+			render json: {}, status: :ok
 		else
 			render json: { errors: "Note not found" }, status: :not_found
 		end
@@ -21,8 +21,8 @@ class Api::Patients::NotesController < ApplicationController
 	end
 
 	def index
-		notes = current_patient.notes.select(:id, :data)
-		render json: { notes: notes }, status: :ok
+		notes = current_patient.notes
+		render json: notes.to_json(only: [:id, :data]), status: :ok
 	end
 
 private

@@ -8,6 +8,7 @@ class Doctor < ApplicationRecord
 
 	# Association objects
 	has_many	:doctor_units
+	has_many 	:doctor_unit_notes, through: :doctor_units
 	has_many	:units, through: :doctor_units
 	has_many	:patients, through: :units
 	has_many	:general_unit_doctors
@@ -64,6 +65,41 @@ class Doctor < ApplicationRecord
 		gu = self.general_units.find_by(id: general_unit_id)
 		return false if gu.nil?
 		return self.general_units.delete(gu).nil? ? false : self.save
+  	end
+
+  	def share_notes(unit_id, note_ids)
+  		unit = Unit.find_by(id: unit_id)
+        patient = unit.patient
+
+        notes = patient.notes.where(id: note_ids)
+        doctor_unit = self.doctor_units.find_by(unit_id: unit.id)
+        filter = unit.filter
+
+        notes.each do |note|
+        	note = doctor_unit.notes.find_by(id: note.id) || note
+        	doc_unit_note = note.doctor_unit_notes.find_by(doctor_unit_id: self.doctor_units)
+        	if doc_unit_note
+        		doc_unit_note.update(filter: filter)
+        	else
+        		DoctorUnitNote.create!(filter: filter, note: note, doctor_unit: doctor_unit)
+        	end
+        end
+  	end
+
+  	def notes
+  		user_attrs = [:email, :first_name, :last_name]
+  		notes = self.doctor_unit_notes.map do |m|
+  			{
+  				data: JSON.parse(m.note.data).as_json(m.filter.symbolize_keys),
+  				patient: m.patient.to_json({
+  					only: [:id],
+  					include: {
+						user: { only: user_attrs }
+					}
+				})
+  			}
+  		end
+  		return notes
   	end
 
 end

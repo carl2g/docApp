@@ -4,7 +4,7 @@ class Unit < ApplicationRecord
 	# =======================================
 	# patient: 		obj
 	# doctor: 		obj
-	# general_unit: 	obj
+	# general_unit: obj
 	# notes: 		obj collection
 	# =======================================
 
@@ -13,6 +13,12 @@ class Unit < ApplicationRecord
 	has_many	:notes
 	has_many	:doctor_units
 	has_many	:doctors, through: :doctor_units
+
+	after_create :set_filter
+
+	def set_filter
+		self.update(filter: self.general_unit.filter)
+	end
 
 	# Remove a doctor for a unit
 	def removeDoctor(doctor_id)
@@ -34,8 +40,7 @@ class Unit < ApplicationRecord
 	end
 
 	def addNote(data)
-		filter = self.filter || self.general_unit.filter
-		self.notes << Note.create({ data: data.to_json, filter: filter })
+		self.notes << Note.create({ data: data.to_json })
 		return self.save
 	end
 end

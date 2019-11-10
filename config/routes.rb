@@ -22,8 +22,10 @@ Rails.application.routes.draw do
 				resources :units do
 					get 	'/notes', 			to: 'units#notes'
 					post 	'/add_note', 		to: 'units#add_note'
-					patch '/add_doctor', 		to: 'units#add_doctor'
-					patch '/remove_doctor', 	to: 'units#remove_doctor'
+					patch 	'/add_doctor', 		to: 'units#add_doctor'
+					patch 	'/remove_doctor', 	to: 'units#remove_doctor'
+					patch 	'/change_filter', 	to: 'units#change_filter'
+					post 	'/share_notes', 	to: 'units#share_notes'
 
 					collection do
 						get '/my_units', 		to: 'units#my_units'
@@ -46,12 +48,15 @@ Rails.application.routes.draw do
 		end
 
 		namespace :doctors do
-			post 	'/signin', 	to: 'doctors#signin'
-			patch '/add_unit',	to: 'doctors#add_unit'
-			patch '/remove_unit',	to: 'doctors#remove_unit'
+			post 	'/signin', 		to: 'doctors#signin'
+			patch 	'/add_unit',	to: 'doctors#add_unit'
+			patch 	'/remove_unit',	to: 'doctors#remove_unit'
 
 			resources :patients do
 
+			end
+
+			resources :notes do
 			end
 
 		end
