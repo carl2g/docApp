@@ -48,7 +48,6 @@ class Api::Patients::UnitsController < ApplicationController
 		else
 			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		end
-
 	end
 
 	def destroy
@@ -93,7 +92,7 @@ class Api::Patients::UnitsController < ApplicationController
             render json: { }, status: :ok
         else
             render json: { errors: "You do not have this unit" }, status: :not_found
-        end 
+        end
     end
 
 private
