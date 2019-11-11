@@ -87,6 +87,7 @@ Rails.application.configure do
   config.action_mailer.smtp_settings = {
     address:              'chronosymple.gmail.com',
     port:                 587,
+    user_name:            'Carl',
     domain:               'google.com',
     password:             ENV["EMAIL_PASSWORD"],
     enable_starttls_auto: true 
