@@ -685,6 +685,50 @@
           }
         }
       }
+    },
+    "/api/patient_email_confirm": {
+      "post": {
+        "summary": "verify email",
+        "tags": [
+          "Session"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "session",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "email": {
+                  "type": "string"
+                },
+                "name": {
+                  "type": "string"
+                }
+              },
+              "required": [
+                "email",
+                "name"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return token"
+          }
+        }
+      }
     }
   },
   "securityDefinitions": {

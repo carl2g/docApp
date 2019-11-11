@@ -63,6 +63,6 @@ Rails.application.routes.draw do
 
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
-
+		post	'/patient_email_confirm', 		to: 'sessions#patient_email_confirm'
 	end
 end
