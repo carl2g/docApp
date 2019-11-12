@@ -91,6 +91,33 @@ describe 'Patients / Units controller' do
 		end
 	end
 
+	path '/api/patients/units/{unit_id}/change_filter' do
+		patch 'change default filter for a patient unit' do
+
+		      tags 'Patient / Units'
+		      security [{ APIKeyHeader: [] }]
+		      consumes 'application/json'
+		      parameter name: :unit_id, in: :path, type: :integer
+		      parameter name: :unit, in: :body, schema: {
+		        type: :object,
+		        properties: {
+		        	filter: {type: :string}
+		        },
+		      }
+
+		      response '201', 'patients created' do
+		        let(:patients) {}
+		        run_test!
+		      end
+
+		      response '422', 'invalid request' do
+		        let(:patients) { }
+		        run_test!
+		      end
+
+		end
+	end
+
 	path '/api/patients/units/{unit_id}/add_note' do
 		post 'create a note' do
 
@@ -104,6 +131,35 @@ describe 'Patients / Units controller' do
 		          data: {type: :string}
 		        },
 		        required: [ :data ]
+		      }
+
+		      response '201', 'note created' do
+		        run_test!
+		      end
+
+		      response '422', 'invalid request' do
+		        run_test!
+		      end
+
+	    	end
+	end
+
+	path '/api/patients/units/{unit_id}/share_notes' do
+		post 'share notes' do
+
+		      tags 'Patient / Units'
+		      security [{ APIKeyHeader: [] }]
+		      consumes 'application/json'
+		      parameter name: :unit_id, in: :path, type: :integer
+		      parameter name: :data, in: :body, schema: {
+		      	type: :object,
+		        properties: {
+		          note_ids: { type: [:integer]
+		      	},
+		          doctor_ids: { type: [:integer ]
+		      	}
+		        },
+				required: [ :note_ids, :doctor_ids ]
 		      }
 
 		      response '201', 'note created' do

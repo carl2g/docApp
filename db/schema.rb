@@ -12,6 +12,14 @@
 
 ActiveRecord::Schema.define(version: 2019_11_07_110050) do
 
+  create_table "doctor_unit_notes", force: :cascade do |t|
+    t.integer "note_id"
+    t.integer "doctor_unit_id"
+    t.json "filter", default: {}
+    t.index ["doctor_unit_id"], name: "index_doctor_unit_notes_on_doctor_unit_id"
+    t.index ["note_id"], name: "index_doctor_unit_notes_on_note_id"
+  end
+  
   create_table "doctor_units", force: :cascade do |t|
     t.integer "doctor_id"
     t.integer "unit_id"
@@ -34,16 +42,14 @@ ActiveRecord::Schema.define(version: 2019_11_07_110050) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.string "filter"
-    t.string "available_info"
+    t.json "filter", default: {}
   end
 
   create_table "notes", force: :cascade do |t|
     t.integer "unit_id"
-    t.string "data"
+    t.json "data", default: "\"{}\""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.string "filter"
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 
@@ -54,7 +60,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_110050) do
   create_table "units", force: :cascade do |t|
     t.integer "patient_id"
     t.integer "general_unit_id"
-    t.string "filter"
+    t.json "filter", default: "\"{}\""
     t.index ["general_unit_id"], name: "index_units_on_general_unit_id"
     t.index ["patient_id"], name: "index_units_on_patient_id"
   end
