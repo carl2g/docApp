@@ -19,6 +19,7 @@ class User < ApplicationRecord
 	validates :password,		presence: true, length: { minimum: 6 }
 	validates	:birthdate,		presence: true
 	validates	:civility,		presence: true
+	validates	:picture,			presence: false
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
 
   	def generate_token
@@ -44,7 +45,23 @@ class User < ApplicationRecord
   			return nil
   		end
 		  return user
-  	end
+		end
+
+		def change_password(pwd)
+			if pwd.to_s.length >= 6
+				update_columns(password: BCrypt::Password.create(pwd))
+				return true
+			else
+				return false
+			end
+		end
+
+		def is_password_valid(pwd)
+			if BCrypt::Password.new(password) != pwd
+				return false;
+			end
+			return true;
+		end
 
     def full_name
       return first_name + " " + last_name

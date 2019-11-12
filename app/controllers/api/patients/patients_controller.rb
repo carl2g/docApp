@@ -28,7 +28,8 @@ private
 			:phone_number,
 			:email,
 			:civility,
-			:birthdate
+			:birthdate,
+			:picture
 		]
 	end
 

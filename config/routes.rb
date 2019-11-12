@@ -44,7 +44,12 @@ Rails.application.routes.draw do
 				end
 
 				############### Profile controller ###############
-				resources :profile do
+				resources :profiles do
+					collection do
+						post '/update', to: 'profiles#update'
+						post '/change_password', to: 'profiles#change_password'
+						post '/check_password', to: 'profiles#check_password'
+					end
 				end
 		end
 
@@ -61,7 +66,12 @@ Rails.application.routes.draw do
 			end
 
 			############### Profile controller ###############
-			resources :profile do
+			resources :profiles do
+				collection do
+					post '/update', to: 'profiles#update'
+					post '/change_password', to: 'profiles#change_password'
+					post '/check_password', to: 'profiles#check_password'
+				end
 			end
 
 		end

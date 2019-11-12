@@ -28,7 +28,8 @@ class Doctor < ApplicationRecord
 			password: params[:password],
 			phone_number: params[:phone_number],
 			birthdate: params[:birthdate],
-			civility: params[:civility]
+			civility: params[:civility],
+			picture: params[:picture]
 		}
 
 		new_user 	= User.generate_user(user_params)
