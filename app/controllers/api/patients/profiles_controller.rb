@@ -19,7 +19,7 @@ class Api::Patients::ProfilesController < ApplicationController
   def change_password
     params.require(:old_password, :new_password)
     if current_patient.user.is_password_valid(params[:old_password])
-      if current_patient.user.change_password(params[:new_password])
+      if current_patient.user.update(password: params[:new_password])
         render status: :ok
       else
         render json: { errors: "New password is too short for user: #{current_patient.user.id}, password length need to be superior or equal to 6 characters"}, status: :forbidden

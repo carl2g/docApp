@@ -53,10 +53,6 @@ class User < ApplicationRecord
 		  return user
 		end
 
-		def change_password(pwd)
-			return self.update(password: pwd)
-		end
-
 		def is_password_valid(pwd)
 			if BCrypt::Password.create(password) != pwd
 				return false;
