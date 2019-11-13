@@ -5,6 +5,32 @@
     "version": "v1"
   },
   "paths": {
+    "/api/doctors/notes": {
+      "get": {
+        "summary": "get all notes",
+        "tags": [
+          "Doctor / Note"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "ok"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
     "/api/doctors/patients": {
       "get": {
         "summary": "get all assigne patient for a given doctor",
@@ -445,6 +471,52 @@
         }
       }
     },
+    "/api/patients/units/{unit_id}/change_filter": {
+      "patch": {
+        "summary": "change default filter for a patient unit",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "unit",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "filter": {
+                  "type": "string"
+                }
+              }
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "patients created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
     "/api/patients/units/{unit_id}/add_note": {
       "post": {
         "summary": "create a note",
@@ -480,6 +552,63 @@
               },
               "required": [
                 "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "201": {
+            "description": "note created"
+          },
+          "422": {
+            "description": "invalid request"
+          }
+        }
+      }
+    },
+    "/api/patients/units/{unit_id}/share_notes": {
+      "post": {
+        "summary": "share notes",
+        "tags": [
+          "Patient / Units"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "unit_id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "data",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "note_ids": {
+                  "type": [
+                    "integer"
+                  ]
+                },
+                "doctor_ids": {
+                  "type": [
+                    "integer"
+                  ]
+                }
+              },
+              "required": [
+                "note_ids",
+                "doctor_ids"
               ]
             }
           }

@@ -6,6 +6,8 @@ class Note < ApplicationRecord
 	# filter: 		json sting
 	# =======================================
 
-	belongs_to :unit
+	belongs_to 	:unit
+	has_many 	:doctor_unit_notes
+	has_many    :doctor_units, through: :doctor_unit_notes
 
 end

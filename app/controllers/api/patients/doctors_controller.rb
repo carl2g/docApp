@@ -26,9 +26,6 @@ class Api::Patients::DoctorsController < ApplicationController
 		}), status: :ok
 	end
 
-	# {id: 2, user: { id: 3}}.to_h.to_json(query)
-	# JSON.parse('{"include": ["user", {"units": { "include":  "doctor" }} ]}', {symbolize_names: true})
-
 private
 
 	def permited_params
