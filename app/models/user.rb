@@ -12,6 +12,7 @@ class User < ApplicationRecord
 	# =======================================
 
 	after_create :generate_token
+	before_update :cipher_password, if: -> { password_changed? }
 
 	validates :first_name,	presence: true
 	validates :last_name,		presence: true
@@ -20,6 +21,11 @@ class User < ApplicationRecord
 	validates	:birthdate,		presence: true
 	validates	:civility,		presence: true
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
+
+	def cipher_password
+		return false if !self.valid?
+		self.password = BCrypt::Password.create(self.password)
+	end
 
   	def generate_token
   		loop do
@@ -31,19 +37,19 @@ class User < ApplicationRecord
   	def self.generate_user(params)
   		new_user = User.new(params)
   		if new_user.save
-  			new_user.update({ password: BCrypt::Password.create(new_user.password) })
+  			new_user.update({ password: new_user.password })
   		end
   		return new_user
   	end
 
   	def self.authenticate(email, password)
-			user = User.find_by(email: email)
+		user = User.find_by(email: email)
   		if user.present? && BCrypt::Password.new(user.password) == password
 				user.generate_token
-			else
+		else
   			return nil
   		end
-		  return user
+		return user
   	end
 
     def full_name
