@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
 				############### Patients controller ###############
 				post 	'/signin', 				to: 'patients#signin'
-				get 	'/',							to: 'patients#index'
 
 				############### General Units controller ###############
 				resources :general_units do
@@ -43,11 +42,21 @@ Rails.application.routes.draw do
 
 				############### Notes controller ###############
 				resources :notes do
+				end
 
+				############### Profile controller ###############
+				resources :profiles do
+					collection do
+						post '/update', to: 'profiles#update'
+						post '/change_password', to: 'profiles#change_password'
+						post '/check_password', to: 'profiles#check_password'
+					end
 				end
 		end
 
+
 		namespace :doctors do
+
 			post 	'/signin', 		to: 'doctors#signin'
 			patch 	'/add_unit',	to: 'doctors#add_unit'
 			patch 	'/remove_unit',	to: 'doctors#remove_unit'
@@ -55,6 +64,14 @@ Rails.application.routes.draw do
 			resources :patients do
 
 			end
+
+			resources :profiles do
+				collection do
+					post '/update', to: 'profiles#update'
+					post '/change_password', to: 'profiles#change_password'
+					post '/check_password', to: 'profiles#check_password'
+				end
+      end
 
 			resources :notes do
 			end

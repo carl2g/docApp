@@ -10,4 +10,8 @@ class Note < ApplicationRecord
 	has_many 	:doctor_unit_notes
 	has_many    :doctor_units, through: :doctor_unit_notes
 
+	def data
+		self.attributes["data"].gsub('=>', ':')
+	end
+
 end
