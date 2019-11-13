@@ -40,7 +40,7 @@ class Unit < ApplicationRecord
 	end
 
 	def addNote(data)
-		self.notes << Note.create({ data: data })
+		self.notes << Note.create({ data: JSON.parse(data) })
 		return self.save
 	end
 end
