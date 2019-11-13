@@ -3,14 +3,14 @@ class Api::Patients::ProfilesController < ApplicationController
   before_action :authenticate_user
 
   def index
-    render json: current_patient.user.to_json({only: [:id, :email, :first_name, :last_name, :birthdate, :civility, :picture] }), status: :ok
+    render json: current_patient.user.to_json({only: user_data() }), status: :ok
   end
 
   def update
     params.require(:password)
     if current_patient.user.is_password_valid(params[:password])
       current_patient.user.update(permited)
-      render json: current_patient.user.to_json({only: [:id, :email, :first_name, :last_name, :birthdate, :civility, :picture] }), status: :ok
+      render json: current_patient.user.to_json({only: user_data() }), status: :ok
     else
       render json: { errors: "Invalid password for user: #{current_patient.user.id}, cant change his datas"}, status: :forbidden
     end
@@ -52,6 +52,19 @@ class Api::Patients::ProfilesController < ApplicationController
 
   def permited
 		params.permit(permited_params)
-	end
+  end
+
+  def user_data
+    [
+      :id,
+      :first_name,
+      :last_name,
+      :email,
+      :phone_number,
+      :birthdate,
+      :civility,
+      :picture
+    ]
+  end
 
 end

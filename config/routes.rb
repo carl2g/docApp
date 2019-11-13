@@ -11,7 +11,6 @@ Rails.application.routes.draw do
 
 				############### Patients controller ###############
 				post 	'/signin', 				to: 'patients#signin'
-				get 	'/',							to: 'patients#index'
 
 				############### General Units controller ###############
 				resources :general_units do
