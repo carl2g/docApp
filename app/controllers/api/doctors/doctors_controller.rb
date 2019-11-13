@@ -41,6 +41,7 @@ private
 			:password,
 			:phone_number,
 			:email,
+			:picture,
 			:default_units
 		]
 	end

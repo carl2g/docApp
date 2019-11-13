@@ -14,10 +14,6 @@ class Api::Patients::PatientsController < ApplicationController
 		end
 	end
 
-	def index
-		render json: current_patient.user.to_json({only: [:id, :email, :first_name, :last_name, :birthdate, :civility] }), status: :ok
-	end
-
 private
 
 	def permited_params
@@ -28,7 +24,8 @@ private
 			:phone_number,
 			:email,
 			:civility,
-			:birthdate
+			:birthdate,
+			:picture
 		]
 	end
 
