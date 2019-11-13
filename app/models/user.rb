@@ -20,6 +20,7 @@ class User < ApplicationRecord
 	validates :password,		presence: true, length: { minimum: 6 }
 	validates	:birthdate,		presence: true
 	validates	:civility,		presence: true
+	validates	:picture,			presence: false
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
 
 	def cipher_password
@@ -43,14 +44,21 @@ class User < ApplicationRecord
   	end
 
   	def self.authenticate(email, password)
-		user = User.find_by(email: email)
-  		if user.present? && BCrypt::Password.new(user.password) == password
+			user = User.find_by(email: email)
+  		if user.present? && BCrypt::Password.create(user.password) == password
 				user.generate_token
-		else
+			else
   			return nil
   		end
-		return user
-  	end
+		  return user
+		end
+
+		def is_password_valid(pwd)
+			if BCrypt::Password.create(password) != pwd
+				return false;
+			end
+			return true;
+		end
 
     def full_name
       return first_name + " " + last_name
