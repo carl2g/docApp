@@ -13,7 +13,7 @@ class Api::Patients::NotesController < ApplicationController
 
 	def update
 		note = current_patient.notes.find_by(id: params[:id])
-		if note && note.update({data: JSON.parse(params[:data])})
+		if note && note.update({data: params[:data]})
 			render json: { message: "Note successfully updated" }, status: :ok
 		else
 			render json: { errors: "Note not found" }, status: :not_found
