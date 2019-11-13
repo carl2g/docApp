@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 2019_11_07_110050) do
     t.index ["doctor_unit_id"], name: "index_doctor_unit_notes_on_doctor_unit_id"
     t.index ["note_id"], name: "index_doctor_unit_notes_on_note_id"
   end
-  
+
   create_table "doctor_units", force: :cascade do |t|
     t.integer "doctor_id"
     t.integer "unit_id"
