@@ -72,7 +72,7 @@ Rails.application.routes.draw do
 					post '/check_password', to: 'profiles#check_password'
 				end
       end
-      
+
 			resources :notes do
 			end
 
