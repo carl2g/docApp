@@ -48,7 +48,7 @@ p4.addUnit(GeneralUnit.find_by(name: "arthritis").id)
 
 puts "===================== Building Doctors ====================="
 # use this doctor to test routes
-doc = Doctor.createDoctor({first_name: 'doctor', last_name: 'doctor', email: 'doctor@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
+doc = Doctor.createDoctor({first_name: 'doctor', last_name: 'doctor', email: 'doctor_swagger@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1, 2]})
 doc.user.update!(login_token: 'TwM4Wb6IRHeyT4r8BtUoYZOZxGNTo8dcWEucAomFGDo')
 
 doc1 = Doctor.createDoctor({first_name: 'doctor_1', last_name: 'doctor_1', email: 'doctor_1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', default_units: [1]})
