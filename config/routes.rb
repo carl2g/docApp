@@ -71,9 +71,22 @@ Rails.application.routes.draw do
 					post '/change_password', to: 'profiles#change_password'
 					post '/check_password', to: 'profiles#check_password'
 				end
-      end
+      		end
 
 			resources :notes do
+			end
+
+		end
+
+		namespace :admins do
+			
+			resources :notes do
+			end
+
+			resources :patients do
+			end
+
+			resources :doctors do
 			end
 
 		end

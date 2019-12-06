@@ -177,6 +177,7 @@ GEM
     responders (3.0.0)
       actionpack (>= 5.0)
       railties (>= 5.0)
+    rolify (5.2.0)
     rspec (3.8.0)
       rspec-core (~> 3.8.0)
       rspec-expectations (~> 3.8.0)
@@ -258,6 +259,7 @@ DEPENDENCIES
   puma (~> 3.11)
   rails (~> 5.2.1, >= 5.2.1.1)
   responders
+  rolify
   rspec
   rspec-rails
   rswag-api

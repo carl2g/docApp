@@ -11,7 +11,8 @@ class Note < ApplicationRecord
 	has_many    :doctor_units, through: :doctor_unit_notes
 
 	def data
-		self.attributes["data"].gsub('=>', ':')
+		data_val = self.attributes["data"].is_a?(Hash) ? self.attributes["data"].to_s : self.attributes["data"]
+		return data_val.gsub('=>', ':')
 	end
 
 end

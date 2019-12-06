@@ -5,6 +5,55 @@
     "version": "v1"
   },
   "paths": {
+    "/api/admins/notes/{id}": {
+      "patch": {
+        "summary": "edit note when admin",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "type": "integer",
+            "required": true
+          },
+          {
+            "name": "note",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "json"
+                }
+              },
+              "required": [
+                "id",
+                "name",
+                "data",
+                "unit_id"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return token"
+          }
+        }
+      }
+    },
     "/api/doctors/notes": {
       "get": {
         "summary": "get all notes",

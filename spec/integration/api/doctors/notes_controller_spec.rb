@@ -19,6 +19,4 @@ describe 'Doctor / Patients controller' do
     end
   end
 
-
-
 end
