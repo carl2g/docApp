@@ -13,7 +13,7 @@ describe 'edit a note' do
 	        properties: {
 	          data: { type: :json },
 	        },
-	        required: [ :id, :name, :data, :unit_id]
+	        required: [:data]
 	    }
 
 	    response '200', 'return token' do
@@ -22,4 +22,28 @@ describe 'edit a note' do
 	end
 
   end
+
+	describe 'create a note' do
+		path '/api/admins/notes' do
+
+		    post 'create note when admin' do
+			    tags 'Admin'
+			    security [{ APIKeyHeader: [] }]
+			    consumes 'application/json'
+			    parameter name: :note, in: :body, schema: {
+			        type: :object,
+			        properties: {
+			          data: { type: :string },
+			          unit_id: {type: :integer}
+			        },
+			        required: [:data, :unit_id]
+			    }
+
+			    response '200', 'return token' do
+			        run_test!
+			    end
+			end
+		end
+  	end
+
 end

@@ -3,7 +3,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 
 	def update
 		patient = Patient.find_by(id: params[:id])
-		if patient.update(permited_params.except(:id))
+		if patient.update(permited_params)
 			render json: {}, status: :ok
 		else
 			render json: {}, status: :unprocessable_entity

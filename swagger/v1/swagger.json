@@ -39,8 +39,49 @@
                 }
               },
               "required": [
-                "id",
-                "name",
+                "data"
+              ]
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "return token"
+          }
+        }
+      }
+    },
+    "/api/admins/notes": {
+      "post": {
+        "summary": "create note when admin",
+        "tags": [
+          "Admin"
+        ],
+        "security": [
+          {
+            "APIKeyHeader": [
+
+            ]
+          }
+        ],
+        "consumes": [
+          "application/json"
+        ],
+        "parameters": [
+          {
+            "name": "note",
+            "in": "body",
+            "schema": {
+              "type": "object",
+              "properties": {
+                "data": {
+                  "type": "string"
+                },
+                "unit_id": {
+                  "type": "integer"
+                }
+              },
+              "required": [
                 "data",
                 "unit_id"
               ]
