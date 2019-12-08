@@ -7,11 +7,11 @@ class Doctor < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	has_many	:doctor_units
-	has_many 	:doctor_unit_notes, through: :doctor_units
+	has_many	:doctor_units, dependent: :destroy
+	has_many 	:doctor_unit_notes, through: :doctor_units, dependent: :destroy
 	has_many	:units, through: :doctor_units
 	has_many	:patients, through: :units
-	has_many	:general_unit_doctors
+	has_many	:general_unit_doctors, dependent: :destroy
 	has_many	:general_units, through: :general_unit_doctors
 
 	# Delegations
@@ -34,7 +34,7 @@ class Doctor < ApplicationRecord
 		}
 
 		new_user 	= User.generate_user(user_params)
-		doctor 		= Doctor.new({user_id: new_user.id})
+		doctor 		= Doctor.new({user_id: new_user.id, id: new_user.id})
 		if doctor.save
 			doctor.addGeneralUnits(params[:default_units])
 		else

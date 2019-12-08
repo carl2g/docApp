@@ -7,10 +7,10 @@ class Patient < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	has_one		:user
-	has_many	:units
+	has_one		:user, dependent: :destroy
+	has_many	:units, dependent: :destroy
 	has_many	:general_units,	through: :units
-	has_many	:doctor_units, 	through: :units
+	has_many	:doctor_units, 	through: :units, dependent: :destroy
 	has_many	:doctors, through: :doctor_units
 
 	# Delegations
@@ -23,7 +23,7 @@ class Patient < ApplicationRecord
 	# Init  and create patient
 	def self.createPatient(params)
 		new_user 	= User.generate_user(params)
-		patient 	= Patient.new({user_id: new_user.id})
+		patient 	= Patient.new({user_id: new_user.id, id: new_user.id})
 		unless patient.save
 			patient.errors.clear
 			patient.errors.merge!(new_user.errors)

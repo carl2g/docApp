@@ -1,19 +1,42 @@
 class Api::Admins::PatientsController < Api::Admins::AdminsController
 	before_action :authenticate_user, except: [:is_admin?]
 
+	def index
+		data = []
+		Patient.find_each do |pat|
+		  data.push(pat.user)
+		end
+		render json: data.to_json({only: user_attr}), status: :ok
+	end
+
 	def update
 		patient = Patient.find_by(id: params[:id])
 		if patient.update(permited_params)
-			render json: {}, status: :ok
+			render json: { patient.user.to_json(user_attr) }, status: :ok
 		else
-			render json: {}, status: :unprocessable_entity
+			render json: { errors: "Patient you tried to update informations doesn't exist: #{params[:id]}" }, status: :not_found
+		end
+	end
+
+	def delete
+		params.require(:id)
+		patient = Patient.find_by(user_id: params[:id])
+		if patient
+		  Patient.delete(patient.user_id)
+		  render status: :ok
+		else
+		  render json: { errors: "Patient you tried to delete doesn't exist: #{params[:id]}" }, status: :not_found
 		end
 	end
 
 	private
 	
+		def user_attr
+			[:first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture]
+		end
+
 		def permited_params
-			params.require(:patient).permit(user_attributes: [:first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture])
+			params.require(:id).permit(user_attributes: user_attr)
 	 	end
 
 end
