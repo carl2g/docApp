@@ -79,14 +79,22 @@ Rails.application.routes.draw do
 		end
 
 		namespace :admins do
-			
+
 			resources :notes do
 			end
 
 			resources :patients do
+				collection do
+					post '/update', to: 'patients#update'
+					post '/delete', to: 'patients#delete'
+				end
 			end
 
 			resources :doctors do
+				collection do
+					post '/update', to: 'doctors#update'
+					post '/delete', to: 'doctors#delete'
+				end
 			end
 
 		end

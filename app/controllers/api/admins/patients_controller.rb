@@ -19,7 +19,6 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	end
 
 	def delete
-		params.require(:id)
 		patient = Patient.find_by(user_id: params[:id])
 		if patient
 		  Patient.delete(patient.user_id)
@@ -30,7 +29,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	end
 
 	private
-	
+
 		def user_attr
 			[:first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture]
 		end
