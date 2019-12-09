@@ -45,16 +45,16 @@ class User < ApplicationRecord
 
   	def self.authenticate(email, password)
 			user = User.find_by(email: email)
-  		if user.present? && BCrypt::Password.create(user.password) == password
+  		if user.present? && BCrypt::Password.new(user.password) == password
 				user.generate_token
-			else
+		else
   			return nil
   		end
 		  return user
 		end
 
 		def is_password_valid(pwd)
-			if BCrypt::Password.create(password) != pwd
+			if BCrypt::Password.new(slef.password) != pwd
 				return false;
 			end
 			return true;
