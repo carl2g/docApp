@@ -25,7 +25,7 @@ diabet.update(filter: {
     end
 
 puts "===================== Building Patients ====================="
-pa = Patient.createPatient({first_name: 'swager_patient', last_name: 'swager_patient', email: 'swager_patient@gmail.com', password: 'swager75', birthdate: '25/05/1998', civility: 'Mr'})
+pa = Patient.createPatient({first_name: 'patient', last_name: 'patient', email: 'patient@gmail.com', password: 'swager75', birthdate: '25/05/1998', civility: 'Mr'})
 p1 = Patient.createPatient({first_name: 'patient1', last_name: 'patient1', email: 'patient1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr'})
 p2 = Patient.createPatient({first_name: 'patient2', last_name: 'patient2', email: 'patient2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Miss'})
 p3 = Patient.createPatient({first_name: 'patient3', last_name: 'patient3', email: 'patient3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Other'})

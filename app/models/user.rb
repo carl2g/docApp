@@ -13,7 +13,8 @@ class User < ApplicationRecord
 
 	after_create :generate_token
 	before_update :cipher_password, if: -> { password_changed? }
-
+	before_create :cipher_password
+	
 	validates :first_name,	presence: true
 	validates :last_name,		presence: true
 	validates :email,				presence: true, uniqueness: true
@@ -40,6 +41,7 @@ class User < ApplicationRecord
   		if new_user.save
   			new_user.update({ password: new_user.password })
   		end
+  		new_user.cipher_password
   		return new_user
   	end
 
