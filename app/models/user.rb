@@ -54,7 +54,7 @@ class User < ApplicationRecord
 		end
 
 		def is_password_valid(pwd)
-			if BCrypt::Password.new(slef.password) != pwd
+			if BCrypt::Password.new(self.password) != pwd
 				return false;
 			end
 			return true;
