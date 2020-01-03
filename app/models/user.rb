@@ -12,7 +12,7 @@ class User < ApplicationRecord
 	# =======================================
 
 	after_create :generate_token
-	before_update :cipher_password, if: -> { password_changed? }
+	before_save :cipher_password, if: -> { password_changed? }
 
 	validates :first_name,	presence: true
 	validates :last_name,		presence: true
@@ -45,16 +45,16 @@ class User < ApplicationRecord
 
   	def self.authenticate(email, password)
 			user = User.find_by(email: email)
-  		if user.present? && BCrypt::Password.create(user.password) == password
+  		if user.present? && BCrypt::Password.new(user.password) == password
 				user.generate_token
-			else
+		else
   			return nil
   		end
 		  return user
 		end
 
 		def is_password_valid(pwd)
-			if BCrypt::Password.create(password) != pwd
+			if BCrypt::Password.new(self.password) != pwd
 				return false;
 			end
 			return true;
