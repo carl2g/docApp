@@ -13,6 +13,7 @@ class User < ApplicationRecord
 	# =======================================
 
 	after_create :generate_token
+	before_create :cipher_password
 	before_update :cipher_password, if: -> { password_changed? }
 	after_create :assign_default_role
 
@@ -51,7 +52,7 @@ class User < ApplicationRecord
 
   	def self.authenticate(email, password)
 			user = User.find_by(email: email)
-  		if user.present? && BCrypt::Password.create(user.password) == password
+  		if user.present? && BCrypt::Password.new(user.password) == password
 				user.generate_token
 			else
   			return nil
@@ -60,7 +61,7 @@ class User < ApplicationRecord
 		end
 
 		def is_password_valid(pwd)
-			if BCrypt::Password.create(password) != pwd
+			if BCrypt::Password.new(password) != pwd
 				return false;
 			end
 			return true;

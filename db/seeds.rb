@@ -2,6 +2,10 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 
+puts "===================== Building ADMIN ====================="
+admin = User.generate_user({first_name: 'admin', last_name: 'admin', email: 'chronosymple_2021@labeip.epitech.eu', password: 'carlota', birthdate: '01/01/2020', civility: 'Mr', phone_number: '66666666', picture: ''})
+admin.add_role(:admin)
+puts "#{User.find_by(email: 'chronosymple_2021@labeip.epitech.eu').to_json()}"
 puts "===================== Building Modules ====================="
 GeneralUnit.create!({name: 'diabetes', 	color: 'blue', 	icon: 'to be defined'})
 GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
@@ -30,7 +34,6 @@ p1 = Patient.createPatient({first_name: 'patient1', last_name: 'patient1', email
 p2 = Patient.createPatient({first_name: 'patient2', last_name: 'patient2', email: 'patient2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Miss', phone_number: '00918989', picture: ''})
 p3 = Patient.createPatient({first_name: 'patient3', last_name: 'patient3', email: 'patient3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Other', phone_number: '00918989', picture: ''})
 p4 = Patient.createPatient({first_name: 'patient4', last_name: 'patient4', email: 'patient4@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: ''})
-
 
 # use this patient to test routes
 pa.user.update!(login_token: 'pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co')
