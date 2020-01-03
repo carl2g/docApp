@@ -3,7 +3,7 @@ require 'test_helper'
 class UnitsControllerTest < ActionDispatch::IntegrationTest
 
     def login
-        post "/api/login", params: {password: "12345678", email: "patient@gmail.com"}
+        post "/api/login", params: {session: { password: "12345678", email: "patient@gmail.com"}}
         return JSON.parse(@response.body)
     end
 
