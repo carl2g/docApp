@@ -6,13 +6,15 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		Patient.find_each do |pat|
 		  data.push(pat.user)
 		end
-		render json: data.to_json({only: user_attr}), status: :ok
+		attributes = user_attr.concat([:id])
+		attributes.delete(:picture)
+		render json: data.to_json(only: attributes), status: :ok
 	end
 
 	def update
 		patient = Patient.find_by(id: params[:id])
 		if patient.update(permited_params)
-			render json: { patient.user.to_json(user_attr) }, status: :ok
+			render json: patient.user.to_json(user_attr), status: :ok
 		else
 			render json: { errors: "Patient you tried to update informations doesn't exist: #{params[:id]}" }, status: :not_found
 		end
