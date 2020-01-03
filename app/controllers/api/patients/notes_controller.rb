@@ -28,7 +28,7 @@ class Api::Patients::NotesController < ApplicationController
 private
 
 	def permited_params
-		params.require(:note).permite(:data)
+		params.require(:note).permit(:data)
 	end
 
 end
