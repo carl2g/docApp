@@ -1,4 +1,5 @@
 class User < ApplicationRecord
+  rolify
 
 	# class field
 	# =======================================
@@ -12,7 +13,9 @@ class User < ApplicationRecord
 	# =======================================
 
 	after_create :generate_token
-	before_save :cipher_password, if: -> { password_changed? }
+	before_create :cipher_password
+	before_update :cipher_password, if: -> { password_changed? }
+	after_create :assign_default_role
 
 	validates :first_name,	presence: true
 	validates :last_name,		presence: true
@@ -22,6 +25,10 @@ class User < ApplicationRecord
 	validates	:civility,		presence: true
 	validates	:picture,			presence: false
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
+
+	  def assign_default_role()
+	    self.add_role(:normal)
+	  end
 
 	def cipher_password
 		return false if !self.valid?

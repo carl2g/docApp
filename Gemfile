@@ -52,3 +52,5 @@ gem 'rswag-ui'
 gem 'rspec-rails'
 gem 'rswag-specs'
 gem 'guard-rspec'
+
+gem "rolify"
