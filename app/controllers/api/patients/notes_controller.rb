@@ -22,7 +22,7 @@ class Api::Patients::NotesController < ApplicationController
 
 	def index
 		notes = current_patient.notes
-		render json: notes.to_json(only: [:id, :data]), status: :ok
+		render notes.to_json(only: [:id, :data]), status: :ok
 	end
 
 private
