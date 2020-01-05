@@ -13,9 +13,9 @@ class Api::Doctors::PatientsController < ApplicationController
 	end
 
 	def profile
-		patient = Patient.find_by(id: params[:id])
+		patient = Patient.find_by(permited_params)
 		if patient
-			render json: patient.user.to_json(user_attr), status: :ok
+			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
 			render json: { errors: "Patient you tried to get profile informations doesn't exist: #{params[:id]}" }, status: :not_found
 		end
