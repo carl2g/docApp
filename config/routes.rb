@@ -62,7 +62,9 @@ Rails.application.routes.draw do
 			patch 	'/remove_unit',	to: 'doctors#remove_unit'
 
 			resources :patients do
-
+				collection do
+					get '/profile',	to: 'patients#profile'
+				end
 			end
 
 			resources :profiles do
