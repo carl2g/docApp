@@ -7,7 +7,6 @@ class Api::Doctors::ProfilesController < ApplicationController
   end
 
   def update
-    params.require(:password)
     if current_doctor.user.is_password_valid(params[:password])
       current_doctor.user.update(permited)
       render json: current_doctor.user.to_json({only: user_data() }), status: :ok
@@ -17,7 +16,6 @@ class Api::Doctors::ProfilesController < ApplicationController
   end
 
   def change_password
-    params.require([:old_password, :new_password])
     if current_doctor.user.is_password_valid(params[:old_password])
       if current_doctor.user.change_password(params[:new_password])
         render status: :ok
@@ -30,7 +28,6 @@ class Api::Doctors::ProfilesController < ApplicationController
   end
 
   def check_password
-    params.require(:password)
     if current_doctor.user.is_password_valid(params[:password])
       render status: :ok
     else
