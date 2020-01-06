@@ -1,5 +1,6 @@
 class Api::Admins::DoctorsController < ApplicationController
-	before_action :authenticate_user, except: [:is_admin?]
+	before_action :authenticate_user, except: [:signin]  # TODO: remove
+#	before_action :authenticate_user, except: [:is_admin?] TODO: put back
 
   def index
 		data = []
