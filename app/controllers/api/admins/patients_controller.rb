@@ -1,6 +1,6 @@
 class Api::Admins::PatientsController < Api::Admins::AdminsController
 	before_action :authenticate_user, except: [:signin]  # TODO: remove
-#	before_action :authenticate_user, except: [:is_admin?] TODO: put back
+	before_action :authenticate_user, except: [:is_admin?] #TODO: put back
 
 	def index
 		data = []
@@ -15,7 +15,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	def update
 		patient = Patient.find_by(id: params[:id])
 		if patient.update(permited_params)
-			render json: patient.user.to_json(user_attr), status: :ok
+			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
 			render json: { errors: "Patient you tried to update informations doesn't exist: #{params[:id]}" }, status: :not_found
 		end
@@ -38,7 +38,6 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		end
 
 		def permited_params
-			params.require(:id).permit(user_attributes: user_attr)
+			params.permit(user_attributes: user_attr)
 	 	end
-
 end
