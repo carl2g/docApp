@@ -13,7 +13,7 @@ class Api::Admins::DoctorsController < ApplicationController
 	end
 
 	def update
-    doctor = Doctor.find_by(id: params[:id])
+    doctor = Doctor.find_by(user_id: params[:id])
 	if doctor
 		doctor.user.update(permited_params)
       	render json: doctor.user.to_json(only: user_attr), status: :ok
@@ -25,6 +25,7 @@ class Api::Admins::DoctorsController < ApplicationController
 	def delete
 		doctor = Doctor.find_by(user_id: params[:id])
 		if doctor
+				User.delete(id: params[:id])
 				doctor.destroy
 		    render status: :ok
 		else
