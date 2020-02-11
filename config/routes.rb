@@ -90,6 +90,7 @@ Rails.application.routes.draw do
 				collection do
 					post '/update', to: 'patients#update'
 					post '/delete', to: 'patients#delete'
+					get  '/list', to: 'patients#index'
 				end
 			end
 
@@ -97,6 +98,7 @@ Rails.application.routes.draw do
 				collection do
 					post '/update', to: 'doctors#update'
 					post '/delete', to: 'doctors#delete'
+					get  '/list', to: 'doctors#index'
 				end
 			end
 

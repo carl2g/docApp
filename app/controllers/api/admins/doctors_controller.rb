@@ -23,9 +23,9 @@ class Api::Admins::DoctorsController < ApplicationController
 	end
 
 	def delete
-		doctor = Doctor.find_by(id: params[:id])
+		doctor = Doctor.find_by(user_id: params[:id])
 		if doctor
-		    Doctor.delete(doctor.user_id)
+				doctor.destroy
 		    render status: :ok
 		else
 		    render json: { errors: "Doctor you tried to delete doesn't exist: #{params[:id]}" }, status: :not_found

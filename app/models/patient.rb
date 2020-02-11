@@ -7,10 +7,10 @@ class Patient < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	has_one		:user, dependent: :destroy
+	#has_one		:user, dependent: :destroy
 	has_many	:units, dependent: :destroy
 	has_many	:general_units,	through: :units
-	has_many	:doctor_units, 	through: :units, dependent: :destroy
+	has_many	:doctor_units, 	through: :units
 	has_many	:doctors, through: :doctor_units
 
 	# Delegations

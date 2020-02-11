@@ -10,8 +10,8 @@ class Unit < ApplicationRecord
 
 	belongs_to	:patient
 	belongs_to	:general_unit
-	has_many	:notes
-	has_many	:doctor_units
+	has_many	:notes, dependent: :destroy
+	has_many	:doctor_units, dependent: :destroy
 	has_many	:doctors, through: :doctor_units
 
 	after_create :set_filter
