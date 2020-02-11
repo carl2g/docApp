@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2019_12_06_034831) do
+ActiveRecord::Schema.define(version: 2020_02_11_073405) do
 
   create_table "doctor_unit_notes", force: :cascade do |t|
     t.integer "note_id"

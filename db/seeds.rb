@@ -3,8 +3,6 @@
 #
 
 puts "===================== Building ADMIN ====================="
-admin = User.generate_user({first_name: 'admin', last_name: 'admin', email: 'chronosymple_2021@labeip.epitech.eu', password: 'carlota', birthdate: '01/01/2020', civility: 'Mr', phone_number: '66666666', picture: ''})
-admin.add_role(:admin)
 puts "===================== Building Modules ====================="
 GeneralUnit.create!({name: 'diabetes', 	color: 'blue', 	icon: 'to be defined'})
 GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
