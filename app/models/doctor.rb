@@ -92,10 +92,10 @@ class Doctor < ApplicationRecord
   		notes = self.doctor_unit_notes.map do |m|
   			{
   				note: {
-  					data: JSON.parse(m.note.data).as_json(m.filter.symbolize_keys),
+  					data: m.note.data.as_json(m.filter.symbolize_keys),
   					id: m.note.id
   				},
-  				patient: m.patient.to_json({
+  				patient: m.patient.as_json({
   					only: [:id],
   					include: {
 						user: { only: user_attrs }

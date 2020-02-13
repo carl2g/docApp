@@ -42,6 +42,7 @@ Rails.application.routes.draw do
 
 				############### Notes controller ###############
 				resources :notes do
+					get 	'/doctors', to:  'notes#doctors'
 				end
 
 				############### Profile controller ###############
