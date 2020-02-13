@@ -39,6 +39,16 @@ class Api::Patients::NotesController < ApplicationController
 		end
 	end
 
+	def unshare
+		note = current_patient.notes.find_by(id: params[:note_id])
+		doctor_ids = params[:doctor_ids]
+		shared_notes = note.doctor_unit_notes.joins(:doctor_unit).where(doctor_units: {doctor_id: doctor_ids})
+		shared_notes.each do |note|
+			note.destroy
+		end
+		render json: shared_notes.to_json(only: [:id]), status: :ok
+	end
+
 	def doctors
 		note = current_patient.notes.find_by(id: params[:note_id])
 		if note
