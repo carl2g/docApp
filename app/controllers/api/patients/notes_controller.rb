@@ -46,7 +46,7 @@ class Api::Patients::NotesController < ApplicationController
 		shared_notes.each do |note|
 			note.destroy
 		end
-		render json: shared_notes.to_json(only: [:id]), status: :ok
+		render json: shared_notes.to_json(only: [:note_id]), status: :ok
 	end
 
 	def doctors
