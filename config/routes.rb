@@ -43,6 +43,9 @@ Rails.application.routes.draw do
 				############### Notes controller ###############
 				resources :notes do
 					get 	'/doctors', to:  'notes#doctors'
+					collection do
+						get '/notes_by_date_interval', to: 'notes#notes_by_date_interval'
+					end
 				end
 
 				############### Profile controller ###############
