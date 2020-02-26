@@ -13,7 +13,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	end
 
 	def update
-		patient = Patient.find_by(id: params[:id])
+		patient = Patient.find_by(user_id: params[:id])
 		if patient.update(permited_params)
 			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
@@ -24,7 +24,8 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	def delete
 		patient = Patient.find_by(user_id: params[:id])
 		if patient
-		  Patient.delete(patient.user_id)
+			User.delete(id: params[:id])
+		  patient.destroy
 		  render status: :ok
 		else
 		  render json: { errors: "Patient you tried to delete doesn't exist: #{params[:id]}" }, status: :not_found

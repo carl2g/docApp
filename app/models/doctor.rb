@@ -7,6 +7,7 @@ class Doctor < ApplicationRecord
 	# =======================================
 
 	# Association objects
+	#has_one		:user, dependent: :destroy
 	has_many	:doctor_units, dependent: :destroy
 	has_many 	:doctor_unit_notes, through: :doctor_units, dependent: :destroy
 	has_many	:units, through: :doctor_units

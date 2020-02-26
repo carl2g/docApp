@@ -26,6 +26,15 @@ class Api::Patients::DoctorsController < ApplicationController
 		}), status: :ok
 	end
 
+	def profile
+		doctor = current_patient.doctors.find_by(id: params[:id])
+		if doctor
+			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture]}), status: :ok
+		else
+			render json: { errors: "You don't posses this doctor or he doesn't exist: #{params[:id]}" }, status: :not_found
+		end
+	end
+
 private
 
 	def permited_params
