@@ -9,5 +9,5 @@ class Note < ApplicationRecord
 	belongs_to 	:unit
 	has_many 	:doctor_unit_notes
 	has_many    :doctor_units, through: :doctor_unit_notes
-
+	has_many 	:doctors, through: :doctor_units
 end
