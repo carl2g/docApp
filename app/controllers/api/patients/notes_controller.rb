@@ -60,7 +60,7 @@ class Api::Patients::NotesController < ApplicationController
 			})
 		else
 			render json: { errors: "Note not found" }, status: :not_found
-		end		
+		end
 	end
 
 private
