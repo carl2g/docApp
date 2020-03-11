@@ -35,6 +35,15 @@ class Api::Patients::DoctorsController < ApplicationController
 		end
 	end
 
+	def by_module
+		doctors = Doctor.joins(:general_unit_doctors).where("general_unit_id == #{params[:id]}")
+		if doctors
+			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
+		else
+			render json: { errors: "There is no doctor for this module or this module doesn't exist: #{params[:id]}" }, status: :not_found
+		end
+	end
+
 private
 
 	def permited_params

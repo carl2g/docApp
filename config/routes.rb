@@ -38,6 +38,7 @@ Rails.application.routes.draw do
 					collection do
 						get '/my_doctors', 	to: 'doctors#my_doctors'
 						get '/profile',	to: 'doctors#profile'
+						get '/by_module', to: 'doctors#by_module'
 					end
 				end
 
