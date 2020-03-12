@@ -1,6 +1,4 @@
-class Api::Patients::GeneralUnitsController < ApplicationController
-
-	before_action :authenticate_user
+class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationController
 
 	def index
 		modules = GeneralUnit.select(:color, :icon, :id, :name)

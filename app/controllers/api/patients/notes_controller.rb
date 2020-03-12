@@ -1,6 +1,4 @@
-class Api::Patients::NotesController < ApplicationController
-
-	before_action :authenticate_user
+class Api::Patients::NotesController < Api::Patients::ApplicationController
 
 	def destroy
 		note = current_patient.notes.find_by(id: params[:id])

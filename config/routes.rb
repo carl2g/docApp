@@ -114,5 +114,7 @@ Rails.application.routes.draw do
 		post 	'/login', 						to: 'sessions#login'
 		post 	'/logout', 						to: 'sessions#logout'
 		post	'/patient_email_confirm', 		to: 'sessions#patient_email_confirm'
+		post	'/send_mail_from_doctor', 		to: 'mail#send_mail_from_doctor'
+
 	end
 end

@@ -1,5 +1,6 @@
 class ApplicationController < ActionController::API
-
+	before_action :authenticate_user
+	
 	def current_user
 	    @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
 	end
@@ -10,6 +11,18 @@ class ApplicationController < ActionController::API
 
 	def current_doctor
 		@current_doctor ||= Doctor.find_by(user_id: current_user.id)
+	end
+
+	def is_doctor?
+		if current_doctor.nil?
+			render status: :unauthorized
+		end
+	end
+
+	def is_patient?
+		if current_patient.nil?
+			render status: :unauthorized
+		end
 	end
 
 private

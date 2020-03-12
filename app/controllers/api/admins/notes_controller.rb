@@ -1,6 +1,4 @@
 class Api::Admins::NotesController < Api::Admins::AdminsController
-	before_action :authenticate_user, except: [:signin]  # TODO: remove
-	before_action :authenticate_user, except: [:is_admin?] #TODO: put back
 
 	def update
 		note = Note.find_by(id: params[:id])

@@ -1,5 +1,4 @@
-class Api::Doctors::DoctorsController < ApplicationController
-	before_action :authenticate_user, except: [:signin]
+class Api::Doctors::DoctorsController < Api::Doctors::ApplicationController
 
 	def signin
 		if params[:default_units].present?

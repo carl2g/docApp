@@ -1,7 +1,5 @@
-class Api::Patients::DoctorsController < ApplicationController
-
-	before_action :authenticate_user
-
+class Api::Patients::DoctorsController < Api::Patients::ApplicationController
+	
 	def index
 		user_attrs = [:email, :first_name, :last_name]
 		doctors = Doctor.all

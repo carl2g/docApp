@@ -1,6 +1,4 @@
-class Api::Patients::PatientsController < ApplicationController
-
-	before_action :authenticate_user, except: [:signin]
+class Api::Patients::PatientsController < Api::Patients::ApplicationController
 
 	def signin
 		patient = Patient.createPatient(permited)

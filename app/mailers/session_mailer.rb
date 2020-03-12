@@ -1,7 +1,6 @@
 class SessionMailer < ApplicationMailer
 
 	def patient_email_confirmation(params, token)
-		puts params
 		email_dest = params[:email]
 		@patient_name = params[:name]
 		@token = token
