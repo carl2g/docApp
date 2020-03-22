@@ -36,7 +36,8 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def by_module
-		doctors = Doctor.joins(:general_unit_doctors).where(["general_unit_doctors.general_unit_id = '%i'", params[:id]])
+		doctors = Doctor.joins(:general_unit_doctors).where(general_unit_doctors: {general_unit_id: params[:id]})
+		# doctors = Doctor.joins(:general_unit_doctors).where(["general_unit_doctors.general_unit_id = '%i'", params[:id]])
 		if doctors
 			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
 		else
@@ -45,7 +46,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def by_patient_module
-		doctors = current_patient.doctors.where("units.general_unit_id = '%i'", params[:id]])
+		doctors = current_patient.doctors.where(units: {general_unit_id: params[:id]})
 		if doctors
 			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
 		else
