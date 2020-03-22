@@ -64,7 +64,7 @@ class Api::Patients::UnitsController < ApplicationController
 	def index
 		units = current_patient.units
 		render json: units.to_json(only: [:id], include: {
-			general_unit: { except: [:id] },
+			general_unit: { except: [] },
 			doctors: { methods: [:full_name], only: [] }
 		} ), status: :ok
 	end
