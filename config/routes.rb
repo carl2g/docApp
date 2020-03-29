@@ -15,6 +15,9 @@ Rails.application.routes.draw do
 				############### General Units controller ###############
 				resources :general_units do
 					patch '/add_unit', 		to: 'general_units#add_unit'
+					collection do
+						get '/info',	to: 'general_units#info'
+					end
 				end
 
 				############### Units controller ###############
