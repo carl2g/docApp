@@ -15,4 +15,13 @@ class Api::Patients::GeneralUnitsController < ApplicationController
 		end
 	end
 
+	def info
+		unit = GeneralUnit.find_by(id: params[:id])
+		if unit
+			render json: unit.to_json(), status: :ok
+		else
+			render json: { errors: "no general_unit found with id: #{params[:id]}" }, status: :not_found
+		end
+	end
+
 end
