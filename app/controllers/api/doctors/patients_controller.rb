@@ -13,7 +13,7 @@ class Api::Doctors::PatientsController < ApplicationController
 	end
 
 	def profile
-		patient = Patient.find_by(permited_params)
+		patient = Patient.find_by(id: params[:id])
 		if patient
 			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
