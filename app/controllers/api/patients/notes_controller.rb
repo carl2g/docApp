@@ -26,8 +26,8 @@ class Api::Patients::NotesController < ApplicationController
 	end
 
 	def notes_by_date_interval
-		date_begin = params[:begin_date].to_date
-		date_end = params[:end_date].to_date
+		date_begin = params[:begin_date]
+		date_end = params[:end_date]
 		notes = current_patient.notes
 
 		if date_begin && date_end
