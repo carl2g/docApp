@@ -31,7 +31,7 @@ class Api::Patients::NotesController < ApplicationController
 		notes = current_patient.notes
 
 		if date_begin && date_end
-			range = (date_begin..date_end)
+			range = (date_begin + " 00:00"..date_end + " 23:59")
 			results = notes.select { |note| range.cover?(note.created_at) }
 			render json: results.to_json, status: :ok
 		else
