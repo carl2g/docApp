@@ -28,7 +28,8 @@ Rails.application.routes.draw do
 					patch 	'/remove_doctor', 	to: 'units#remove_doctor'
 					patch 	'/change_filter', 	to: 'units#change_filter'
 					post 	'/share_notes', 	to: 'units#share_notes'
-
+					get 	'/doctors', 		to: 'units#doctors'
+					
 					collection do
 						get '/my_units', 		to: 'units#my_units'
 					end
@@ -42,7 +43,6 @@ Rails.application.routes.draw do
 						get '/my_doctors', 	to: 'doctors#my_doctors'
 						get '/profile',	to: 'doctors#profile'
 						get '/by_module', to: 'doctors#by_module'
-						get '/by_patient_module', to: 'doctors#by_patient_module'
 					end
 				end
 
