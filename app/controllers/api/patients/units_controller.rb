@@ -96,8 +96,8 @@ class Api::Patients::UnitsController < ApplicationController
     end
 
     def doctors
-    	unit = current_patient.units.find_by(params[:unit_id])
-		if unit
+    	unit = current_patient.units.find_by(id: params[:unit_id])
+		if unit.present?
 			doctors = unit.doctors
 			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
 		else
