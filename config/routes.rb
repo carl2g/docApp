@@ -75,6 +75,7 @@ Rails.application.routes.draw do
 			resources :patients do
 				collection do
 					get '/profile',	to: 'patients#profile'
+					get '/units', to: 'patients#units'
 				end
 			end
 
