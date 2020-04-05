@@ -1,6 +1,4 @@
 Rails.application.routes.draw do
-  mount Rswag::Ui::Engine => '/'
-  mount Rswag::Api::Engine => '/api-docs'
 	# For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
 
 	root 						to: proc { [404, {}, ["Not found."]] }
@@ -29,7 +27,7 @@ Rails.application.routes.draw do
 					patch 	'/change_filter', 	to: 'units#change_filter'
 					post 	'/share_notes', 	to: 'units#share_notes'
 					get 	'/doctors', 		to: 'units#doctors'
-					
+
 					collection do
 						get '/my_units', 		to: 'units#my_units'
 					end
