@@ -1,7 +1,6 @@
 class Api::Doctors::PatientsController < ApplicationController
 	before_action :authenticate_user
 
-	# try to send data by acceding via units and not patients
 	def index
 		units = current_doctor.units
 		render json: units.to_json({
@@ -13,20 +12,20 @@ class Api::Doctors::PatientsController < ApplicationController
 	end
 
 	def profile
-		patient = Patient.find_by(id: params[:id])
+		patient = Patient.find_by(id: params[:patient_id])
 		if patient
 			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
-			render json: { errors: "Patient you tried to get profile informations doesn't exist: #{params[:id]}" }, status: :not_found
+			render json: { errors: "Patient you tried to get profile informations doesn't exist: #{params[:patient_id]}" }, status: :not_found
 		end
 	end
 
 	def units
-		patient = Patient.find_by(id: params[:id])
+		patient = Patient.find_by(id: params[:patient_id])
 		if patient
 			render json: patient.units.to_json(only: :id), status: :ok
 		else
-			render json: { errors: "Patient you tried to get units doesn't exist: #{params[:id]}" }, status: :not_found
+			render json: { errors: "Patient you tried to get units doesn't exist: #{params[:patient_id]}" }, status: :not_found
 		end
 	end
 

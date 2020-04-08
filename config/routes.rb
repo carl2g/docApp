@@ -12,10 +12,9 @@ Rails.application.routes.draw do
 
 				############### General Units controller ###############
 				resources :general_units do
-					patch '/add_unit', 		to: 'general_units#add_unit'
-					collection do
-						get '/info',	to: 'general_units#info'
-					end
+					patch '/add', 		to: 'general_units#add'
+					get '/doctors',	to: 'general_units#doctors'
+					get '/info',	to: 'general_units#info'
 				end
 
 				############### Units controller ###############
@@ -27,10 +26,6 @@ Rails.application.routes.draw do
 					patch 	'/change_filter', 	to: 'units#change_filter'
 					post 	'/share_notes', 	to: 'units#share_notes'
 					get 	'/doctors', 		to: 'units#doctors'
-
-					collection do
-						get '/my_units', 		to: 'units#my_units'
-					end
 				end
 
 
@@ -40,7 +35,6 @@ Rails.application.routes.draw do
 					collection do
 						get '/my_doctors', 	to: 'doctors#my_doctors'
 						get '/profile',	to: 'doctors#profile'
-						get '/by_module', to: 'doctors#by_module'
 					end
 				end
 
@@ -70,11 +64,18 @@ Rails.application.routes.draw do
 			patch 	'/add_unit',	to: 'doctors#add_unit'
 			patch 	'/remove_unit',	to: 'doctors#remove_unit'
 
+			resources :general_units do
+				patch '/add',	to: 'general_units#add'
+				patch '/remove',	to: 'general_units#remove'
+				get '/info',	to: 'general_units#info'
+			end
+
+			resources :units do
+			end
+
 			resources :patients do
-				collection do
-					get '/profile',	to: 'patients#profile'
-					get '/units', to: 'patients#units'
-				end
+				get '/profile',	to: 'patients#profile'
+				get '/units', to: 'patients#units'
 			end
 
 			resources :profiles do
