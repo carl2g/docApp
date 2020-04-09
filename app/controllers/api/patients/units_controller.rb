@@ -95,6 +95,23 @@ class Api::Patients::UnitsController < ApplicationController
         end
     end
 
+    def doctors
+    	unit = current_patient.units.find_by(id: params[:unit_id])
+		if unit.present?
+			doctors = unit.doctors
+			render json: doctors.to_json({
+				only: [:id],
+				include: {
+					user: {
+						only: [:first_name, :last_name]
+					}
+				}
+			}), status: :ok
+		else
+			render json: { errors: "There is no doctor for this module or this module doesn't exist: #{params[:id]}" }, status: :not_found
+		end
+	end
+
 private
 
     def permited_params

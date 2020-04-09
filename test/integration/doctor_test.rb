@@ -46,25 +46,25 @@ class DoctorControllerTest < ActionDispatch::IntegrationTest
 
     test "doctor valid add unit" do
         hash = login()
-        patch "/api/doctors/add_unit", params: { unit: 3 }, headers: { 'Authorization' => hash["login_token"] }
+        patch "/api/doctors/general_units/3/add", headers: { 'Authorization' => hash["login_token"] }
         assert_response :success
     end
 
     test "doctor invalid add unit" do
         hash = login()
-        patch "/api/doctors/add_unit", params: { unit: 1 }, headers: { 'Authorization' => hash["login_token"] }
+        patch "/api/doctors/general_units/1/add", headers: { 'Authorization' => hash["login_token"] }
         assert_response 422
     end
 
     test "doctor valid remove unit" do
         hash = login()
-        patch "/api/doctors/remove_unit", params: { unit: 1 }, headers: { 'Authorization' => hash["login_token"] }
+        patch "/api/doctors/general_units/1/remove", headers: { 'Authorization' => hash["login_token"] }
         assert_response :success
     end
 
     test "doctor invalid remove unit" do
         hash = login()
-        patch "/api/doctors/remove_unit", params: { unit: 9999999999 }, headers: { 'Authorization' => hash["login_token"] }
+        patch "/api/doctors/general_units/1989/remove", headers: { 'Authorization' => hash["login_token"] }
         assert_response 422
     end
 end

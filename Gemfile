@@ -43,14 +43,4 @@ gem 'active_model_serializers'
 gem 'aasm'
 gem 'rspec'
 
-# bunlde
-
-gem 'capistrano'
-
-gem 'rswag-api'
-gem 'rswag-ui'
-gem 'rspec-rails'
-gem 'rswag-specs'
-gem 'guard-rspec'
-
 gem "rolify"
