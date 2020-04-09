@@ -26,7 +26,8 @@ private
 			:phone_number,
 			:email,
 			:picture,
-			:default_units
+			:default_units,
+			:address
 		]
 	end
 

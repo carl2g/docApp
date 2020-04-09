@@ -3,7 +3,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	before_action :authenticate_user
 
 	def index
-		user_attrs = [:email, :first_name, :last_name]
+		user_attrs = [:email, :first_name, :last_name, :address]
 		doctors = Doctor.all
 		render json: doctors.to_json({
 			except: [:user_id],
@@ -15,7 +15,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def my_doctors
-		user_attrs = [:email, :first_name, :last_name]
+		user_attrs = [:email, :first_name, :last_name, :address]
 		doctors = current_patient.units
 		render json: doctors.to_json({
 			only: [:id],
@@ -29,7 +29,7 @@ class Api::Patients::DoctorsController < ApplicationController
 	def profile
 		doctor = Doctor.find_by(id: params[:id])
 		if doctor
-			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture]}), status: :ok
+			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture, :address]}), status: :ok
 		else
 			render json: { errors: "The doctor with the assiocated id doesn't exist: #{params[:id]}" }, status: :not_found
 		end
