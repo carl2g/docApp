@@ -43,7 +43,8 @@ class Api::Doctors::ProfilesController < ApplicationController
 			:email,
 			:civility,
       :birthdate,
-      :picture
+      :picture,
+      :address
 		]
   end
 
@@ -60,7 +61,8 @@ class Api::Doctors::ProfilesController < ApplicationController
       :phone_number,
       :birthdate,
       :civility,
-      :picture
+      :picture,
+      :address
     ]
   end
 

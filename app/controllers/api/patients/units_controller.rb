@@ -103,7 +103,7 @@ class Api::Patients::UnitsController < ApplicationController
 				only: [:id],
 				include: {
 					user: {
-						only: [:first_name, :last_name]
+						only: [:first_name, :last_name, :address]
 					}
 				}
 			}), status: :ok
