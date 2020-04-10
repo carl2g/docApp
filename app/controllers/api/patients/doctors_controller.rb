@@ -27,11 +27,11 @@ class Api::Patients::DoctorsController < ApplicationController
 	end
 
 	def profile
-		doctor = Doctor.find_by(id: params[:id])
+		doctor = Doctor.find_by(id: params[:doctor_id])
 		if doctor
 			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture, :address]}), status: :ok
 		else
-			render json: { errors: "The doctor with the assiocated id doesn't exist: #{params[:id]}" }, status: :not_found
+			render json: { errors: "The doctor with the assiocated id doesn't exist: #{params[:doctor_id]}" }, status: :not_found
 		end
 	end
 

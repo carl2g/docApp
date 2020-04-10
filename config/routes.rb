@@ -31,10 +31,9 @@ Rails.application.routes.draw do
 
 				############### Doctors controller ###############
 				resources :doctors do
-
+					get '/profile',	to: 'doctors#profile'
 					collection do
 						get '/my_doctors', 	to: 'doctors#my_doctors'
-						get '/profile',	to: 'doctors#profile'
 					end
 				end
 
