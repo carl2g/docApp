@@ -86,6 +86,9 @@ Rails.application.routes.draw do
       		end
 
 			resources :notes do
+				collection do
+					get '/notes_by_date_interval', to: 'notes#notes_by_date_interval'
+				end
 			end
 
 		end
