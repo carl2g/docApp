@@ -38,6 +38,12 @@ class Patient < ApplicationRecord
 		return notes
 	end
 
+	def notes_from_unit(unit_id)
+		return [] if self.unit_ids.include?(unit_id)
+		notes = Note.where(unit_id: unit_id)
+		return notes
+	end
+
 	# Add a Unit to a user
 	def addUnit(general_unit_id)
 		general_u = GeneralUnit.find_by(id: general_unit_id)

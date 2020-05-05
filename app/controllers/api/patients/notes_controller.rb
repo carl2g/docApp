@@ -28,9 +28,10 @@ class Api::Patients::NotesController < ApplicationController
 	def notes_by_date_interval
 		date_begin = params[:begin_date]
 		date_end = params[:end_date]
-		notes = current_patient.notes
+		unit = params[:unit]
+		notes = current_patient.notes_from_unit(unit)
 
-		if date_begin && date_end
+		if date_begin && date_end && unit
 			range = (date_begin + " 00:00:00"..date_end + " 23:59:59")
 			results = notes.select { |note| range.cover?(note.created_at) }
 			render json: results.to_json, status: :ok
