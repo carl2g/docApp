@@ -54,7 +54,6 @@ class Api::Doctors::ProfilesController < ApplicationController
 
   def user_data
     [
-      :id,
       :first_name,
       :last_name,
       :email,
