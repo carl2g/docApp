@@ -33,7 +33,16 @@ class Api::Patients::NotesController < ApplicationController
 		if date_begin && date_end && unit
 			notes = current_patient.notes_from_unit(unit)
 			range = (date_begin + " 00:00:00"..date_end + " 23:59:59")
-			results = notes.select { |note| range.cover?(note.created_at) }
+			results = notes.select { |note| range.cover?(note.created_at) }.map do |m|
+				{
+					id: m.id,
+					unit_id: m.unit_id,
+					data: m.data,
+					created_at: m.created_at,
+					updated_at: m.updated_at,
+					doctor_ids: m.doctor_ids
+				}
+			end
 			render json: results.to_json, status: :ok
 		else
 			render json: { errors: "Missing parameters" }, status: :unprocessable_entity
