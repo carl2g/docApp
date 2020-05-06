@@ -67,7 +67,7 @@ class Doctor < ApplicationRecord
 		gu = self.general_units.find_by(id: general_unit_id)
 		return false if gu.nil?
 		return self.general_units.delete(gu).nil? ? false : self.save
-  	end
+  end
 
   	def share_notes(unit_id, note_ids)
   		unit = Unit.find_by(id: unit_id)
@@ -105,6 +105,20 @@ class Doctor < ApplicationRecord
   			}
   		end
   		return notes
-  	end
+		end
+
+	def notes_by_date_interval_unit(unit_id, range)
+		return [] if self.unit_ids.include?(unit_id)
+		notes = self.doctor_unit_notes.where(unit: unit_id).select { |doc_unit_note| range.cover?(doc_unit_note.note.created_at)}.map do |m|
+			{
+				note: {
+					id: m.note.id,
+					data: m.note.data.as_json(m.filter.symbolize_keys),
+					created_at: m.note.created_at
+				}
+			}
+		end
+		return notes
+	end
 
 end

@@ -73,3 +73,22 @@ patient_unit.addNote({Glycemie: 22,
             date: Date.new,
             heure: Time.now
     })
+patient_unit.addNote({Glycemie: 28,
+        Glucide: 12,
+        InsulineAvRepas: 11,
+        InsulineApRepas: 34,
+        InsulineAJeun: 23,
+        date: Date.new,
+        heure: Time.now
+})
+patient_unit.addNote({Glycemie: 45,
+    Glucide: 12,
+    InsulineAvRepas: 11,
+    InsulineApRepas: 34,
+    InsulineAJeun: 23,
+    date: Date.new,
+    heure: Time.now
+})
+
+notes_ids = [1, 2, 3]
+doc.share_notes(patient_unit.id, notes_ids)
