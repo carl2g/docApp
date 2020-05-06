@@ -52,11 +52,15 @@ class Api::Patients::NotesController < ApplicationController
 	def unshare
 		note = current_patient.notes.find_by(id: params[:note_id])
 		doctor_ids = params[:doctor_ids]
-		shared_notes = note.doctor_unit_notes.joins(:doctor_unit).where(doctor_units: {doctor_id: doctor_ids})
-		shared_notes.each do |note|
-			note.destroy
+		if doctor_ids
+			shared_notes = note.doctor_unit_notes.joins(:doctor_unit).where(doctor_units: {doctor_id: doctor_ids})
+			shared_notes.each do |note|
+				note.destroy
+			end
+			render json: shared_notes.to_json(only: [:note_id]), status: :ok
+		else
+			render json: { errors: "Missing parameters" }, status: :unprocessable_entity
 		end
-		render json: shared_notes.to_json(only: [:note_id]), status: :ok
 	end
 
 	def doctors
