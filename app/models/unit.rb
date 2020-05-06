@@ -38,7 +38,7 @@ class Unit < ApplicationRecord
 	end
 
 	def hasDoctor?(doc_id)
-		return self.doctor_ids.include?(doc_id)
+		return self.doctor_ids.include?(doc_id.to_i)
 	end
 
 	def addNote(data)
