@@ -21,9 +21,9 @@ class Api::Doctors::PatientsController < ApplicationController
 	end
 
 	def units
-		patient = Patient.find_by(id: params[:patient_id])
-		if patient
-			render json: patient.units.to_json({only: :id, include: {general_unit: {only: [:id, :name]}}}), status: :ok
+		patient_units = current_doctor.units.where(patient_id: params[:patient_id])
+		if patient_units
+			render json: patient_units.to_json({only: :id, include: {general_unit: {only: [:id, :name]}}}), status: :ok
 		else
 			render json: { errors: "Patient you tried to get units doesn't exist: #{params[:patient_id]}" }, status: :not_found
 		end
