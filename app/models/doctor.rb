@@ -109,7 +109,7 @@ class Doctor < ApplicationRecord
 
 		def notes_by_date_interval_unit(unit_id, range)
 			# return [] if self.unit_ids.include?(unit_id.to_i)
-			notes = self.doctor_unit_notes.where(doctor_unit_id: unit_id).select { |doc_unit_note| range.cover?(doc_unit_note.note.created_at)}.map do |m|
+			notes = self.doctor_unit_notes.joins(:unit).where(units: {id: unit_id}).select { |doc_unit_note| range.cover?(doc_unit_note.note.created_at)}.map do |m|
 				{
 					note: {
 						id: m.note.id,
