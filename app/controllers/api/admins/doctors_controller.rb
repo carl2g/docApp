@@ -7,16 +7,15 @@ class Api::Admins::DoctorsController < ApplicationController
 		Doctor.find_each do |pat|
 		  data.push(pat.user)
 		end
-		attributes = user_attr
+		attributes = user_attr.concat([:id])
 		attributes.delete(:picture)
 		render json: data.to_json(only: attributes), status: :ok
 	end
 
 	def update
-    doctor = Doctor.find_by(user_id: params[:id])
-	if doctor
-		doctor.user.update(permited_params)
-      	render json: doctor.user.to_json(only: user_attr), status: :ok
+		doctor = User.find_by(id: params[:id])
+		if doctor && doctor.update(permited_params)
+      render json: doctor.to_json(only: user_attr), status: :ok
     else
       render json: { errors: "Doctor you tried to update informations doesn't exist: #{params[:id]}" }, status: :not_found
     end
@@ -36,10 +35,10 @@ class Api::Admins::DoctorsController < ApplicationController
 	private
 
 		def user_attr
-			[:id, :first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture, :address]
+			[:first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture, :address]
 		end
 
 		def permited_params
-			params.permit(user_attributes: user_attr)
+			params.permit(user_attr)
 	 	end
 end

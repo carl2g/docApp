@@ -7,7 +7,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		Patient.find_each do |pat|
 		  data.push(pat.user)
 		end
-		attributes = user_attr
+		attributes = user_attr.concat([:id])
 		attributes.delete(:picture)
 		render json: data.to_json(only: attributes), status: :ok
 	end
@@ -39,6 +39,6 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		end
 
 		def permited_params
-			params.permit(user_attributes: user_attr)
+			params.permit(user_attr)
 	 	end
 end
