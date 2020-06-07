@@ -1,6 +1,4 @@
-class Api::Patients::UnitsController < ApplicationController
-
-	before_action :authenticate_user
+class Api::Patients::UnitsController < Api::Patients::ApplicationController
 
 	def add_doctor
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])

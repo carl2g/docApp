@@ -1,5 +1,4 @@
-class Api::Doctors::PatientsController < ApplicationController
-	before_action :authenticate_user
+class Api::Doctors::PatientsController < Api::Doctors::ApplicationController
 
 	def index
 		units = current_doctor.units

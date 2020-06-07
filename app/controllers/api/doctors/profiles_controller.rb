@@ -1,6 +1,4 @@
-class Api::Doctors::ProfilesController < ApplicationController
-
-  before_action :authenticate_user
+class Api::Doctors::ProfilesController < Api::Doctors::ApplicationController
 
   def index
     render json: current_doctor.user.to_json({only: user_data() }), status: :ok
