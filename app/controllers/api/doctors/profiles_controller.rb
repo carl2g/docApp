@@ -41,7 +41,8 @@ class Api::Doctors::ProfilesController < Api::Doctors::ApplicationController
 			:email,
 			:civility,
       :birthdate,
-      :picture
+      :picture,
+      :address
 		]
   end
 
@@ -51,14 +52,14 @@ class Api::Doctors::ProfilesController < Api::Doctors::ApplicationController
 
   def user_data
     [
-      :id,
       :first_name,
       :last_name,
       :email,
       :phone_number,
       :birthdate,
       :civility,
-      :picture
+      :picture,
+      :address
     ]
   end
 

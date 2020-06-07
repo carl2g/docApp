@@ -24,6 +24,7 @@ class User < ApplicationRecord
 	validates	:birthdate,		presence: true
 	validates	:civility,		presence: true
 	validates	:picture,			presence: false
+	validates :address,			presence: false
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
 
 	  def assign_default_role()

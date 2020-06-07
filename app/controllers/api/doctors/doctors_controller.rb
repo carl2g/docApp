@@ -15,22 +15,6 @@ class Api::Doctors::DoctorsController < Api::Doctors::ApplicationController
 		end
 	end
 
-	def add_unit
-		if current_doctor.addGeneralUnit(params[:unit])
-			render json: {}, status: :ok
-		else
-			render json: { :errors => "Couldn't add the unit cause you either already have it or the unit doesn't exist" }, status: :unprocessable_entity
-		end
-	end
-
-	def remove_unit
-		if current_doctor.removeUnit(params[:unit])
-			render json: {}, status: :ok
-		else
-			render json: { :errors => "Couldn't remove the unit cause you don't have it" }, status: :unprocessable_entity
-		end
-	end
-
 private
 
 	def permited_params
@@ -41,7 +25,8 @@ private
 			:phone_number,
 			:email,
 			:picture,
-			:default_units
+			:default_units,
+			:address
 		]
 	end
 

@@ -1,7 +1,7 @@
 class Api::Patients::DoctorsController < Api::Patients::ApplicationController
 	
 	def index
-		user_attrs = [:email, :first_name, :last_name]
+		user_attrs = [:email, :first_name, :last_name, :address]
 		doctors = Doctor.all
 		render json: doctors.to_json({
 			except: [:user_id],
@@ -13,7 +13,7 @@ class Api::Patients::DoctorsController < Api::Patients::ApplicationController
 	end
 
 	def my_doctors
-		user_attrs = [:email, :first_name, :last_name]
+		user_attrs = [:email, :first_name, :last_name, :address]
 		doctors = current_patient.units
 		render json: doctors.to_json({
 			only: [:id],
@@ -25,29 +25,11 @@ class Api::Patients::DoctorsController < Api::Patients::ApplicationController
 	end
 
 	def profile
-		doctor = current_patient.doctors.find_by(id: params[:id])
+		doctor = Doctor.find_by(id: params[:doctor_id])
 		if doctor
-			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture]}), status: :ok
+			render json: doctor.user.to_json({only: [:first_name, :last_name, :phone_number, :email, :picture, :address]}), status: :ok
 		else
-			render json: { errors: "You don't posses this doctor or he doesn't exist: #{params[:id]}" }, status: :not_found
-		end
-	end
-
-	def by_module
-		doctors = Doctor.joins(:general_unit_doctors).where("general_unit_id == #{params[:id]}")
-		if doctors
-			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
-		else
-			render json: { errors: "There is no doctor for this module or this module doesn't exist: #{params[:id]}" }, status: :not_found
-		end
-	end
-
-	def by_patient_module
-		doctors = current_patient.doctors.where("units.general_unit_id == #{params[:id]}")
-		if doctors
-			render json: doctors.to_json({only: [:id, :first_name, :last_name]}), status: :ok
-		else
-			render json: { errors: "There is no doctor for this module or this module doesn't exist: #{params[:id]}" }, status: :not_found
+			render json: { errors: "The doctor with the assiocated id doesn't exist: #{params[:doctor_id]}" }, status: :not_found
 		end
 	end
 

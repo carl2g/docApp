@@ -33,10 +33,10 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	private
 
 		def user_attr
-			[:first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture]
+			[:id, :first_name, :last_name, :email, :phone_number, :birthdate, :civility, :picture]
 		end
 
 		def permited_params
-			params.permit(user_attributes: user_attr)
+			params.permit(user_attr)
 	 	end
 end

@@ -24,13 +24,23 @@ class Api::Patients::NotesController < Api::Patients::ApplicationController
 	end
 
 	def notes_by_date_interval
-		date_begin = params[:begin_date].to_date
-		date_end = params[:end_date].to_date
-		notes = current_patient.notes
+		date_begin = params[:begin_date]
+		date_end = params[:end_date]
+		unit = params[:unit]
 
-		if date_begin && date_end
-			range = (date_begin..date_end)
-			results = notes.select { |note| range.cover?(note.created_at) }
+		if date_begin && date_end && unit
+			notes = current_patient.notes_from_unit(unit)
+			range = (date_begin + " 00:00:00"..date_end + " 23:59:59")
+			results = notes.select { |note| range.cover?(note.created_at) }.map do |m|
+				{
+					id: m.id,
+					unit_id: m.unit_id,
+					data: m.data,
+					created_at: m.created_at,
+					updated_at: m.updated_at,
+					doctor_ids: m.doctor_ids
+				}
+			end
 			render json: results.to_json, status: :ok
 		else
 			render json: { errors: "Missing parameters" }, status: :unprocessable_entity
@@ -40,11 +50,15 @@ class Api::Patients::NotesController < Api::Patients::ApplicationController
 	def unshare
 		note = current_patient.notes.find_by(id: params[:note_id])
 		doctor_ids = params[:doctor_ids]
-		shared_notes = note.doctor_unit_notes.joins(:doctor_unit).where(doctor_units: {doctor_id: doctor_ids})
-		shared_notes.each do |note|
-			note.destroy
+		if doctor_ids
+			shared_notes = note.doctor_unit_notes.joins(:doctor_unit).where(doctor_units: {doctor_id: doctor_ids})
+			shared_notes.each do |note|
+				note.destroy
+			end
+			render json: shared_notes.to_json(only: [:note_id]), status: :ok
+		else
+			render json: { errors: "Missing parameters" }, status: :unprocessable_entity
 		end
-		render json: shared_notes.to_json(only: [:note_id]), status: :ok
 	end
 
 	def doctors
