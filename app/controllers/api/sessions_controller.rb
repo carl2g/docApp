@@ -13,7 +13,7 @@ class Api::SessionsController < ApplicationController
 
 		if user
 			session[:login_token] = user.login_token
-			render json: { login_token: user.login_token }, status: :ok
+			render json: { login_token: user.login_token, is_admin: user.has_role?(:admin) }, status: :ok
 		else
 			render status: :unauthorized
 		end
