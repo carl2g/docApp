@@ -6,6 +6,7 @@ class GeneralUnit < ApplicationRecord
 	# icon: 		string
 	# filter: 		string
 	# data_field: 	string
+	# note_model: 	string
 	# =======================================
 
 	has_many	:units

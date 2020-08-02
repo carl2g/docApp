@@ -35,4 +35,15 @@ class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationControll
 		end
 	end
 
+	def note_model
+		g_id = params[:general_unit_id]
+		g_unit = GeneralUnit.find(g_id)
+
+		if g_unit
+			render json: g_unit.note_model, status: :ok
+		else
+			render json: { errors: "This module doesn't exist: #{g_id}" }, status: :not_found
+		end
+	end
+
 end

@@ -15,6 +15,7 @@ Rails.application.routes.draw do
 					patch '/add', 		to: 'general_units#add'
 					get '/doctors',	to: 'general_units#doctors'
 					get '/info',	to: 'general_units#info'
+					get '/note_model',	to: 'general_units#note_model'
 				end
 
 				############### Units controller ###############
