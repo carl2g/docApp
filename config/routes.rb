@@ -16,6 +16,7 @@ Rails.application.routes.draw do
 					get '/doctors',	to: 'general_units#doctors'
 					get '/info',	to: 'general_units#info'
 					get '/note_model',	to: 'general_units#note_model'
+					get '/get_note_fileds', to: 'general_units#get_note_fileds'
 				end
 
 				############### Units controller ###############

@@ -37,6 +37,7 @@ class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationControll
 
 	def note_model
 		g_id = params[:general_unit_id]
+
 		g_unit = GeneralUnit.find(g_id)
 
 		if g_unit
@@ -44,6 +45,20 @@ class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationControll
 		else
 			render json: { errors: "This module doesn't exist: #{g_id}" }, status: :not_found
 		end
+	end
+
+	def get_note_fileds
+		id = params[:general_unit_id]
+		gu = GeneralUnit.find(id)
+
+		if gu
+			fileds = gu.note_model.map {|e| e["tag"] }
+			render json: fileds, status: :ok
+		else
+			render json: { errors: "This module doesn't exist: #{id}" }, status: :not_found
+
+		end
+		
 	end
 
 end
