@@ -28,6 +28,7 @@ Rails.application.routes.draw do
 					patch 	'/change_filter', 	to: 'units#change_filter'
 					post 	'/share_notes', 	to: 'units#share_notes'
 					get 	'/doctors', 		to: 'units#doctors'
+					get 	'/get_filter', 		to: 'units#get_filter'
 				end
 
 

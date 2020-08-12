@@ -77,6 +77,15 @@ class Api::Patients::UnitsController < Api::Patients::ApplicationController
         end
     end
 
+    def get_filter
+        patient_unit = current_patient.units.find_by(id: params[:unit_id])
+    	if patient_unit
+            render json: patient_unit.filter, status: :ok
+        else
+            render json: { errors: "Unit not found" }, status: :unprocessable_entity
+        end
+    end
+
 
     def share_notes
         unit = Unit.find_by(id: params[:unit_id])
