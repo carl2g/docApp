@@ -119,6 +119,15 @@ class Api::Patients::UnitsController < Api::Patients::ApplicationController
 		end
 	end
 
+	def get_general_unit_id
+    	unit = current_patient.units.find_by(id: params[:unit_id])
+		if unit
+            render json: unit.general_unit_id, status: :ok
+        else
+            render json: { errors: "You do not have this unit" }, status: :not_found
+        end
+	end
+
 private
 
     def permited_params

@@ -21,14 +21,15 @@ Rails.application.routes.draw do
 
 				############### Units controller ###############
 				resources :units do
-					get 	'/notes', 			to: 'units#notes'
-					post 	'/add_note', 		to: 'units#add_note'
-					patch 	'/add_doctor', 		to: 'units#add_doctor'
-					patch 	'/remove_doctor', 	to: 'units#remove_doctor'
-					patch 	'/change_filter', 	to: 'units#change_filter'
-					post 	'/share_notes', 	to: 'units#share_notes'
-					get 	'/doctors', 		to: 'units#doctors'
-					get 	'/get_filter', 		to: 'units#get_filter'
+					get 	'/notes', 					to: 'units#notes'
+					post 	'/add_note', 				to: 'units#add_note'
+					patch 	'/add_doctor', 				to: 'units#add_doctor'
+					patch 	'/remove_doctor', 			to: 'units#remove_doctor'
+					patch 	'/change_filter', 			to: 'units#change_filter'
+					post 	'/share_notes', 			to: 'units#share_notes'
+					get 	'/doctors', 				to: 'units#doctors'
+					get 	'/get_filter', 				to: 'units#get_filter'
+					get 	'/get_general_unit_id', 	to: 'units#get_general_unit_id'
 				end
 
 
