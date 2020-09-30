@@ -95,6 +95,11 @@ Rails.application.routes.draw do
 				end
 			end
 
+			resources :doctor_units do
+				post	'/set_fields_limits', 	to: 	'doctor_units#set_fields_limits'
+				get 	'/get_fields_limits', 	to: 	'doctor_units#get_fields_limits'
+			end
+
 		end
 
 		namespace :admins do

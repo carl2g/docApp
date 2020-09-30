@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_135903) do
+ActiveRecord::Schema.define(version: 2020_09_30_182853) do
 
   create_table "doctor_unit_notes", force: :cascade do |t|
     t.integer "note_id"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_135903) do
   create_table "doctor_units", force: :cascade do |t|
     t.integer "doctor_id"
     t.integer "unit_id"
+    t.json "fields_limits", default: {}
     t.index ["doctor_id"], name: "index_doctor_units_on_doctor_id"
     t.index ["unit_id"], name: "index_doctor_units_on_unit_id"
   end
@@ -42,8 +43,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_135903) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.json "filter", default: "\"\\\"\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"{}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\"\\\"\""
-    t.json "note_model", default: {}
+    t.json "filter", default: {}
   end
 
   create_table "notes", force: :cascade do |t|
