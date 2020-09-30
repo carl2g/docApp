@@ -93,7 +93,8 @@ class Doctor < ApplicationRecord
   		notes = self.doctor_unit_notes.map do |m|
   			{
   				note: {
-  					data: m.note.data.as_json(m.filter.symbolize_keys),
+						data: m.note.data.as_json(m.filter.symbolize_keys),
+						date: m.note.date,
   					id: m.note.id
   				},
   				patient: m.patient.as_json({
@@ -109,12 +110,12 @@ class Doctor < ApplicationRecord
 
 		def notes_by_date_interval_unit(unit_id, range)
 			# return [] if self.unit_ids.include?(unit_id.to_i)
-			notes = self.doctor_unit_notes.joins(:unit).where(units: {id: unit_id}).select { |doc_unit_note| range.cover?(doc_unit_note.note.created_at)}.map do |m|
+			notes = self.doctor_unit_notes.joins(:unit).where(units: {id: unit_id}).select { |doc_unit_note| range.cover?(doc_unit_note.note.date)}.map do |m|
 				{
 					note: {
 						id: m.note.id,
 						data: m.note.data.as_json(m.filter.symbolize_keys),
-						created_at: m.note.created_at
+						date: m.note.date
 					}
 				}
 			end

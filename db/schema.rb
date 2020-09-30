@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 2020_08_02_135903) do
+ActiveRecord::Schema.define(version: 2020_09_08_215904) do
 
   create_table "doctor_unit_notes", force: :cascade do |t|
     t.integer "note_id"
@@ -42,7 +42,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_135903) do
     t.string "name"
     t.string "icon"
     t.string "color"
-    t.json "filter", default: "\"\\\"\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"{}\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\\"\\\\\\\\\\\\\\\"\\\\\\\"\\\"\""
+    t.json "filter", default: {}
     t.json "note_model", default: {}
   end
 
@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_08_02_135903) do
     t.json "data", default: "\"{}\""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date"
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 
