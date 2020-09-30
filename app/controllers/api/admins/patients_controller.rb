@@ -30,6 +30,15 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		end
 	end
 
+	def units
+		patient = Patient.find_by(id: params[:patient_id])
+		if patient
+			render json: patient.units.to_json({only: [:id], include: { general_unit: {only: [:id, :name]}}})
+		else
+			render json: { errors: "Patient you tried to get modules wasn't found: #{params[:patient_id]}"}, status: :not_found
+		end
+	end
+
 	private
 
 		def user_attr
