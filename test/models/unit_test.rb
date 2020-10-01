@@ -39,7 +39,7 @@ class UnitTest < ActiveSupport::TestCase
     p = Patient.createPatient(first_name: 'test', last_name: 'test', email: 'test@hotmail.com', password: 'testest', civility: 'Mr', birthdate: '25/04/1998')
     p.addUnit(GeneralUnit.find_by(name: 'diabetes').id)
     patient_unit = p.units.take()
-    assert patient_unit.addNote({test: "qzodjqs", po: "azeae"})
+    assert patient_unit.addNote({test: "qzodjqs", po: "azeae"}, Time.now.to_s)
     assert p.notes
   end
 
