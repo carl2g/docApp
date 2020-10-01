@@ -4,22 +4,11 @@
 
 puts "===================== Building ADMIN ====================="
 puts "===================== Building Modules ====================="
-GeneralUnit.create!({name: 'diabetes', 	color: 'blue', 	icon: 'to be defined'})
+GeneralUnit.create!({name: 'diabetes',  color: 'blue',  icon: 'to be defined'})
 GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
 GeneralUnit.create!({name: 'arthritis', color: 'green', 	icon: 'to be defined'})
 
-diabet = GeneralUnit.find_by(name: "diabetes")
-diabet.update(filter: {
-    only: [
-        :Glycemie,
-        :Glucide,
-        :InsulineAvRepas,
-        :InsulineApRepas,
-        :InsulineAJeun,
-        :date,
-        :heure
-    ]
-})
+diabet = GeneralUnit.find_by(name: 'diabetes')
 
     Unit.where(general_unit: diabet.id).each do |u|
         u.update(filter: u.general_unit.filter)
