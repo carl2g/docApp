@@ -1,6 +1,4 @@
-class Api::SessionsController < ApplicationController
-
-	before_action :authenticate_user, except: [:login]
+class Api::SessionsController < ApplicationController 
 
 	def logout
 		current_user.update({login_token: nil})

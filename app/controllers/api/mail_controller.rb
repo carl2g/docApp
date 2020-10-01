@@ -6,7 +6,6 @@ class Api::MailController < ApplicationController
 		dest = params[:destinataire]
 		sujet = params[:sujet]
 		msg = params[:message]
-		puts "#{msg} #{sujet} #{dest}"
 		DoctorMailer.send_message(current_doctor, dest, sujet, msg).deliver_later
 		render json: { success: "ok" }, status: :ok
 	end
