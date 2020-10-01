@@ -1,4 +1,4 @@
-class Api::Doctors::GeneralUnitsController < Api::Doctors::ApplicationController
+class Api::Doctors::GeneralUnitsController < ApplicationController
   before_action :authenticate_user
 
   def index

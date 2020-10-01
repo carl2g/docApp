@@ -1,5 +1,5 @@
-class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationController
-
+class Api::Patients::GeneralUnitsController < ApplicationController
+  before_action :authenticate_user
 	def index
 		modules = GeneralUnit.select(:color, :icon, :id, :name)
 		render json: { modules: modules }, status: :ok
