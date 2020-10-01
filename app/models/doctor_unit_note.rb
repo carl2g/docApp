@@ -7,8 +7,8 @@ class DoctorUnitNote < ApplicationRecord
 
 	after_create_commit :check_limits
 
-	def filtered_note
-
+	def filter_note_data
+		return self.note.data.to_json(self.filter.symbolize_keys)
 	end
 
 	def assert_send_mail(send_email)
