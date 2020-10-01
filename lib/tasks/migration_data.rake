@@ -1,8 +1,23 @@
-class AddGeneralUnitNoteModel < ActiveRecord::Migration[5.2]
-  def change
-      g_unit = GeneralUnit.find_by(name: "diabetes")
-      g_unit.update(note_model: [
-         {
+namespace :migration do
+  task apply_updates: :environment do
+  	Rake::Task["migration:update_general_units"].invoke
+  end
+
+  task update_general_units: :environment do 
+  	diabet = GeneralUnit.find_by(name: "diabetes")
+  	diabet.update(filter: {
+		    only: [
+		        :Glycemie,
+		        :Glucide,
+		        :InsulineAvRepas,
+		        :InsulineApRepas,
+		        :InsulineAJeun,
+		        :date,
+		        :heure
+		    ]
+		})
+
+  	diabet.update(note_model: [{
             "name": "Glucose : ",
             "defaultText": "",
             "tag": "bloodGlucose",
@@ -68,7 +83,6 @@ class AddGeneralUnitNoteModel < ActiveRecord::Migration[5.2]
                "Dîner"
             ]
          }
-      ]
-      )
+      ])
   end
 end
