@@ -3,7 +3,7 @@ namespace :migration do
   	Rake::Task["migration:update_general_units"].invoke
   end
 
-  task update_general_units: :environment do 
+  task update_general_units: :environment do
   	diabet = GeneralUnit.find_by(name: "diabetes")
   	diabet.update(filter: {
 		    only: [
