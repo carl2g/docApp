@@ -17,7 +17,7 @@ class DoctorUnitNote < ApplicationRecord
 		user = self.patient.user
 		unit = self.unit
 		note = self.note
-		DoctorMailer.send_notification_limit_exceed(doctor, user, unit, note).deliver_later
+		DoctorMailer.send_notification_limit_exceed(doctor, user, unit, note).deliver_now
 	end
 
 	def operation_on_limits(value, limits)

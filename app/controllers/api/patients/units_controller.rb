@@ -6,6 +6,7 @@ class Api::Patients::UnitsController < Api::Patients::ApplicationController
 		if !patient_unit
 			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		else
+			puts params[:doctor_id]
 			if patient_unit.addDoctor(params[:doctor_id])
 				render json: {}, status: :ok
 			else
