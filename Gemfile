@@ -12,6 +12,7 @@ gem 'puma', '~> 3.12'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
+gem 'migration_data'
 
 
 # Use Rack CORS for handling Cross-Origin Resource Sharing (CORS), making cross-origin AJAX possible
