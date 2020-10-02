@@ -11,8 +11,8 @@ class Api::Patients::NotesController < Api::Patients::ApplicationController
 
 	def update
 		note = current_patient.notes.find_by(id: params[:id])
-		if note && note.update({data: params[:data]})
-			render json: note.to_json(only: [:id, :data]), status: :ok
+		if note && note.update({data: params[:data], date: Time.parse(params[:date])})
+			render json: note.to_json(only: [:id, :data, :date]), status: :ok
 		else
 			render json: { errors: "Note not found" }, status: :not_found
 		end
@@ -31,13 +31,12 @@ class Api::Patients::NotesController < Api::Patients::ApplicationController
 		if date_begin && date_end && unit
 			notes = current_patient.notes_from_unit(unit)
 			range = (date_begin + " 00:00:00"..date_end + " 23:59:59")
-			results = notes.select { |note| range.cover?(note.created_at) }.map do |m|
+			results = notes.select { |note| range.cover?(note.date) }.map do |m|
 				{
 					id: m.id,
 					unit_id: m.unit_id,
 					data: m.data,
-					created_at: m.created_at,
-					updated_at: m.updated_at,
+					date: m.date,
 					doctor_ids: m.doctor_ids
 				}
 			end
@@ -75,10 +74,19 @@ class Api::Patients::NotesController < Api::Patients::ApplicationController
 		end
 	end
 
+	def doctor_note_filter
+		note = current_patient.doctor_unit_notes.find_by(note_id: params[:note_id])
+		if note
+			render json: note.to_json(only: [:note_id, :filter]), status: :ok
+		else
+			render json: { errors: "Note not found" }, status: :not_found
+		end
+	end
+
 private
 
 	def permited_params
-		params.require(:note).permit(:data)
+		params.require(:note).permit(:data, :filter)
 	end
 
 	def user_data

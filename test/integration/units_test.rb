@@ -48,7 +48,7 @@ class UnitsControllerTest < ActionDispatch::IntegrationTest
     test "valid add_note" do
         lhash = login()
         patch "/api/patients/general_units/1/add", headers: {'Authorization' => lhash["login_token"]}
-        post "/api/patients/units/1/add_note", params: {data: {test1: 'adad', test2: 'dqsd'}}, headers: {'Authorization' => lhash["login_token"]}
+        post "/api/patients/units/1/add_note", params: {data: {test1: 'adad', test2: 'dqsd'}, date: Time.now.to_s}, headers: {'Authorization' => lhash["login_token"]}
         assert_response :success
     end
 
