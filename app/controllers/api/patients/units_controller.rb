@@ -33,7 +33,7 @@ class Api::Patients::UnitsController < Api::Patients::ApplicationController
 
 		if patient_unit
 			notes = patient_unit.notes
-			render json: notes.to_json(only: [:id, :data]), status: :ok
+			render json: notes.to_json(only: [:id, :data, :date]), status: :ok
 		else
 			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
 		end
@@ -41,7 +41,7 @@ class Api::Patients::UnitsController < Api::Patients::ApplicationController
 
 	def add_note
 		patient_unit = current_patient.units.find_by(id: params[:unit_id])
-		if patient_unit && patient_unit.addNote(params[:data])
+		if patient_unit && patient_unit.addNote(params[:data], Time.parse(params[:date]))
 			render json: {}, status: :ok
 		else
 			render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found

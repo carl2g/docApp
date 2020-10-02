@@ -51,6 +51,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_111134) do
     t.json "data", default: "\"[]\""
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.datetime "date"
     t.index ["unit_id"], name: "index_notes_on_unit_id"
   end
 

@@ -12,6 +12,7 @@ class Patient < ApplicationRecord
 	has_many	:general_units,	through: :units
 	has_many	:doctor_units, 	through: :units
 	has_many	:doctors, through: :doctor_units
+	has_many 	:doctor_unit_notes, through: :doctor_units
 
 	# Delegations
 	delegate	:notes, to: :notes

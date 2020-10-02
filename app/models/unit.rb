@@ -32,7 +32,7 @@ class Unit < ApplicationRecord
 		doctor = Doctor.find_by(id: doctor_id)
 		if doctor.nil? || self.hasDoctor?(doctor_id)
 			return false
-		end 
+		end
 		self.doctors << doctor
 		return self.save
 	end
@@ -41,8 +41,8 @@ class Unit < ApplicationRecord
 		return self.doctor_ids.include?(doc_id.to_i)
 	end
 
-	def addNote(data)
-		self.notes << Note.create({ data: data })
+	def addNote(data, date)
+		self.notes << Note.create({ data: data, date: date })
 		return self.save
 	end
 end

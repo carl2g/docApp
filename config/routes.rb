@@ -45,6 +45,7 @@ Rails.application.routes.draw do
 				resources :notes do
 					get 	'/doctors', to:  'notes#doctors'
 					patch 	'/unshare', to: 'notes#unshare'
+					get '/doctor_access', to: 'notes#doctor_note_filter'
 					collection do
 						get '/notes_by_date_interval', to: 'notes#notes_by_date_interval'
 					end
