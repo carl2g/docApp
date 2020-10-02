@@ -7,7 +7,6 @@ class Doctor < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	#has_one		:user, dependent: :destroy
 	has_many	:doctor_units, dependent: :destroy
 	has_many 	:doctor_unit_notes, through: :doctor_units, dependent: :destroy
 	has_many	:units, through: :doctor_units
@@ -20,6 +19,7 @@ class Doctor < ApplicationRecord
 
 	# Validations
 	validates	:user_id, presence: true
+
 
 	# create a doctor
 	def self.createDoctor(params)
@@ -97,8 +97,9 @@ class Doctor < ApplicationRecord
   		notes = self.doctor_unit_notes.map do |m|
   			{
   				note: {
-  					data: m.filter_note_data,
-  					id: m.note.id
+  					data: m.data,
+  					id: m.note.id,
+  					anomli_status: m.note_state
   				},
   				patient: m.patient.as_json({
   					only: [:id],

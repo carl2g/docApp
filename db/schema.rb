@@ -16,6 +16,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_111134) do
     t.integer "note_id"
     t.integer "doctor_unit_id"
     t.json "filter", default: {}
+    t.string "note_state"
     t.index ["doctor_unit_id"], name: "index_doctor_unit_notes_on_doctor_unit_id"
     t.index ["note_id"], name: "index_doctor_unit_notes_on_note_id"
   end
@@ -44,7 +45,7 @@ ActiveRecord::Schema.define(version: 2020_10_01_111134) do
     t.string "icon"
     t.string "color"
     t.json "filter", default: {}
-    t.json "note_model", default: []
+    t.json "note_model", default: {}
   end
 
   create_table "notes", force: :cascade do |t|

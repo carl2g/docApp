@@ -1,5 +1,5 @@
 class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationController
-	
+
 	def index
 		modules = GeneralUnit.select(:color, :icon, :id, :name)
 		render json: { modules: modules }, status: :ok

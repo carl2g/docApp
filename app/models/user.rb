@@ -27,7 +27,7 @@ class User < ApplicationRecord
 	validates :address,			presence: false
 	validates :login_token,	uniqueness: true, if: -> { login_token.present? }
 
-	  def assign_default_role()
+	  def assign_default_role
 	    self.add_role(:normal)
 	  end
 
