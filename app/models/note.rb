@@ -10,7 +10,7 @@ class Note < ApplicationRecord
 	has_many 	:doctor_unit_notes, dependent: :destroy
 	has_many    :doctor_units, through: :doctor_unit_notes
 	has_many 	:doctors, through: :doctor_units
-	
+
 	after_save 	:update_doctor_notes_check
 
 	validates	:date,			presence: true

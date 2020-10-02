@@ -1,4 +1,4 @@
-class Api::SessionsController < ApplicationController 
+class Api::SessionsController < ApplicationController
 
 	def logout
 		current_user.update({login_token: nil})

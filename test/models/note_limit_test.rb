@@ -15,7 +15,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
 	test "up limit exceed" do
 		patient = Patient.joins("INNER JOIN users ON users.id = patients.user_id").find_by(users: {email: 'test_limit@hotmail.com'})
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
-		
+
 		diabet_unit = patient.units.first
 		diabet_unit.addNote({"Glucide": 10})
 		doctor.doctor_units.first.update(fields_limits: {
@@ -28,7 +28,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
   	test "low limit exceed" do
 		patient = Patient.joins("INNER JOIN users ON users.id = patients.user_id").find_by(users: {email: 'test_limit@hotmail.com'})
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
-		
+
 		diabet_unit = patient.units.first
 		diabet_unit.addNote({"Glucide": -0.1})
 		doctor.doctor_units.first.update(fields_limits: {
@@ -41,7 +41,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
   	test "limit exceed after update" do
 		patient = Patient.joins("INNER JOIN users ON users.id = patients.user_id").find_by(users: {email: 'test_limit@hotmail.com'})
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
-		
+
 		diabet_unit = patient.units.first
 		diabet_unit.addNote({"Glucide": 1})
 		doctor.doctor_units.first.update(fields_limits: {
@@ -55,7 +55,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
   	test "limit not exceeed" do
 		patient = Patient.joins("INNER JOIN users ON users.id = patients.user_id").find_by(users: {email: 'test_limit@hotmail.com'})
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
-		
+
 		diabet_unit = patient.units.first
 		diabet_unit.addNote({"Glucide": 9.9})
 		doctor.doctor_units.first.update(fields_limits: {

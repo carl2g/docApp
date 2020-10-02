@@ -28,7 +28,7 @@ class DoctorUnitNote < ApplicationRecord
     end
 
 	def data
-		return self.note.data.to_json(only: self.filter.symbolize_keys)
+		return self.note.data.to_json(self.filter.symbolize_keys)
 	end
 
 	def assert_send_mail(exceed)
@@ -63,7 +63,6 @@ class DoctorUnitNote < ApplicationRecord
 	# This function will be called when the class is modify and when a note is modify
 	# This function can be called twice in 1 action
 	def check_limits
-		available_fields = self.doctor_unit.unit.general_unit.filter["only"]
 		self.doctor_unit.fields_limits.each do |field, limits|
 			self.note.data.each do |key, val|
 				if key == field

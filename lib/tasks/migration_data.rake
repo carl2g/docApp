@@ -7,15 +7,24 @@ namespace :migration do
   	diabet = GeneralUnit.find_by(name: "diabetes")
   	diabet.update(filter: {
 		    only: [
-		        :Glycemie,
-		        :Glucide,
-		        :InsulineAvRepas,
-		        :InsulineApRepas,
-		        :InsulineAJeun,
-		        :date,
-		        :heure
+            :bloodGlucose,
+            :insulineFood,
+            :insulineCorr,
+            :description,
+            :wichLunch,
+            :date,
+            :heure
 		    ]
 		})
+
+    diabet.units.each do |u|
+      u.update({filter: diabet.filter})
+      u.doctor_units.each do |du|
+        du.doctor_unit_notes.each do |dun|
+          dun.update({filter: u.filter})
+        end
+      end
+    end
 
   	diabet.update(note_model: [{
             "name": "Glucose : ",

@@ -8,12 +8,6 @@ GeneralUnit.create!({name: 'diabetes',  color: 'blue',  icon: 'to be defined'})
 GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
 GeneralUnit.create!({name: 'arthritis', color: 'green', 	icon: 'to be defined'})
 
-diabet = GeneralUnit.find_by(name: 'diabetes')
-
-    Unit.where(general_unit: diabet.id).each do |u|
-        u.update(filter: u.general_unit.filter)
-    end
-
 puts "===================== Building Patients ====================="
 pa = Patient.createPatient({first_name: 'swager_patient', last_name: 'swager_patient', email: 'swager_patient@gmail.com', password: 'swager75', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: ''})
 p1 = Patient.createPatient({first_name: 'patient1', last_name: 'patient1', email: 'patient1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: ''})
@@ -54,27 +48,30 @@ p3.units.find_by(general_unit_id: 2).addDoctor(doc.id)
 
 puts "===================== Creating notes ====================="
 patient_unit = pa.units.find_by(id: 1)
-patient_unit.addNote({Glycemie: 22,
-            Glucide: 12,
-            InsulineAvRepas: 11,
-            InsulineApRepas: 34,
-            InsulineAJeun: 23,
+patient_unit.addNote({
+            bloodGlucose: 12,
+            insulineFood: 11,
+            insulineCorr: 34,
+            description: 23,
+            wichLunch: "Petit Dej",
             date: Date.new,
             heure: Time.now
     }, Time.now.strftime("%Y-%d-%m %H:%M:%S %Z"))
-patient_unit.addNote({Glycemie: 28,
-        Glucide: 12,
-        InsulineAvRepas: 11,
-        InsulineApRepas: 34,
-        InsulineAJeun: 23,
+patient_unit.addNote({
+        bloodGlucose: 12,
+        insulineFood: 11,
+        insulineCorr: 34,
+        description: 23,
+        wichLunch: "Petit Dej",
         date: Date.new,
         heure: Time.now
 }, Time.now.strftime("%Y-%d-%m %H:%M:%S %Z"))
-patient_unit.addNote({Glycemie: 45,
-    Glucide: 12,
-    InsulineAvRepas: 11,
-    InsulineApRepas: 34,
-    InsulineAJeun: 23,
+patient_unit.addNote({
+    bloodGlucose: 12,
+    insulineFood: 11,
+    insulineCorr: 34,
+    description: 23,
+    wichLunch: "Petit Dej",
     date: Date.new,
     heure: Time.now
 }, Time.now.strftime("%Y-%d-%m %H:%M:%S %Z"))
