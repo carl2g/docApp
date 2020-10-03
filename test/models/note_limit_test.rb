@@ -17,7 +17,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
 
 		diabet_unit = patient.units.first
-		diabet_unit.addNote({"Glucide": 10})
+		diabet_unit.addNote({"Glucide": 10}, Time.now)
 		doctor.doctor_units.first.update(fields_limits: {
 			"Glucide": {"min_limit": 0, "max_limit": 9.9 }
 		})
@@ -30,7 +30,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
 
 		diabet_unit = patient.units.first
-		diabet_unit.addNote({"Glucide": -0.1})
+		diabet_unit.addNote({"Glucide": -0.1}, Time.now)
 		doctor.doctor_units.first.update(fields_limits: {
 			"Glucide": {"min_limit": 0, "max_limit": 9.9 }
 		})
@@ -43,7 +43,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
 
 		diabet_unit = patient.units.first
-		diabet_unit.addNote({"Glucide": 1})
+		diabet_unit.addNote({"Glucide": 1}, Time.now)
 		doctor.doctor_units.first.update(fields_limits: {
 			"Glucide": {"min_limit": 0, "max_limit": 9.9 }
 		})
@@ -57,7 +57,7 @@ class NoteLimitsTest < ActiveSupport::TestCase
 		doctor = Doctor.joins("INNER JOIN users ON users.id = doctors.user_id").find_by(users: {email: 'degentilecarl+test@gmail.com'})
 
 		diabet_unit = patient.units.first
-		diabet_unit.addNote({"Glucide": 9.9})
+		diabet_unit.addNote({"Glucide": 9.9}, Time.now)
 		doctor.doctor_units.first.update(fields_limits: {
 			"Glucide": {"min_limit": 0, "max_limit": 10 }
 		})
