@@ -29,7 +29,7 @@ class Unit < ApplicationRecord
 
 	# Add a doctor for a unit
 	def addDoctor(doctor_id)
-		doctor = Doctor.find_by(id: doctor_id)
+		doctor = Doctor.find_by(id: doctor_id.to_i)
 		if doctor.nil? || self.hasDoctor?(doctor_id)
 			return false
 		end

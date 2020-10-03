@@ -7,7 +7,6 @@ class Doctor < ApplicationRecord
 	# =======================================
 
 	# Association objects
-	#has_one		:user, dependent: :destroy
 	has_many	:doctor_units, dependent: :destroy
 	has_many 	:doctor_unit_notes, through: :doctor_units, dependent: :destroy
 	has_many	:units, through: :doctor_units
@@ -20,6 +19,7 @@ class Doctor < ApplicationRecord
 
 	# Validations
 	validates	:user_id, presence: true
+
 
 	# create a doctor
 	def self.createDoctor(params)
@@ -73,13 +73,18 @@ class Doctor < ApplicationRecord
   		unit = Unit.find_by(id: unit_id)
         patient = unit.patient
 
+        # gets all the notes
         notes = patient.notes.where(id: note_ids)
+        # get the doctor unit associate with unit_id
         doctor_unit = self.doctor_units.find_by(unit_id: unit.id)
+        # get the filter of the patient unit
         filter = unit.filter
 
         notes.each do |note|
+        	# find existing note already shared with doctor or use current note 
         	note = doctor_unit.notes.find_by(id: note.id) || note
         	doc_unit_note = note.doctor_unit_notes.find_by(doctor_unit_id: self.doctor_units)
+
         	if doc_unit_note
         		doc_unit_note.update(filter: filter)
         	else
@@ -93,9 +98,10 @@ class Doctor < ApplicationRecord
   		notes = self.doctor_unit_notes.map do |m|
   			{
   				note: {
-						data: m.note.data.as_json(m.filter.symbolize_keys),
-						date: m.note.date,
-  					id: m.note.id
+  					data: m.data,
+  					id: m.note.id,
+  					anomli_status: m.note_state,
+					date: m.note.date,
   				},
   				patient: m.patient.as_json({
   					only: [:id],

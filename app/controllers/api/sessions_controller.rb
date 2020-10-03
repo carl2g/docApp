@@ -1,7 +1,5 @@
 class Api::SessionsController < ApplicationController
 
-	before_action :authenticate_user, except: [:login]
-
 	def logout
 		current_user.update({login_token: nil})
 		reset_session
