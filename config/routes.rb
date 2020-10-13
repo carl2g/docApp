@@ -104,6 +104,8 @@ Rails.application.routes.draw do
 
 			resources :patients do
 				get '/units', to: 'patients#units'
+				patch '/add_unit', to: 'patients#add_unit'
+				patch '/remove_unit', to: 'patients#remove_unit'
 				collection do
 					post '/update', to: 'patients#update'
 					post '/delete', to: 'patients#delete'
