@@ -53,6 +53,12 @@ class Patient < ApplicationRecord
 		return self.save
 	end
 
+	def removeUnit(general_unit_id)
+		gu = self.general_units.find_by(id: general_unit_id)
+		return false if gu.nil?
+		return self.general_units.delete(gu).nil? ? false : self.save
+  end
+
 	# Check if patient have module
 	def has_unit?(general_unit)
 		u = Unit.find_by(general_unit_id: general_unit, patient_id: self.id)

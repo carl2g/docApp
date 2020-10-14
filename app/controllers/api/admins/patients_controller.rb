@@ -30,6 +30,41 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		end
 	end
 
+	def units
+		patient = Patient.find_by(id: params[:patient_id])
+		if patient
+			render json: patient.units.to_json({only: [:id], include: { general_unit: {only: [:id, :name]}}})
+		else
+			render json: { errors: "Patient you tried to get modules wasn't found: #{params[:patient_id]}"}, status: :not_found
+		end
+	end
+
+	def add_unit
+		patient = Patient.find_by(id: params[:patient_id])
+		if patient
+			if patient.addUnit(params[:unit_id])
+				render status: :ok
+			else
+				render json: { errors: "the modules wasn't found: #{params[:unit_id]}"}, status: :not_found
+			end
+		else
+			render json: { errors: "Patient you tried to add modules wasn't found: #{params[:patient_id]}"}, status: :not_found
+		end
+	end
+
+	def remove_unit
+		patient = Patient.find_by(id: params[:patient_id])
+		if patient
+			if patient.removeUnit(id: params[:unit_id])
+				render status: :ok
+			else
+				render json: { errors: "the modules wasn't found: #{params[:unit_id]}"}, status: :not_found
+			end
+		else
+			render json: { errors: "Patient you tried to add modules wasn't found: #{params[:patient_id]}"}, status: :not_found
+		end
+	end
+
 	private
 
 		def user_attr

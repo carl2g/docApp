@@ -109,6 +109,9 @@ Rails.application.routes.draw do
 			end
 
 			resources :patients do
+				get '/units', to: 'patients#units'
+				patch '/add_unit', to: 'patients#add_unit'
+				patch '/remove_unit', to: 'patients#remove_unit'
 				collection do
 					post '/update', to: 'patients#update'
 					post '/delete', to: 'patients#delete'
@@ -117,7 +120,11 @@ Rails.application.routes.draw do
 			end
 
 			resources :doctors do
+				patch '/add_unit', to: 'doctors#add_unit'
+				patch '/remove_unit', to: 'doctors#remove_unit'
+				get '/units', to: 'doctors#units'
 				collection do
+					patch '/create', to: 'doctors#create'
 					post '/update', to: 'doctors#update'
 					post '/delete', to: 'doctors#delete'
 					get  '/list', to: 'doctors#index'
