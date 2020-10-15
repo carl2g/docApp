@@ -94,4 +94,60 @@ namespace :migration do
          }
       ])
   end
+
+  task generate_new_general_unit: :environment do
+    GeneralUnit.create({
+      name: "hypertension",
+      icon: nil,
+      color: "red",
+      filter: {
+         "only":[
+            "tension_systolique",
+            "tension_diastolique",
+            "description",
+            "date",
+            "heure"
+         ]
+      },
+      note_model: [
+   {
+      "name":"Tension Systolique : ",
+      "defaultText":"",
+      "tag":"tension_systolique",
+      "icon":{
+         "icon_name":"",
+         "icon_color":"yellow"
+      },
+      "field_type":"text",
+      "placeholder":"mmHg",
+      "keyboardType":"numeric"
+   },
+   {
+      "name":"tension diastolique",
+      "defaultText":"",
+      "tag":"tension_diastolique",
+      "icon":{
+         "icon_name":"",
+         "icon_color":"green"
+      },
+      "field_type":"text",
+      "placeholder":"mmHg",
+      "keyboardType":"numeric"
+   },
+   {
+      "name":"Description : ",
+      "defaultText":"",
+      "tag":"description",
+      "icon":{
+         "icon_name":"",
+         "icon_color":"blue"
+      },
+      "field_type":"text",
+      "placeholder":"ex: je me sens stressé",
+      "keyboardType":"default"
+   }
+]
+    })
+  end
+
 end
