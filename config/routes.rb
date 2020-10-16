@@ -125,6 +125,9 @@ Rails.application.routes.draw do
 				end
 			end
 
+			resources :general_units do
+			end
+
 		end
 
 		post 	'/login', 						to: 'sessions#login'
