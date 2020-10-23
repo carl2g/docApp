@@ -27,7 +27,7 @@ namespace :migration do
     end
 
   	diabet.update(note_model: [{
-            "name": "Glucose : ",
+            "name": "Glucose",
             "defaultText": "",
             "tag": "bloodGlucose",
             "icon": {
@@ -63,7 +63,7 @@ namespace :migration do
             "keyboardType": "numeric"
          },
          {
-            "name": "Description : ",
+            "name": "Description",
             "defaultText": "",
             "tag": "description",
             "icon": {
@@ -111,7 +111,7 @@ namespace :migration do
       },
       note_model: [
    {
-      "name":"Tension Systolique : ",
+      "name":"Tension Systolique",
       "defaultText":"",
       "tag":"tension_systolique",
       "icon":{
@@ -123,7 +123,7 @@ namespace :migration do
       "keyboardType":"numeric"
    },
    {
-      "name":"tension diastolique",
+      "name":"Tension diastolique",
       "defaultText":"",
       "tag":"tension_diastolique",
       "icon":{
@@ -135,7 +135,7 @@ namespace :migration do
       "keyboardType":"numeric"
    },
    {
-      "name":"Description : ",
+      "name":"Description",
       "defaultText":"",
       "tag":"description",
       "icon":{
