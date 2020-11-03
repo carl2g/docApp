@@ -6,5 +6,6 @@ RUN gem install bundler:2.0.1
 COPY Gemfile /docApp/Gemfile
 COPY Gemfile.lock /docApp/Gemfile.lock
 COPY . /docApp
+RUN gem install bundler
 RUN ./bin/bundle lock --add-platform x86-mingw32 x86-mswin32 x64-mingw32 java
 RUN ./bin/bundle install
