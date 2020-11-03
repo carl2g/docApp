@@ -68,7 +68,7 @@ class Api::Admins::DoctorsController < ApplicationController
 	def units
 		doctor = Doctor.find_by(id: params[:doctor_id])
 		if doctor
-			render json: doctor.general_units.to_json({only: [:id, :name]})
+			render json: doctor.general_units.to_json({only: [:id]})
 		else
 			render json: { errors: "Doctor you tried to get modules wasn't found: #{params[:doctor_id]}"}, status: :not_found
 		end

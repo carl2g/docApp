@@ -65,6 +65,44 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		end
 	end
 
+	def add_doctor
+		patient = Patient.find_by(id: params[:patient_id])
+
+		if !patient
+			render json: { errors: "Patient doesn't exist: #{params[:patient_id]}" }, status: :not_found
+		else
+			patient_unit = patient.units.find_by(id: params[:unit_id])
+			if patient_unit
+				if patient_unit.addDoctor(params[:doctor_id])
+					render json: {}, status: :ok
+				else
+					render json: { errors: "Patient already has this Doctor or he doesn't exist : #{params[:doctor_id]}" }, status: :not_found
+				end
+			else
+				render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
+			end
+		end
+	end
+
+	def remove_doctor
+		patient = Patient.find_by(id: params[:patient_id])
+
+		if !patient
+			render json: { errors: "Patient doesn't exist: #{params[:patient_id]}" }, status: :not_found
+		else
+			patient_unit = patient.units.find_by(id: params[:unit_id])
+			if patient_unit
+				if patient_unit.removeDoctor(params[:doctor_id])
+					render json: {}, status: :ok
+				else
+					render json: { errors: "Patient already has this Doctor or he doesn't exist : #{params[:doctor_id]}" }, status: :not_found
+				end
+			else
+				render json: { errors: "Patient doesn't posses the unit: #{params[:unit_id]}" }, status: :not_found
+			end
+		end
+	end
+
 	private
 
 		def user_attr
