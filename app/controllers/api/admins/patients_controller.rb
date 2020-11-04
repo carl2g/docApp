@@ -62,7 +62,7 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	def remove_unit
 		patient = Patient.find_by(id: params[:patient_id])
 		if patient
-			if patient.removeUnit(id: params[:unit_id])
+			if patient.removeUnit(params[:unit_id])
 				render status: :ok
 			else
 				render json: { errors: "the modules wasn't found: #{params[:unit_id]}"}, status: :not_found
