@@ -2,17 +2,24 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 
 	def index
 		data = []
-		Patient.find_each do |pat|
-		  data.push(pat.user)
-		end
-		attributes = user_attr.concat([:id])
+		attributes = user_attr
 		attributes.delete(:picture)
-		render json: data.to_json(only: attributes), status: :ok
+		attributes.delete(:id)
+		Patient.find_each do |pat|
+		  data.push(pat.to_json({
+				only: [:id],
+				include: {
+					user: {only: attributes},
+					units: {only: [:id]}
+				}
+			}))
+		end
+		render json: data, status: :ok
 	end
 
 	def update
-		patient = Patient.find_by(user_id: params[:id])
-		if patient.update(permited_params)
+		patient = Patient.find_by(id: params[:id])
+		if patient && patient.user.update(permited_params)
 			render json: patient.user.to_json(only: user_attr), status: :ok
 		else
 			render json: { errors: "Patient you tried to update informations doesn't exist: #{params[:id]}" }, status: :not_found
@@ -20,13 +27,13 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 	end
 
 	def delete
-		patient = Patient.find_by(user_id: params[:id])
+		patient = Patient.find_by(id: params[:patient_id])
 		if patient
-			User.delete(id: params[:id])
+			User.delete(id: params[:patient_id])
 		  patient.destroy
 		  render status: :ok
 		else
-		  render json: { errors: "Patient you tried to delete doesn't exist: #{params[:id]}" }, status: :not_found
+		  render json: { errors: "Patient you tried to delete doesn't exist: #{params[:patient_id]}" }, status: :not_found
 		end
 	end
 

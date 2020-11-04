@@ -2,12 +2,19 @@ class Api::Admins::DoctorsController < ApplicationController
 
   def index
 		data = []
-		Doctor.find_each do |pat|
-		  data.push(pat.user)
-		end
-		attributes = user_attr.concat([:id])
+		attributes = user_attr
+		attributes.delete(:id)
 		attributes.delete(:picture)
-		render json: data.to_json(only: attributes), status: :ok
+		Doctor.find_each do |pat|
+		  data.push(pat.to_json({
+				only: [:id],
+				include: {
+					user: {only: attributes},
+					general_units: {only: [:id]}
+				}
+			}))
+		end
+		render json: data, status: :ok
 	end
 
 	def update
@@ -20,13 +27,13 @@ class Api::Admins::DoctorsController < ApplicationController
 	end
 
 	def delete
-		doctor = Doctor.find_by(user_id: params[:id])
+		doctor = Doctor.find_by(user_id: params[:doctor_id])
 		if doctor
-				User.delete(id: params[:id])
+				User.delete(id: params[:doctor_id])
 				doctor.destroy
 		    render status: :ok
 		else
-		    render json: { errors: "Doctor you tried to delete doesn't exist: #{params[:id]}" }, status: :not_found
+		    render json: { errors: "Doctor you tried to delete doesn't exist: #{params[:doctor_id]}" }, status: :not_found
 		end
 	end
 
