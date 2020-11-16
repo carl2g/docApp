@@ -1,5 +1,5 @@
 class ApplicationController < ActionController::API
-	before_action :authenticate_user, except: [:signin, :login]
+	before_action :authenticate_user, except: [:signin, :login, :patient_email_confirm]
 	
 	def current_user
 	    @current_user ||= session[:current_user_id] && User.find(session[:current_user_id])
