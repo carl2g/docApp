@@ -53,7 +53,6 @@ class Patient < ApplicationRecord
 	end
 
 	def removeUnit(general_unit_id)
-		puts("eahzoe zeaj #{general_unit_id}")
 		gu = self.general_units.find_by(id: general_unit_id)
 		return false if gu.nil?
 		return self.general_units.delete(gu).nil? ? false : self.save
