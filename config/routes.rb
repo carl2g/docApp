@@ -113,6 +113,7 @@ Rails.application.routes.draw do
 				patch '/add_unit', to: 'patients#add_unit'
 				patch '/remove_unit', to: 'patients#remove_unit'
 				delete '/delete', to: 'patients#delete'
+				patch '/add_doctor', to: 'patients#add_doctor'
 			end
 
 			resources :doctors do
