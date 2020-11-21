@@ -6,15 +6,9 @@ class Api::Admins::PatientsController < Api::Admins::AdminsController
 		attributes.delete(:picture)
 		attributes.delete(:id)
 		Patient.find_each do |pat|
-		  data.push(pat.to_json({
-				only: [:id],
-				include: {
-					user: {only: attributes},
-					units: {only: [:id]}
-				}
-			}))
+		  data.push(pat)
 		end
-		render json: data, status: :ok
+		render json: data.to_json({ only: [:id], include: { user: { only: attributes }, units: { only: [:id] } } }), status: :ok
 	end
 
 	def update
