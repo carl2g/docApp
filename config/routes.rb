@@ -112,22 +112,17 @@ Rails.application.routes.draw do
 				get '/units', to: 'patients#units'
 				patch '/add_unit', to: 'patients#add_unit'
 				patch '/remove_unit', to: 'patients#remove_unit'
-				collection do
-					post '/update', to: 'patients#update'
-					post '/delete', to: 'patients#delete'
-					get  '/list', to: 'patients#index'
-				end
+				delete '/delete', to: 'patients#delete'
+				patch '/add_doctor', to: 'patients#add_doctor'
 			end
 
 			resources :doctors do
 				patch '/add_unit', to: 'doctors#add_unit'
 				patch '/remove_unit', to: 'doctors#remove_unit'
 				get '/units', to: 'doctors#units'
+				delete '/delete', to: 'doctors#delete'
 				collection do
 					patch '/create', to: 'doctors#create'
-					post '/update', to: 'doctors#update'
-					post '/delete', to: 'doctors#delete'
-					get  '/list', to: 'doctors#index'
 				end
 			end
 
