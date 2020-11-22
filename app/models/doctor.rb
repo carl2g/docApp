@@ -101,7 +101,7 @@ class Doctor < ApplicationRecord
   				note: {
   					data: m.data,
   					id: m.note.id,
-  					anomli_status: m.note_state,
+  					anomali_status: m.note_state,
 					date: m.note.date,
   				},
   				patient: m.patient.as_json({
@@ -123,7 +123,7 @@ class Doctor < ApplicationRecord
 						id: m.note.id,
 						data: m.note.data.as_json(m.filter.symbolize_keys),
 						date: m.note.date,
-						anomli_status: m.note_state
+						anomali_status: m.note_state
 					}
 				}
 			end
