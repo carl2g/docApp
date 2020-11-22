@@ -121,7 +121,7 @@ class Doctor < ApplicationRecord
 				{
 					note: {
 						id: m.note.id,
-						data: m.note.data.as_json(m.filter.symbolize_keys),
+						data: m.data,
 						date: m.note.date,
 						anomali_status: m.note_state
 					}
