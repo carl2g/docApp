@@ -3,7 +3,7 @@ class Api::Doctors::DoctorUnitsController < Api::Doctors::ApplicationController
 	def set_fields_limits
 		id = params[:doctor_unit_id]
 		fields_limits = params[:fields_limits]
-		doc_unit = DoctorUnit.find_by(id: id)
+		doc_unit = current_doctor.doctor_units.find_by(id: id)
 
 		if doc_unit && fields_limits
 			doc_unit.update(fields_limits: fields_limits)
@@ -15,7 +15,7 @@ class Api::Doctors::DoctorUnitsController < Api::Doctors::ApplicationController
 
 	def get_fields_limits
 		id = params[:doctor_unit_id]
-		doc_unit = DoctorUnit.find_by(id: id)
+		doc_unit = current_doctor.doctor_units.find_by(id: id)
 
 		if doc_unit
 			render json: doc_unit.fields_limits, status: :ok
