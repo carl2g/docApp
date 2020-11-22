@@ -5,8 +5,7 @@
 puts "===================== Building ADMIN ====================="
 puts "===================== Building Modules ====================="
 GeneralUnit.create!({name: 'diabetes',  color: 'blue',  icon: 'to be defined'})
-GeneralUnit.create!({name: 'asthma', 	color: 'red', 	icon: 'to be defined'})
-GeneralUnit.create!({name: 'arthritis', color: 'green', 	icon: 'to be defined'})
+GeneralUnit.create!({name: 'hypertension',  color: 'blue',  icon: 'to be defined'})
 
 puts "===================== Building Patients ====================="
 pa = Patient.createPatient({first_name: 'swager_patient', last_name: 'swager_patient', email: 'swager_patient@gmail.com', password: 'swager75', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: ''})
@@ -20,31 +19,23 @@ pa.user.update!(login_token: 'pIopVfk23T1VjLfUFsJJ6Ne0ansJi9BhPOhvsMF36co')
 pa.addUnit(GeneralUnit.find_by(name: "diabetes").id)
 
 p1.addUnit(GeneralUnit.find_by(name: "diabetes").id)
-p1.addUnit(GeneralUnit.find_by(name: "asthma").id)
 
 p2.addUnit(GeneralUnit.find_by(name: "diabetes").id)
 
-p3.addUnit(GeneralUnit.find_by(name: "asthma").id)
-p3.addUnit(GeneralUnit.find_by(name: "arthritis").id)
-
-p4.addUnit(GeneralUnit.find_by(name: "arthritis").id)
-
 puts "===================== Building Doctors ====================="
 # use this doctor to test routes
-doc = Doctor.createDoctor({first_name: 'doctor', last_name: 'doctor', email: 'doctor@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1, 2]})
+doc = Doctor.createDoctor({first_name: 'doctor', last_name: 'doctor', email: 'doctor@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1]})
 doc.user.update!(login_token: 'TwM4Wb6IRHeyT4r8BtUoYZOZxGNTo8dcWEucAomFGDo')
 
 doc1 = Doctor.createDoctor({first_name: 'doctor_1', last_name: 'doctor_1', email: 'doctor_1@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1]})
-doc2 = Doctor.createDoctor({first_name: 'doctor_2', last_name: 'doctor_2', email: 'doctor_2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1, 2]})
-doc3 = Doctor.createDoctor({first_name: 'doctor_3', last_name: 'doctor_3', email: 'doctor_3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [3]})
+doc2 = Doctor.createDoctor({first_name: 'doctor_2', last_name: 'doctor_2', email: 'doctor_2@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1]})
+doc3 = Doctor.createDoctor({first_name: 'doctor_3', last_name: 'doctor_3', email: 'doctor_3@gmail.com', password: '12345678', birthdate: '25/05/1998', civility: 'Mr', phone_number: '00918989', picture: '', default_units: [1]})
 pa.units.find_by(general_unit_id: 1).addDoctor(doc.id)
 pa.units.find_by(general_unit_id: 1).addDoctor(doc3.id)
 pa.units.find_by(general_unit_id: 1).addDoctor(doc2.id)
 pa.units.find_by(general_unit_id: 1).addDoctor(doc1.id)
 p1.units.find_by(general_unit_id: 1).addDoctor(doc.id)
-p1.units.find_by(general_unit_id: 2).addDoctor(doc.id)
 p2.units.find_by(general_unit_id: 1).addDoctor(doc.id)
-p3.units.find_by(general_unit_id: 2).addDoctor(doc.id)
 
 puts "===================== Creating notes ====================="
 patient_unit = pa.units.find_by(id: 1)
