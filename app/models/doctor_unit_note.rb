@@ -64,7 +64,7 @@ class DoctorUnitNote < ApplicationRecord
 	# This function can be called twice in 1 action
 	def check_limits
 		self.doctor_unit.fields_limits.each do |field, limits|
-			self.note.data.each do |key, val|
+			self.data.each do |key, val|
 				if key == field
 					return if operation_on_limits(val.to_f, limits)
 				end
