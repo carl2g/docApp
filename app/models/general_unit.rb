@@ -9,9 +9,9 @@ class GeneralUnit < ApplicationRecord
 	# note_model: 	string
 	# =======================================
 
-	has_many	:units
+	has_many	:units, dependent: :destroy
 	has_many	:patients, through: :units
-	has_many	:general_unit_doctors
+	has_many	:general_unit_doctors, dependent: :destroy
 	has_many	:doctors, through: :general_unit_doctors
 
 end
