@@ -14,7 +14,7 @@ class Api::Doctors::UnitsController < Api::Doctors::ApplicationController
 	end
 
 	def get_fields_limits
-		id = params[:doctor_unit_id]
+		id = params[:unit_id]
 		doc_unit = current_doctor.doctor_units.find_by(unit_id: id)
 
 		if doc_unit
