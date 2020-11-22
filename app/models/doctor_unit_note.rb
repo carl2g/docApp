@@ -28,7 +28,7 @@ class DoctorUnitNote < ApplicationRecord
     end
 
 	def data
-		return self.note.data.to_json(self.filter.symbolize_keys)
+		return self.note.data.as_json(self.filter.symbolize_keys)
 	end
 
 	def assert_send_mail(exceed)
