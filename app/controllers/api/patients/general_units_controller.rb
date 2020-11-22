@@ -1,7 +1,17 @@
 class Api::Patients::GeneralUnitsController < Api::Patients::ApplicationController
 
 	def index
-		modules = GeneralUnit.select(:color, :icon, :id, :name)
+		modules = GeneralUnit.select(:color, :icon, :id, :name).as_json
+		user_modules = current_patient.units.pluck(:general_unit_id)
+		modules = modules.map do |mod|
+			tmp = mod.dup
+			if user_modules.include?(tmp["id"])
+				tmp["already_added"] = true
+			else
+				tmp["already_added"] = false
+			end
+			tmp
+		end
 		render json: { modules: modules }, status: :ok
 	end
 

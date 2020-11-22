@@ -122,7 +122,8 @@ class Doctor < ApplicationRecord
 					note: {
 						id: m.note.id,
 						data: m.note.data.as_json(m.filter.symbolize_keys),
-						date: m.note.date
+						date: m.note.date,
+						anomli_status: m.note_state
 					}
 				}
 			end
