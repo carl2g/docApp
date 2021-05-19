@@ -8,7 +8,7 @@ gem 'rails', '~> 5.2.1', '>= 5.2.1.1'
 gem 'pg'
 
 # Use Puma as the app server
-gem 'puma', '~> 3.12'
+gem 'puma', '~> 4.3'
 
 # Use ActiveModel has_secure_password
 gem 'bcrypt'
